@@ -135,7 +135,7 @@ export default function CoursesList() {
             >
               <div className="h-52">
                 <motion.img
-                  src={`/storage/${curso.imagen}`}
+                  src={`${apiUrl}/api/storage/${curso.imagen}`}
                   alt={`Imagen ${curso.titulo}`}
                   className="h-48 w-48 mx-auto object-contain"
                   initial={{ opacity: 0 }}
