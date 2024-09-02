@@ -22,7 +22,7 @@ import { Autoplay } from "swiper/modules";
 
 export default function Inicio() {
   const { cursos, loading } = useCourse();
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
   if (loading) {
     return (

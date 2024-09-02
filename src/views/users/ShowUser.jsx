@@ -4,7 +4,7 @@ import UserContext from "../../context/UserProvider";
 export default function ShowUser() {
 
   const { selectedUser, handleCloseModals } = useContext(UserContext);
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
 
   return (

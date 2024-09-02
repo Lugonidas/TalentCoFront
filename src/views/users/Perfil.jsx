@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 
 export default function Perfil() {
   const { user, mutate } = useAuth({ middleware: "auth" });
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
 
   const { updateProfile } = useUser();

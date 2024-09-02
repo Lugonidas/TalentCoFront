@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 export default function ShowArchivo() {
   const { user } = useAuth({ middleware: "auth" });
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
   const { selectedArchivo, handleCloseModals, archivoVisto, verificarArchivoVisto } = useArchivo();
 

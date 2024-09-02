@@ -8,7 +8,7 @@ import Loader from "../../components/Loader";
 
 export default function CoursesList() {
   const { user, isAdmin } = useAuth({ middleware: "guest" });
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
   const {
     handleOpenEditModal,
