@@ -22,9 +22,10 @@ export default function CoursesList() {
   } = useContext(CourseContext);
 
   const [estadoFiltro, setEstadoFiltro] = useState("todos");
-
+  
   const cursos = cursosData?.cursos || [];
-
+  
+  console.log(cursosData?.cursos);
   // Filtrar cursos por categoría seleccionada, término de búsqueda y estado
   const filteredCursos = cursos.filter((curso) => {
     const matchesCategoria = selectedCategoria
@@ -67,7 +68,6 @@ export default function CoursesList() {
     <Loader />;
   }
 
-  console.log(filteredCursos);
 
   return (
     <>
