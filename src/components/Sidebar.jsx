@@ -10,7 +10,7 @@ export default function Sidebar() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   const isActive = (path) => {
-    return location.pathname === path;
+    return location.pathname == path;
   };
 
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -144,7 +144,7 @@ export default function Sidebar() {
                 )}
               </Link>
             </li>
-            {user && user.id_rol === 2 && (
+            {user && user.id_rol == 2 && (
               <li>
                 <Link
                   to="/dashboard/misCursos"
@@ -167,7 +167,7 @@ export default function Sidebar() {
                 </Link>
               </li>
             )}
-            {user && (user.id_rol === 1 || user.id_rol === 3) && (
+            {user && (user.id_rol == 1 || user.id_rol == 3) && (
               <>
                 <li>
                   <Link
@@ -192,7 +192,7 @@ export default function Sidebar() {
                 </li>
               </>
             )}
-            {user && user.id_rol === 1 && (
+            {user && user.id_rol == 1 && (
               <li>
                 <Link
                   to="/dashboard/usuarios"
@@ -273,13 +273,13 @@ export default function Sidebar() {
               {isSidebarExpanded && (
                 <p className="font-bold flex flex-col text-end capitalize ">
                   {user?.usuario}
-                  {user && user.id_rol === 1 && (
+                  {user && user.id_rol == 1 && (
                     <span className="text-indigo-800">Administrador</span>
                   )}
-                  {user && user.id_rol === 3 && (
+                  {user && user.id_rol == 3 && (
                     <span className="text-indigo-800">Profesor</span>
                   )}
-                  {user && user.id_rol === 2 && (
+                  {user && user.id_rol == 2 && (
                     <span className="text-indigo-800">Estudiante</span>
                   )}
                 </p>
