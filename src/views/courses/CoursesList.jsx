@@ -3,9 +3,8 @@ import { useAuth } from "../../hooks/useAuth";
 import useCourse from "../../hooks/useCourse";
 import { Link } from "react-router-dom";
 import Rating from "../../components/Rating";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Loader from "../../components/Loader";
-import CourseContext from "../../context/CourseProvider";
 
 export default function CoursesList() {
   const { user, isAdmin } = useAuth({ middleware: "guest" });
@@ -19,39 +18,32 @@ export default function CoursesList() {
     setSearchTerm,
     updateCourse,
     loading,
-  } = useContext(CourseContext);
+  } = useCourse();
 
   const [estadoFiltro, setEstadoFiltro] = useState("todos");
 
   const cursos = cursosData?.cursos || [];
 
   // Filtrar cursos por categoría seleccionada, término de búsqueda y estado
+  const filteredCursos = cursos.filter((curso) => {
+    const matchesCategoria = selectedCategoria
+      ? curso.categoria.id === selectedCategoria
+      : true;
+    const matchesSearchTerm = curso.titulo
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesEstado = isAdmin
+      ? estadoFiltro === "todos"
+        ? true
+        : estadoFiltro === "activos"
+        ? curso.estado === 1
+        : estadoFiltro === "inactivos"
+        ? curso.estado === 0
+        : true
+      : curso.estado === 1; // Solo cursos activos para docentes y estudiantes
 
-  let filteredCursos;
-
-  if (!isAdmin) {
-    filteredCursos = cursos.filter((curso) => {
-      const matchesCategoria = selectedCategoria
-        ? curso.categoria.id === selectedCategoria
-        : true;
-      const matchesSearchTerm = curso.titulo
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      const matchesEstado = isAdmin
-        ? estadoFiltro === "todos"
-          ? true
-          : estadoFiltro === "activos"
-          ? curso.estado === 1
-          : estadoFiltro === "inactivos"
-          ? curso.estado === 0
-          : true
-        : curso.estado === 1; // Solo cursos activos para docentes y estudiantes
-
-      return matchesCategoria && matchesSearchTerm && matchesEstado;
-    });
-  } else {
-    filteredCursos = cursos;
-  }
+    return matchesCategoria && matchesSearchTerm && matchesEstado;
+  });
 
   // Función para calcular la calificación promedio
   const calculateAverageRating = (comentarios) => {
@@ -71,7 +63,7 @@ export default function CoursesList() {
   };
 
   if (loading) {
-    <Loader />;
+    <Loader />
   }
 
   return (
