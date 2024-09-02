@@ -3,8 +3,9 @@ import { useAuth } from "../../hooks/useAuth";
 import useCourse from "../../hooks/useCourse";
 import { Link } from "react-router-dom";
 import Rating from "../../components/Rating";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Loader from "../../components/Loader";
+import CourseContext from "../../context/CourseProvider";
 
 export default function CoursesList() {
   const { user, isAdmin } = useAuth({ middleware: "guest" });
@@ -18,7 +19,7 @@ export default function CoursesList() {
     setSearchTerm,
     updateCourse,
     loading,
-  } = useCourse();
+  } = useContext(CourseContext);
 
   const [estadoFiltro, setEstadoFiltro] = useState("todos");
 

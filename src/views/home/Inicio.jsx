@@ -24,6 +24,8 @@ export default function Inicio() {
   const { cursos, loading } = useCourse();
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
+  console.log(cursos)
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
