@@ -22,6 +22,7 @@ import { Autoplay } from "swiper/modules";
 
 export default function Inicio() {
   const { cursos, loading } = useCourse();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   if (loading) {
     return (
@@ -108,7 +109,7 @@ export default function Inicio() {
                 >
                   <div className="px-4 py-2 h-60">
                     <img
-                      src={`http://127.0.0.1:8006/storage/${course?.imagen}`}
+                      src={`${apiUrl}/storage/${course?.imagen}`}
                       alt={course.titulo}
                       className="course-image w-full h-auto"
                       

@@ -10,6 +10,8 @@ import ShowArchivo from "../archivo/ShowArchivo";
 
 export default function ShowLeccion() {
   const { user } = useAuth({ middleware: "guest" });
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const {
     handleCloseModals,
     selectedLeccion,
@@ -58,7 +60,7 @@ export default function ShowLeccion() {
             <div className="text-center">
               <img
                 className="max-h-[300px] block mx-auto"
-                src={`http://127.0.0.1:8006/storage/${selectedLeccion.imagen}`}
+                src={`${apiUrl}/storage/${selectedLeccion.imagen}`}
                 alt={`Imagen ${selectedLeccion.titulo}`}
               />
             </div>

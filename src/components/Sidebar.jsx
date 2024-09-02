@@ -5,6 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 export default function Sidebar() {
   const location = useLocation();
   const { user, logout } = useAuth({ middleware: "auth" });
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
@@ -101,7 +102,11 @@ export default function Sidebar() {
                   isSidebarExpanded ? "grid-cols-4" : ""
                 }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
               >
-                <img className="w-12" src="/img/dashboard.png" alt="Dashboard" />
+                <img
+                  className="w-12"
+                  src="/img/dashboard.png"
+                  alt="Dashboard"
+                />
                 {isSidebarExpanded && (
                   <span className="col-span-3">Dashboard</span>
                 )}
@@ -151,7 +156,11 @@ export default function Sidebar() {
                     isSidebarExpanded ? "grid-cols-4" : ""
                   }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
                 >
-                  <img className="w-12" src="/img/misCursos.png" alt="mis Cursos" />
+                  <img
+                    className="w-12"
+                    src="/img/misCursos.png"
+                    alt="mis Cursos"
+                  />
                   {isSidebarExpanded && (
                     <span className="col-span-3">Mis cursos</span>
                   )}
@@ -171,7 +180,11 @@ export default function Sidebar() {
                       isSidebarExpanded ? "grid-cols-4" : ""
                     }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
                   >
-                    <img className="w-12" src="/img/misCursos.png" alt="mis Cursos" />
+                    <img
+                      className="w-12"
+                      src="/img/misCursos.png"
+                      alt="mis Cursos"
+                    />
                     {isSidebarExpanded && (
                       <span className="col-span-3">Mis cursos</span>
                     )}
@@ -191,7 +204,11 @@ export default function Sidebar() {
                     isSidebarExpanded ? "grid-cols-4" : ""
                   }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
                 >
-                  <img className="w-12" src="/img/usuarios.png" alt="Usuarios" />
+                  <img
+                    className="w-12"
+                    src="/img/usuarios.png"
+                    alt="Usuarios"
+                  />
                   {isSidebarExpanded && (
                     <span className="col-span-3">Ver usuarios</span>
                   )}
@@ -250,7 +267,7 @@ export default function Sidebar() {
             <div className="p-2 flex gap-2 items-center justify-between">
               <img
                 className="w-16"
-                src={`http://127.0.0.1:8006/storage/${user?.imagen}`}
+                src={`${apiUrl}/storage/${user?.imagen}`}
                 alt={`Imagen ${user?.name}`}
               />
               {isSidebarExpanded && (

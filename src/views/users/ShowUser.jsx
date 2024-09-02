@@ -4,6 +4,8 @@ import UserContext from "../../context/UserProvider";
 export default function ShowUser() {
 
   const { selectedUser, handleCloseModals } = useContext(UserContext);
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   return (
     <div>
@@ -13,7 +15,7 @@ export default function ShowUser() {
         <div className="max-w-xl">
           <div className="bg-white shadow-xl rounded-lg py-3">
             <div className="photo-wrapper p-2">
-              <img className="w-32 h-32 rounded-full mx-auto object-cover" src={`http://127.0.0.1:8006/storage/${selectedUser.imagen}`} alt="John Doe" />
+              <img className="w-32 h-32 rounded-full mx-auto object-cover" src={`${apiUrl}/storage/${selectedUser.imagen}`} alt="John Doe" />
             </div>
             <div className="p-2">
               <h3 className="text-center text-xl text-gray-900 font-medium leading-8 capitalize">{selectedUser.name} {selectedUser.apellido}</h3>

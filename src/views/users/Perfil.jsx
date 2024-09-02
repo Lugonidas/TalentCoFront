@@ -10,6 +10,8 @@ import Swal from "sweetalert2";
 
 export default function Perfil() {
   const { user, mutate } = useAuth({ middleware: "auth" });
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   const { updateProfile } = useUser();
   const [isEditing, setIsEditing] = useState(false);
@@ -183,7 +185,7 @@ export default function Perfil() {
             <div className="flex items-center">
               <img
                 className="w-24 h-24 rounded-full object-cover border-4 border-blue-500"
-                src={`http://127.0.0.1:8006/storage/${user?.imagen}`}
+                src={`${apiUrl}/storage/${user?.imagen}`}
                 alt="user"
               />
               <div className="ml-4">

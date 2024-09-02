@@ -8,6 +8,8 @@ import Loader from "../../components/Loader";
 
 export default function CoursesList() {
   const { user, isAdmin } = useAuth({ middleware: "guest" });
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const {
     handleOpenEditModal,
     cursosData,
@@ -133,7 +135,7 @@ export default function CoursesList() {
             >
               <div className="h-52">
                 <motion.img
-                  src={`http://127.0.0.1:8006/storage/${curso.imagen}`}
+                  src={`${apiUrl}/storage/${curso.imagen}`}
                   alt={`Imagen ${curso.titulo}`}
                   className="h-48 w-48 mx-auto object-contain"
                   initial={{ opacity: 0 }}

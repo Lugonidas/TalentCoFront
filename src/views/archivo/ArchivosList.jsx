@@ -6,6 +6,8 @@ import { useAuth } from "../../hooks/useAuth";
 export default function CoursesList() {
 
   const { user } = useAuth({ middleware: "auth" });
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const {
     handleOpenViewModal,
     handleOpenEditModal,
@@ -32,7 +34,7 @@ export default function CoursesList() {
         >
           <div>
             <motion.img
-              src={`http://127.0.0.1:8006/storage/${curso.imagen}`}
+              src={`${apiUrl}/storage/${curso.imagen}`}
               alt={`Imagen ${curso.titulo}`}
               className="w-full h-auto"
               initial={{ opacity: 0 }}

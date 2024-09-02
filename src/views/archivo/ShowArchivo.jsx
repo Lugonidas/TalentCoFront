@@ -5,6 +5,8 @@ import { useAuth } from "../../hooks/useAuth";
 
 export default function ShowArchivo() {
   const { user } = useAuth({ middleware: "auth" });
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const { selectedArchivo, handleCloseModals, archivoVisto, verificarArchivoVisto } = useArchivo();
 
   const [startTime, setStartTime] = useState(null);
@@ -73,7 +75,7 @@ export default function ShowArchivo() {
   }
 
   // Construir la URL del archivo
-  const archivoUrl = `http://127.0.0.1:8006/storage/${selectedArchivo.ubicacion}`;
+  const archivoUrl = `${apiUrl}/storage/${selectedArchivo.ubicacion}`;
 
   return (
     <>

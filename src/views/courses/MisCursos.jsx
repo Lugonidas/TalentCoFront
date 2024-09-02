@@ -10,6 +10,8 @@ import Loader from "../../components/Loader";
 
 export default function MisCursos() {
   const { user } = useAuth({ middleware: "guest" });
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const {
     handleOpenEditModal,
     handleOpenCreateModal,
@@ -93,7 +95,7 @@ export default function MisCursos() {
               >
                 <div>
                   <motion.img
-                    src={`http://127.0.0.1:8006/storage/${curso.imagen}`}
+                    src={`${apiUrl}/storage/${curso.imagen}`}
                     alt={`Imagen ${curso.titulo}`}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0 }}

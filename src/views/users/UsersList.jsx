@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 export default function UsersList() {
   const { user: userAuth } = useAuth({ middleware: "auth" });
+  
 
   const {
     handleOpenViewModal,
@@ -90,7 +91,7 @@ export default function UsersList() {
             className="bg-white shadow-md rounded-md p-4 relative flex items-start transition ease-linear hover:cursor-pointer hover:-translate-y-1"
           >
             <img
-              src={`http://127.0.0.1:8006/storage/${user?.imagen}`}
+              src={`${apiUrl}/storage/${user?.imagen}`}
               alt={`Imagen de ${user?.usuario}`}
               className="w-24 h-24 object-cover"
             />
