@@ -55,7 +55,7 @@ export default function Inicio() {
       )}
 
       <div className="mx-auto px-2 h-screen overflow-hidden overflow-y-scroll">
-        {user && user.id_rol === 1 && (
+        {user && user.id_rol == 1 && (
           <div className="px-2 my-2">
             <h1 className="text-2xl font-black uppercase text-center mb-4 text-indigo-800">
               Listado Usuarios

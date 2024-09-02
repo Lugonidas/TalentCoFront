@@ -61,7 +61,7 @@ export default function Inicio() {
           {/* Filtrado Categorias */}
           <FilterCategory />
 
-          {user && (user.id_rol === 1 || user.id_rol === 2) && (
+          {user && (user.id_rol == 1 || user.id_rol == 2) && (
             <>
               <button
                 className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
@@ -74,7 +74,7 @@ export default function Inicio() {
             </>
           )}
 
-          {user && user.id_rol === 3 && <CoursesList />}
+          {user && user.id_rol == 3 && <CoursesList />}
         </div>
       </div>
     </>

@@ -78,7 +78,7 @@ export default function ShowLeccion() {
                   Actualizado: {moment(selectedLeccion.updated_at).fromNow()}
                 </p>
               </div>
-              {user && user.id === selectedLeccion.id_docente && (
+              {user && user.id == selectedLeccion.id_docente && (
                 <div className="flex gap-2">
                   <button
                     onClick={handleOpenCreateModal}
@@ -116,7 +116,7 @@ export default function ShowLeccion() {
                 Total Archivos {selectedLeccion.archivos.length}
               </strong>
             </h4>
-            {user && user.id_rol === 2 && (
+            {user && user.id_rol == 2 && (
               <strong className="text-xs text-indigo-800">
                 Progreso: <span>{progreso}%</span>
               </strong>
@@ -147,7 +147,7 @@ export default function ShowLeccion() {
                           >
                             <i className="fa-solid fa-download text-blue-600 transition-all ease-linear hover:scale-110"></i>
                           </a> */}
-                          {user && user.id === selectedLeccion.id_docente && (
+                          {user && user.id == selectedLeccion.id_docente && (
                             <button
                               onClick={() => deleteArchivo(archivo.id)}
                               className="py-1 text-red-800 transition-all ease-linear hover:scale-110"
@@ -190,7 +190,7 @@ export default function ShowLeccion() {
                           >
                             <i className="fa-solid fa-download text-blue-600 transition-all ease-linear hover:scale-110"></i>
                           </a> */}
-                          {user && user.id === selectedLeccion.id_docente && (
+                          {user && user.id == selectedLeccion.id_docente && (
                             <button
                               onClick={() => deleteArchivo(archivo.id)}
                               className="py-1 text-red-800 transition-all ease-linear hover:scale-110"
@@ -233,7 +233,7 @@ export default function ShowLeccion() {
                           >
                             <i className="fa-solid fa-download text-blue-600 transition-all ease-linear hover:scale-110"></i>
                           </a> */}
-                          {user && user.id === selectedLeccion.id_docente && (
+                          {user && user.id == selectedLeccion.id_docente && (
                             <button
                               onClick={() => deleteArchivo(archivo.id)}
                               className="py-1 text-red-800 transition-all ease-linear hover:scale-110"

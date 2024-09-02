@@ -18,7 +18,7 @@ export default function Sidebar() {
             key={user.id}
             onClick={() => handleUserClick(user.id)}
             className={`mb-4 p-2 rounded cursor-pointer flex gap-2 transition-all ease-in-out duration-200 ${
-              selectedUser === user.id ? "bg-blue-100 font-bold" : ""
+              selectedUser == user.id ? "bg-blue-100 font-bold" : ""
             }`}
           >
             <img src="/vite.svg" alt="" />

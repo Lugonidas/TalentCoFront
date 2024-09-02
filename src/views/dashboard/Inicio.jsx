@@ -8,9 +8,9 @@ export default function Inicio() {
 
   return (
     <div className="p-2">
-      {user?.id_rol === 1 && <Admin />}
-      {user?.id_rol === 2 && <Student />}
-      {user?.id_rol === 3 && <Teacher />}
+      {user?.id_rol == 1 && <Admin />}
+      {user?.id_rol == 2 && <Student />}
+      {user?.id_rol == 3 && <Teacher />}
     </div>
   );
 }

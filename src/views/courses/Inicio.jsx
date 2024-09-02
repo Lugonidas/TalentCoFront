@@ -57,7 +57,7 @@ export default function Inicio() {
           <h1 className="text-2xl font-black uppercase text-center mb-4 text-indigo-800">
             Listado Cursos
           </h1>
-          {user && (user.id_rol === 1 || user.id_rol === 3) && (
+          {user && (user.id_rol == 1 || user.id_rol == 3) && (
             <>
               <button
                 className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"

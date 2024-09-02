@@ -71,10 +71,10 @@ export const useAuth = ({ middleware, url }) => {
   };
 
   useEffect(() => {
-    if (middleware === "guest" && user) {
+    if (middleware == "guest" && user) {
       navigate(url); // Redirige al dashboard si el usuario está autenticado como invitado
     }
-    if (middleware === "auth" && error) {
+    if (middleware == "auth" && error) {
       navigate("/login"); // Redirige al login si hay un error de autenticación
     }
   }, [user, error]);
@@ -87,7 +87,7 @@ export const useAuth = ({ middleware, url }) => {
     user,
     error,
     errores,
-    isAdmin: user?.id_rol === 1,
+    isAdmin: user?.id_rol == 1,
     loading,
   };
 };

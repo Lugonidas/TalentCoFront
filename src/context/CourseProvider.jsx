@@ -47,7 +47,7 @@ const CourseProvider = ({ children }) => {
       );
       const categoriasArray = Array.from(categoriasSet).map(
         (id) =>
-          cursosData.cursos.find((curso) => curso.categoria.id === id).categoria
+          cursosData.cursos.find((curso) => curso.categoria.id == id).categoria
       );
       setCategoriasCursos(categoriasArray);
       setCategoriasDisponibles(categoriasArray);
@@ -103,7 +103,7 @@ const CourseProvider = ({ children }) => {
       );
       const categoriasArray = Array.from(categoriasSet).map(
         (id) =>
-          response.data.cursos.find((curso) => curso.categoria.id === id)
+          response.data.cursos.find((curso) => curso.categoria.id == id)
             .categoria
       );
 
@@ -184,7 +184,7 @@ const CourseProvider = ({ children }) => {
       setErrores({});
       mutateCursos();
     } catch (errores) {
-      if (errores.response && errores.response.status === 422) {
+      if (errores.response && errores.response.status == 422) {
         console.error("Error:", Object.values(errores.response.data.errors));
         setErrores(errores.response.data.errors);
       } else {

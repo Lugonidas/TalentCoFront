@@ -94,7 +94,7 @@ export default function CreateUser() {
         ></div>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-        {step === 1 && (
+        {step == 1 && (
           <>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -309,7 +309,7 @@ export default function CreateUser() {
             </div>
           </>
         )}
-        {step === 2 && (
+        {step == 2 && (
           <>
             <div className="grid md:grid-cols-2 gap-4">
               <div>

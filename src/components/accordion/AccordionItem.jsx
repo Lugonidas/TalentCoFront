@@ -4,7 +4,7 @@ import useLeccion from "../../hooks/useLeccion";
 
 export default function AccordionItem({ item }) {
   const { openIndex, toggleIndex } = useAccordion();
-  const isOpen = openIndex === item.id;
+  const isOpen = openIndex == item.id;
   const { handleOpenViewModal, handleOpenEditModal, deleteLeccion } =
     useLeccion();
 
@@ -25,7 +25,7 @@ export default function AccordionItem({ item }) {
         <div className="px-4 pt-2 pb-8 relative">
           <p>{item.descripcion}</p>
           <div className="absolute right-0 bottom-0">
-            {user && user.id === item.id_docente && (
+            {user && user.id == item.id_docente && (
               <>
                 <button
                   onClick={() => deleteLeccion(item.id)}

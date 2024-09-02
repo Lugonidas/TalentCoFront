@@ -6,7 +6,7 @@ const AccordionProvider = ({ children }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleIndex = (index) => {
-    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+    setOpenIndex((prevIndex) => (prevIndex == index ? null : index));
   };
 
   return (

@@ -24,13 +24,13 @@ export default function MisCursos() {
   } = useCourse();
 
   // Filtra cursos activos
-  const cursosActivos = misCursos.filter((curso) => curso.estado === 1);
+  const cursosActivos = misCursos.filter((curso) => curso.estado == 1);
 
   useEffect(() => {
     if (user) {
-      if (user.id_rol === 1 || user.id_rol === 3) {
+      if (user.id_rol == 1 || user.id_rol == 3) {
         obtenerMisCursos(user.id, "docente");
-      } else if (user.id_rol === 2) {
+      } else if (user.id_rol == 2) {
         obtenerMisCursos(user.id, "estudiante");
       }
     }
@@ -72,7 +72,7 @@ export default function MisCursos() {
             Mis Cursos
           </h1>
 
-          {user && (user.id_rol === 1 || user.id_rol === 3) && (
+          {user && (user.id_rol == 1 || user.id_rol == 3) && (
             <button
               className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
               onClick={handleOpenCreateModal}
@@ -134,7 +134,7 @@ export default function MisCursos() {
                       </motion.button>
                     </Link>
 
-                    {user && user.id === curso.id_docente && (
+                    {user && user.id == curso.id_docente && (
                       <>
                         <motion.button
                           whileHover={{ scale: 1.1 }}
@@ -150,7 +150,7 @@ export default function MisCursos() {
               </motion.li>
             ))}
         </ul>
-        {cursosActivos.length === 0 && (
+        {cursosActivos.length == 0 && (
           <div className="text-center w-full">
             <p className="text-xl md:text-2xl">
               No te has inscrito a ningún curso

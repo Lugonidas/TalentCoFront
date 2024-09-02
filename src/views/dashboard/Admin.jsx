@@ -20,9 +20,9 @@ export default function Admin() {
     loading,
   } = useCourse();
 
-  const adminCount = users.filter((user) => user.id_rol === 1).length;
-  const studentCount = users.filter((user) => user.id_rol === 2).length;
-  const teacherCount = users.filter((user) => user.id_rol === 3).length;
+  const adminCount = users.filter((user) => user.id_rol == 1).length;
+  const studentCount = users.filter((user) => user.id_rol == 2).length;
+  const teacherCount = users.filter((user) => user.id_rol == 3).length;
 
   const cursos = cursosData?.cursos || [];
 

@@ -4,7 +4,7 @@ export default function Input({ onSendMessage }) {
   const [message, setMessage] = useState('');
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key == 'Enter') {
       handleSend();
     }
   };

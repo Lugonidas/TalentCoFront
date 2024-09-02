@@ -27,27 +27,27 @@ export default function CoursesList() {
   // Filtrar cursos por categoría seleccionada, término de búsqueda y estado
   const filteredCursos = cursos.filter((curso) => {
     const matchesCategoria = selectedCategoria
-      ? curso.categoria.id === selectedCategoria
+      ? curso.categoria.id == selectedCategoria
       : true;
     const matchesSearchTerm = curso.titulo
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesEstado = isAdmin
-      ? estadoFiltro === "todos"
+      ? estadoFiltro == "todos"
         ? true
-        : estadoFiltro === "activos"
-        ? curso.estado === 1
-        : estadoFiltro === "inactivos"
-        ? curso.estado === 0
+        : estadoFiltro == "activos"
+        ? curso.estado == 1
+        : estadoFiltro == "inactivos"
+        ? curso.estado == 0
         : true
-      : curso.estado === 1; // Solo cursos activos para docentes y estudiantes
+      : curso.estado == 1; // Solo cursos activos para docentes y estudiantes
 
     return matchesCategoria && matchesSearchTerm && matchesEstado;
   });
 
   // Función para calcular la calificación promedio
   const calculateAverageRating = (comentarios) => {
-    if (comentarios.length === 0) return 0;
+    if (comentarios.length == 0) return 0;
     const totalRating = comentarios.reduce(
       (acc, comentario) => acc + comentario.calificacion,
       0
@@ -57,7 +57,7 @@ export default function CoursesList() {
 
   // Función para manejar el cambio de estado del curso
   const handleSwitchChange = (curso) => {
-    const newEstado = curso.estado === 1 ? 0 : 1;
+    const newEstado = curso.estado == 1 ? 0 : 1;
     const updatedCurso = { ...curso, estado: newEstado };
     updateCourse(curso.id, updatedCurso);
   };
@@ -77,7 +77,7 @@ export default function CoursesList() {
                 <button
                   onClick={() => setEstadoFiltro("todos")}
                   className={`py-0.5 px-2 border border-dotted border-indigo-800 transition-all ease-linear hover:cursor-pointer ${
-                    estadoFiltro === "todos"
+                    estadoFiltro == "todos"
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}
@@ -87,7 +87,7 @@ export default function CoursesList() {
                 <button
                   onClick={() => setEstadoFiltro("activos")}
                   className={`py-0.5 px-2 border border-dotted border-indigo-800 transition-all ease-linear hover:cursor-pointer ${
-                    estadoFiltro === "activos"
+                    estadoFiltro == "activos"
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}
@@ -97,7 +97,7 @@ export default function CoursesList() {
                 <button
                   onClick={() => setEstadoFiltro("inactivos")}
                   className={`py-0.5 px-2 border border-dotted border-indigo-800 transition-all ease-linear hover:cursor-pointer ${
-                    estadoFiltro === "inactivos"
+                    estadoFiltro == "inactivos"
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}
@@ -181,7 +181,7 @@ export default function CoursesList() {
                           <input
                             type="checkbox"
                             className="sr-only peer"
-                            checked={curso.estado === 1}
+                            checked={curso.estado == 1}
                             onChange={() => handleSwitchChange(curso)}
                           />
                           <div className="peer ring-0 bg-rose-400 rounded-full outline-none duration-300 after:duration-500 w-8 h-8 shadow-md peer-checked:bg-emerald-500 peer-focus:outline-none after:content-['✖️'] after:rounded-full after:absolute after:outline-none after:h-6 after:w-6 after:bg-gray-50 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-hover:after:scale-75 peer-checked:after:content-['✔️'] after:-rotate-180 peer-checked:after:rotate-0"></div>
@@ -190,7 +190,7 @@ export default function CoursesList() {
                     </div>
                   )}
 
-                  {user && user.id === curso.id_docente && (
+                  {user && user.id == curso.id_docente && (
                     <>
                       <motion.button
                         whileHover={{ scale: 1.1 }}

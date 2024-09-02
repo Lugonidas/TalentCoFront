@@ -30,7 +30,7 @@ export default function ShowArchivo() {
       setHasViewed(false);
 
       // Si es un video, añadir un evento para cuando se termine de reproducir
-      if (selectedArchivo.tipo === "VIDEO" && videoRef.current) {
+      if (selectedArchivo.tipo == "VIDEO" && videoRef.current) {
         videoRef.current.addEventListener("ended", () => {
           if (user) {
             archivoVisto(selectedArchivo.id);

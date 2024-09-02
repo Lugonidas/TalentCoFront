@@ -59,7 +59,7 @@ export default function ShowCourse() {
     const fetchData = async () => {
       await getCourseById(courseId);
       updateLecciones(courseId);
-      if (user && user.id_rol === 2) {
+      if (user && user.id_rol == 2) {
         await obtenerProgresoCurso(courseId);
       }
     };
@@ -70,13 +70,13 @@ export default function ShowCourse() {
   useEffect(() => {
     if (selectedCourse && user) {
       const estaInscrito = selectedCourse.estudiantes.some(
-        (estudiante) => estudiante.id === user.id
+        (estudiante) => estudiante.id == user.id
       );
       setEstaInscrito(estaInscrito);
 
       // Verificar si el usuario ha comentado
       const haComentado = comentarios.some(
-        (comentario) => comentario.id_usuario === user.id
+        (comentario) => comentario.id_usuario == user.id
       );
       setHaComentado(haComentado);
     }
@@ -85,9 +85,9 @@ export default function ShowCourse() {
   const textoBtnIncripcion = estaInscrito ? "Ya inscrito" : "Inscribirse";
 
   const leccionesFiltradas =
-    selectedCourse && user?.id === selectedCourse.id_docente
+    selectedCourse && user?.id == selectedCourse.id_docente
       ? lecciones
-      : lecciones.filter((leccion) => leccion.estado === 1);
+      : lecciones.filter((leccion) => leccion.estado == 1);
 
   const inscribirme = async (userId, cursoId) => {
     const token = localStorage.getItem("AUTH_TOKEN");
@@ -183,7 +183,7 @@ export default function ShowCourse() {
                   </motion.button>
                 </Link>
 
-                {user?.id === selectedCourse.id_docente && (
+                {user?.id == selectedCourse.id_docente && (
                   <button
                     onClick={handleOpenCreateModal}
                     className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
@@ -235,14 +235,14 @@ export default function ShowCourse() {
                     <p>
                       <i className="text-indigo-800 fa-regular fa-clock"></i>{" "}
                       {selectedCourse.duracion}
-                      {selectedCourse.duracion.length === 1
+                      {selectedCourse.duracion.length == 1
                         ? " Hora"
                         : " Horas"}
                     </p>
                     <p>
                       <i className="text-indigo-800 fa-solid fa-swatchbook"></i>{" "}
                       {selectedCourse.lecciones.length}
-                      {selectedCourse.lecciones.length === 1
+                      {selectedCourse.lecciones.length == 1
                         ? " Lección"
                         : " Lecciones"}
                     </p>
@@ -330,7 +330,7 @@ export default function ShowCourse() {
                         <div>
                           <h2 className="flex gap-1 text-md font-bold text-gray-500">
                             <span>{comentarios.length}</span>
-                            {comentarios.length === 1
+                            {comentarios.length == 1
                               ? "Valoración"
                               : "Valoraciones"}
                           </h2>

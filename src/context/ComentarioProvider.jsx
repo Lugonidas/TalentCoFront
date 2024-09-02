@@ -121,7 +121,7 @@ const ComentarioProvider = ({ children }) => {
       // Actualiza el estado con la respuesta correcta
       setComentarios((prevComentarios) =>
         prevComentarios.map((comentario) =>
-          comentario.id === id ? response.data.comentario : comentario
+          comentario.id == id ? response.data.comentario : comentario
         )
       );
 
@@ -129,7 +129,7 @@ const ComentarioProvider = ({ children }) => {
       setErrores({});
     } catch (error) {
       console.error("Error al actualizar el comentario:", error);
-      if (error.response && error.response.status === 422) {
+      if (error.response && error.response.status == 422) {
         setErrores(error.response.data.errors);
       }
     } finally {

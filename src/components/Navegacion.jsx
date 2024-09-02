@@ -12,7 +12,7 @@ export default function Navegacion() {
     const location = useLocation();
 
     const isActive = (path) => {
-        return location.pathname === path;
+        return location.pathname == path;
     };
 
     return (
