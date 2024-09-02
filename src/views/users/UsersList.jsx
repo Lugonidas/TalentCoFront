@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 export default function UsersList() {
   const { user: userAuth } = useAuth({ middleware: "auth" });
+  const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
   
 
   const {
