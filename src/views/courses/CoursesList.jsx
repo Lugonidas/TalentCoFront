@@ -22,30 +22,36 @@ export default function CoursesList() {
   } = useContext(CourseContext);
 
   const [estadoFiltro, setEstadoFiltro] = useState("todos");
-  
-  const cursos = cursosData?.cursos || [];
-  
-  console.log(cursosData?.cursos);
-  // Filtrar cursos por categoría seleccionada, término de búsqueda y estado
-  const filteredCursos = cursos.filter((curso) => {
-    const matchesCategoria = selectedCategoria
-      ? curso.categoria.id === selectedCategoria
-      : true;
-    const matchesSearchTerm = curso.titulo
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesEstado = isAdmin
-      ? estadoFiltro === "todos"
-        ? true
-        : estadoFiltro === "activos"
-        ? curso.estado === 1
-        : estadoFiltro === "inactivos"
-        ? curso.estado === 0
-        : true
-      : curso.estado === 1; // Solo cursos activos para docentes y estudiantes
 
-    return matchesCategoria && matchesSearchTerm && matchesEstado;
-  });
+  const cursos = cursosData?.cursos || [];
+
+  // Filtrar cursos por categoría seleccionada, término de búsqueda y estado
+
+  let filteredCursos;
+
+  if (!isAdmin) {
+    filteredCursos = cursos.filter((curso) => {
+      const matchesCategoria = selectedCategoria
+        ? curso.categoria.id === selectedCategoria
+        : true;
+      const matchesSearchTerm = curso.titulo
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesEstado = isAdmin
+        ? estadoFiltro === "todos"
+          ? true
+          : estadoFiltro === "activos"
+          ? curso.estado === 1
+          : estadoFiltro === "inactivos"
+          ? curso.estado === 0
+          : true
+        : curso.estado === 1; // Solo cursos activos para docentes y estudiantes
+
+      return matchesCategoria && matchesSearchTerm && matchesEstado;
+    });
+  } else {
+    filteredCursos = cursos;
+  }
 
   // Función para calcular la calificación promedio
   const calculateAverageRating = (comentarios) => {
@@ -67,7 +73,6 @@ export default function CoursesList() {
   if (loading) {
     <Loader />;
   }
-
 
   return (
     <>
