@@ -109,7 +109,7 @@ export default function Inicio() {
                 >
                   <div className="px-4 py-2 h-60">
                     <img
-                      src={`${apiUrl}/api/storage/${course?.imagen}`}
+                      src={`${apiUrl}/storage/${course?.imagen}`}
                       alt={course.titulo}
                       className="course-image w-full h-auto"
                       

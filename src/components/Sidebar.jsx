@@ -267,7 +267,7 @@ export default function Sidebar() {
             <div className="p-2 flex gap-2 items-center justify-between">
               <img
                 className="w-16"
-                src={`${apiUrl}/api/storage/${user?.imagen}`}
+                src={`${apiUrl}/storage/${user?.imagen}`}
                 alt={`Imagen ${user?.name}`}
               />
               {isSidebarExpanded && (

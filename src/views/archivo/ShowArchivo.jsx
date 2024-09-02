@@ -75,7 +75,7 @@ export default function ShowArchivo() {
   }
 
   // Construir la URL del archivo
-  const archivoUrl = `${apiUrl}/api/storage/${selectedArchivo.ubicacion}`;
+  const archivoUrl = `${apiUrl}/storage/${selectedArchivo.ubicacion}`;
 
   return (
     <>
