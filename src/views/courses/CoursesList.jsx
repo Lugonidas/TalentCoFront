@@ -63,8 +63,10 @@ export default function CoursesList() {
   };
 
   if (loading) {
-    <Loader />
+    <Loader />;
   }
+
+  console.log(filteredCursos);
 
   return (
     <>
