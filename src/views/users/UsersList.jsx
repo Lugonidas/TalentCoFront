@@ -91,7 +91,7 @@ export default function UsersList() {
             className="bg-white shadow-md rounded-md p-4 relative flex items-start transition ease-linear hover:cursor-pointer hover:-translate-y-1"
           >
             <img
-              src={`${apiUrl}/storage/${user?.imagen}`}
+              src={`/storage/${user?.imagen}`}
               alt={`Imagen de ${user?.usuario}`}
               className="w-24 h-24 object-cover"
             />

@@ -95,7 +95,7 @@ export default function MisCursos() {
               >
                 <div>
                   <motion.img
-                    src={`${apiUrl}/storage/${curso.imagen}`}
+                    src={`/storage/${curso.imagen}`}
                     alt={`Imagen ${curso.titulo}`}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0 }}

@@ -34,7 +34,7 @@ export default function CoursesList() {
         >
           <div>
             <motion.img
-              src={`${apiUrl}/storage/${curso.imagen}`}
+              src={`/storage/${curso.imagen}`}
               alt={`Imagen ${curso.titulo}`}
               className="w-full h-auto"
               initial={{ opacity: 0 }}

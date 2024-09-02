@@ -239,7 +239,7 @@ export default function ShowCourse() {
                   <div className="">
                     <img
                       className="max-h-[300px] block mx-auto"
-                      src={`${apiUrl}/storage/${selectedCourse.imagen}`}
+                      src={`/storage/${selectedCourse.imagen}`}
                       alt={`Imagen ${selectedCourse.titulo}`}
                     />
                   </div>
@@ -428,7 +428,7 @@ export default function ShowCourse() {
                                   <div className="flex border-b border-dotted border-indigo-800">
                                     <img
                                       className="w-16"
-                                      src={`${apiUrl}/storage/${comentario.user.imagen}`}
+                                      src={`/storage/${comentario.user.imagen}`}
                                       alt={`Imagen ${comentario.user.name}`}
                                     />
                                     <div>

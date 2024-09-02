@@ -185,7 +185,7 @@ export default function Perfil() {
             <div className="flex items-center">
               <img
                 className="w-24 h-24 rounded-full object-cover border-4 border-blue-500"
-                src={`${apiUrl}/storage/${user?.imagen}`}
+                src={`/storage/${user?.imagen}`}
                 alt="user"
               />
               <div className="ml-4">

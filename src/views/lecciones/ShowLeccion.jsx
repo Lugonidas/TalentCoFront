@@ -60,7 +60,7 @@ export default function ShowLeccion() {
             <div className="text-center">
               <img
                 className="max-h-[300px] block mx-auto"
-                src={`${apiUrl}/storage/${selectedLeccion.imagen}`}
+                src={`/storage/${selectedLeccion.imagen}`}
                 alt={`Imagen ${selectedLeccion.titulo}`}
               />
             </div>
