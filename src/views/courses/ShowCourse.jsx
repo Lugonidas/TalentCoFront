@@ -125,7 +125,7 @@ export default function ShowCourse() {
   };
 
   // Redondear el progreso a un decimal
-  const progresoCurso = progreso !== null ? progreso.toFixed(1) : null;
+  const progresoCurso = progreso != null ? progreso.toFixed(1) : null;
 
   // Calcular el promedio de calificaciones
   const totalCalificaciones = comentarios.reduce(
@@ -255,8 +255,8 @@ export default function ShowCourse() {
 
                     {!estaInscrito &&
                       user &&
-                      user?.id_rol !== 1 &&
-                      user?.id_rol !== 3 && (
+                      user?.id_rol != 1 &&
+                      user?.id_rol != 3 && (
                         <div>
                           <button
                             onClick={() =>

@@ -24,7 +24,7 @@ export default function Rating({ initialRating = 0, onRatingChange, readOnly = f
     const stars = [];
     for (let i = 0; i < 5; i++) {
       const isFilled = i < Math.floor(rating);
-      const isHalfFilled = i == Math.floor(rating) && rating % 1 !== 0;
+      const isHalfFilled = i == Math.floor(rating) && rating % 1 != 0;
 
       stars.push(
         <i

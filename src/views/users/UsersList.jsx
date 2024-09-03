@@ -30,7 +30,7 @@ export default function UsersList() {
   }));
 
   // Filtrado de usuarios
-  let filteredUsers = users.filter((user) => user.id !== userAuth.id);
+  let filteredUsers = users.filter((user) => user.id != userAuth.id);
 
   filteredUsers = filteredUsers.filter((user) => {
     const matchesRol = selectedRol ? user.id_rol == selectedRol : true;
