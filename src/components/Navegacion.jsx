@@ -28,7 +28,7 @@ export default function Navegacion() {
                     <i className="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
-            <div className={`flex-col md:items-center md:flex md:flex-row gap-4 md:gap-10 ${isOpen ? 'flex absolute left-0 mt-1 top-full shadow-md bg-white w-full p-2' : 'hidden'}`}>
+            <div className={`z-10 flex-col md:items-center md:flex md:flex-row gap-4 md:gap-10 ${isOpen ? 'flex absolute left-0 mt-1 top-full shadow-md bg-white w-full p-2' : 'hidden'}`}>
 
                 <div className="flex flex-col md:flex-row gap-2 md:gap-6">
                     <Link to="/" className="w-full nav-link flex items-center gap-1 text-gray-700 hover:text-indigo-800 transition-all ease-in-out duration-300">

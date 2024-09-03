@@ -36,9 +36,8 @@ export const useAuth = ({ middleware, url }) => {
 
       localStorage.setItem("AUTH_TOKEN", data.token);
       await mutate();
-    } catch (error) {
-      console.log(error);
-      setErrores(error.response.data.errors);
+    } catch (errores) {
+      setErrores(errores.response.data.errors);
     } finally {
       setLoading(false);
     }

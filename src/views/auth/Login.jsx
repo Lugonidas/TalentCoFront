@@ -21,22 +21,14 @@ export default function Login() {
 
     try {
       await login(datos);
-      if (errores && errores.length > 0) {
-        Swal.fire({
-          title: "Error",
-          text: errores,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-      }
-    } catch {
-      console.log(errores);
+    } catch (error) {
+      console.log("Error iniciando sesión.", error);
     }
   };
 
   return (
     <>
-      <div className="w-full flex h-screen justify-center px-5">
+      <div className="w-full py-5 md:flex h-screen justify-center px-5">
         <div className="flex-1 flex flex-col justify-center items-center">
           <img
             src="../img/logo.png"
@@ -68,6 +60,11 @@ export default function Login() {
                   name="email"
                   placeholder="Ej: lugo@correo.cmo"
                 />
+                {errores && errores.email && (
+                  <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+                    {errores.email}
+                  </p>
+                )}
               </div>
 
               <div className="flex-1 mb-4 flex flex-col gap-2">
@@ -81,6 +78,11 @@ export default function Login() {
                   name="password"
                   placeholder="*************"
                 />
+                {errores && errores.password && (
+                  <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+                    {errores.password}
+                  </p>
+                )}
               </div>
 
               {/* Mostrar spinner si está cargando, de lo contrario, mostrar el botón */}
