@@ -63,7 +63,7 @@ export default function CoursesList() {
   };
 
   if (loading) {
-    <Loader />
+    return <Loader />
   }
 
   return (

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import useComentario from "../../hooks/useComentario";
 import Rating from "../../components/Rating";
+import Loader from "../../components/Loader";
 
 export default function EditComentario() {
   const { user, isAdmin } = useAuth({ middleware: "auth" });
@@ -75,7 +76,7 @@ export default function EditComentario() {
 
   // Si selectedCourse no está definido aún, podrías mostrar un mensaje o spinner de carga
   if (!selectedComentario) {
-    return <p>Cargando comentario...</p>;
+    return <Loader />;
   }
 
   return (

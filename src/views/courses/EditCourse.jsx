@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useCourse from "../../hooks/useCourse";
 import { useAuth } from "../../hooks/useAuth";
+import Loader from "../../components/Loader";
 
 export default function EditCourse() {
   const { user, isAdmin } = useAuth({ middleware: "auth" });
@@ -90,7 +91,7 @@ export default function EditCourse() {
 
   // Si selectedCourse no está definido aún, podrías mostrar un mensaje o spinner de carga
   if (!selectedCourse) {
-    return <p>Cargando curso...</p>;
+    return <Loader />;
   }
 
   return (

@@ -7,6 +7,7 @@ import CreateCourse from "../courses/CreateCourse";
 import { useAuth } from "../../hooks/useAuth";
 import DynamicChart from "../../components/DynamicChart";
 import { useEffect } from "react";
+import Loader from "../../components/Loader";
 
 export default function Admin() {
   const { user } = useAuth({ middleware: "auth" });
@@ -57,7 +58,7 @@ export default function Admin() {
   const dataMisCursos = misCursos.map((curso) => curso.estudiantes.length);
 
   if (loading) {
-    return <div>Cargando....</div>;
+    return <Loader />;
   }
 
   return (
