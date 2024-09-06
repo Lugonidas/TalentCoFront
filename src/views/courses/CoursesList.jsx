@@ -63,7 +63,7 @@ export default function CoursesList() {
   };
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
@@ -146,7 +146,11 @@ export default function CoursesList() {
 
               <div>
                 <strong className="font-bold mb-2 text-indigo-800">
-                  {curso.titulo}
+                  <Link
+                    to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
+                  >
+                    {curso.titulo}
+                  </Link>
                 </strong>
                 <p>
                   <i className="fa-solid fa-user-tie"></i>

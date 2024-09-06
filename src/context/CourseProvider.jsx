@@ -34,7 +34,7 @@ const CourseProvider = ({ children }) => {
     mutate: mutateCursos,
   } = useSWR(`/cursos`, fetcher, { refreshInterval: 5000 });
 
-/*   // Fetch categorías
+  /*   // Fetch categorías
   const { data: categoriasData, error: categoriasError } = useSWR(
     token ? `/categorias?token=${token}` : null,
     fetcher
@@ -111,8 +111,6 @@ const CourseProvider = ({ children }) => {
     } catch (errores) {
       console.error("Error:", errores);
       setErrores(errores);
-    } finally {
-      setLoading(false);
     }
   };
 

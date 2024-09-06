@@ -3,7 +3,7 @@ import useArchivo from "../../hooks/useArchivo";
 import useLeccion from "../../hooks/useLeccion";
 
 export default function CreateArchivo() {
-  const { createArchivo, errores } = useArchivo();
+  const { createArchivo, errores, loading } = useArchivo();
   const { selectedLeccion } = useLeccion();
   const { handleCloseModals } = useArchivo();
 
@@ -86,7 +86,7 @@ export default function CreateArchivo() {
             htmlFor="ubicacion"
             className="block text-sm font-medium text-gray-700"
           >
-            Archivo:Imagen,Video,PDF
+            Archivo:Imagen,Video,PDF (Max:4Mb)
           </label>
           <input
             type="file"
@@ -102,15 +102,41 @@ export default function CreateArchivo() {
           )}
         </div>
 
-        <div className="flex justify-end">
-          <button
-            type="submit"
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Agregar lección
-          </button>
-        </div>
+        {loading ? (
+          <div className="flex justify-center">
+            <svg
+              className="animate-spin h-6 w-6 text-indigo-800"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zM12 4a8 8 0 010 16v4c6.627 0 12-5.373 12-12h-4z"
+              ></path>
+            </svg>
+          </div>
+        ) : (
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Agregar lección
+            </button>
+          </div>
+        )}
       </form>
+
       <button
         className="absolute -top-5 -right-5 bottom-full text-4xl transition-all duration-100 ease hover:cursor-pointer hover:scale-110"
         onClick={handleCloseModals}

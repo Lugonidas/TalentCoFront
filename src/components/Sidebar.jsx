@@ -64,7 +64,7 @@ export default function Sidebar() {
       >
         <button
           onClick={toggleSidebar}
-          className="p-2 flex flex-col bg-indigo-800 text-white items-center absolute top-1/2 left-full transition-all ease-linear hover:scale-110 z-10"
+          className="p-2 flex flex-col bg-indigo-800 text-white items-center absolute top-0 left-full transition-all ease-linear hover:translate-x-1 z-10"
         >
           <i className="text-xl fa-solid fa-border-none"></i>
           <span className="text-xs">Menu</span>
@@ -78,7 +78,7 @@ export default function Sidebar() {
             } menu__logo p-2 grid items-center gap-2 font-bold text-indigo-800 text-xl`}
           >
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
+              src="/icon.png"
               alt="Imagen Logotipo Talentos Colombia"
               className="col-span-1 mx-auto w-10"
             />

@@ -19,7 +19,10 @@ import Rating from "../../components/Rating";
 import "../../styles/spinner.scss";
 import CreateComentario from "../comentarios/CreateComentario";
 import Loader from "../../components/Loader";
+import { formatDistanceToNow } from "date-fns";
+import { es } from "date-fns/locale";
 
+moment.locale("es");
 export default function ShowCourse() {
   const { user } = useAuth({ middleware: "guest" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
@@ -235,9 +238,7 @@ export default function ShowCourse() {
                     <p>
                       <i className="text-indigo-800 fa-regular fa-clock"></i>{" "}
                       {selectedCourse.duracion}
-                      {selectedCourse.duracion.length == 1
-                        ? " Hora"
-                        : " Horas"}
+                      {selectedCourse.duracion.length == 1 ? " Hora" : " Horas"}
                     </p>
                     <p>
                       <i className="text-indigo-800 fa-solid fa-swatchbook"></i>{" "}
@@ -247,10 +248,18 @@ export default function ShowCourse() {
                         : " Lecciones"}
                     </p>
                     <p className="text-xs">
-                      Creado: {moment(selectedCourse.created_at).fromNow()}
+                      Creado:{" "}
+                      {formatDistanceToNow(
+                        new Date(selectedCourse.created_at),
+                        { locale: es, addSuffix: true }
+                      )}
                     </p>
                     <p className="text-xs">
-                      Actualizado: {moment(selectedCourse.updated_at).fromNow()}
+                      Actualizado:{" "}
+                      {formatDistanceToNow(
+                        new Date(selectedCourse.updated_at),
+                        { locale: es, addSuffix: true }
+                      )}
                     </p>
 
                     {!estaInscrito &&
@@ -358,18 +367,19 @@ export default function ShowCourse() {
                                   </div>
                                 </div>
                                 <span>{comentario.comentario}</span>
-                                {haComentado && (comentario.id_usuario == user.id) &&(
-                                  <motion.button
-                                    className="absolute top-0 right-0"
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    onClick={() =>
-                                      handleOpenEditModal(comentario)
-                                    }
-                                  >
-                                    <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
-                                  </motion.button>
-                                )}
+                                {haComentado &&
+                                  comentario.id_usuario == user.id && (
+                                    <motion.button
+                                      className="absolute top-0 right-0"
+                                      whileHover={{ scale: 1.1 }}
+                                      whileTap={{ scale: 0.9 }}
+                                      onClick={() =>
+                                        handleOpenEditModal(comentario)
+                                      }
+                                    >
+                                      <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
+                                    </motion.button>
+                                  )}
                               </li>
                             ))}
                           </ul>

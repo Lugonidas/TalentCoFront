@@ -54,6 +54,7 @@ const ArchivoProvider = ({ children }) => {
   const createArchivo = async (archivoData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
+      setLoading(true);
       const response = await clienteAxios.post(
         "/archivo-leccion",
         archivoData,
@@ -70,6 +71,8 @@ const ArchivoProvider = ({ children }) => {
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
       setErrores(errores.response.data.errors);
+    } finally {
+      setLoading(false);
     }
   };
 

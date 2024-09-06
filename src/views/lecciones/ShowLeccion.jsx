@@ -40,7 +40,6 @@ export default function ShowLeccion() {
     return acc;
   }, {});
 
-
   const progresoLeccion = progreso != null ? progreso.toFixed(0) : null;
 
   return (
@@ -222,13 +221,13 @@ export default function ShowLeccion() {
                         className="archivo-item flex gap-4 items-center"
                       >
                         <h4 className="font-bold text-indigo-500">
-                          {archivo.nombre}
+                          <button onClick={() => handleOpenViewModal(archivo)}>
+                            {archivo.nombre}
+                          </button>
                         </h4>
 
                         <div className="flex gap-2 items-center">
-                          <button onClick={() => handleOpenViewModal(archivo)}>
-                            <i className="fa-regular fa-eye text-green-600 transition-all ease-linear hover:scale-110"></i>
-                          </button>
+                          <i className="fa-regular fa-eye text-green-600 transition-all ease-linear hover:scale-110"></i>
                           {/* <a
                             href={archivoUrl}
                             target="_blank"
