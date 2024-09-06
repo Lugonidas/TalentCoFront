@@ -68,7 +68,7 @@ const ComentarioProvider = ({ children }) => {
       setLoading(true);
       // Realiza la solicitud POST para crear un nuevo comentario
       const response = await clienteAxios.post(
-        "/comentarios/",
+        "/comentarios",
         comentarioData,
         {
           headers: {

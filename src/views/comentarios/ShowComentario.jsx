@@ -107,7 +107,7 @@ export default function ShowCourse() {
 
       if (result.isConfirmed) {
         await clienteAxios.post(
-          "inscripcion",
+          "/inscripcion",
           {
             id_estudiante: userId,
             id_curso: cursoId,
