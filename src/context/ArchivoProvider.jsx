@@ -55,7 +55,7 @@ const ArchivoProvider = ({ children }) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
       const response = await clienteAxios.post(
-        "/archivo-leccion/",
+        "/archivo-leccion",
         archivoData,
         {
           headers: {
