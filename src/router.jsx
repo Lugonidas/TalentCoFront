@@ -15,6 +15,7 @@ import MisCursos from "./views/courses/MisCursos";
 import CrearReunion from "./views/reuniones/CrearReunion";
 import Inicio from "./views/reuniones/Inicio";
 import ShowReunion from "./views/reuniones/ShowReunion";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <AuthLayout />,
+    element: <ProtectedRoute middleware="auth"><AuthLayout /></ProtectedRoute>,
     children: [
       {
         index: true,
@@ -67,10 +68,6 @@ const router = createBrowserRouter([
         path: "misCursos",
         element: <MisCursos />,
       },
-      /*       {
-              path: "cursos/create",
-              element: <CreateCourse />,
-            }, */
       {
         path: "usuarios",
         element: <InicioUsers />,

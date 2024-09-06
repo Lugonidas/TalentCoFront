@@ -40,6 +40,9 @@ export default function ShowLeccion() {
     return acc;
   }, {});
 
+
+  const progresoLeccion = progreso != null ? progreso.toFixed(0) : null;
+
   return (
     <>
       {viewModal && (
@@ -118,7 +121,7 @@ export default function ShowLeccion() {
             </h4>
             {user && user.id_rol == 2 && (
               <strong className="text-xs text-indigo-800">
-                Progreso: <span>{progreso}%</span>
+                Progreso: <span>{progresoLeccion}%</span>
               </strong>
             )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
