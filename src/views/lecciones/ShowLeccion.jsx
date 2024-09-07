@@ -88,13 +88,13 @@ export default function ShowLeccion() {
                   >
                     Agregar archivo
                   </button>
-                  <button
+                 {/*  <button
                     onClick={() => handleOpenEditModal(selectedLeccion)}
                     className="p-1 my-4 bg-yellow-500 text-black transition-all ease-linear hover:scale-105"
                   >
                     <i className="fa-regular fa-pen-to-square"></i>Editar
                     Lección
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
@@ -125,7 +125,7 @@ export default function ShowLeccion() {
             )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
               {/* Columna de PDFs */}
-              <div className="md:border-r">
+              <div className="md:border-r max-h-screen">
                 <h5 className="font-bold text-lg mb-2">PDFs</h5>
                 {archivosPorTipo["PDF"] && archivosPorTipo["PDF"].length > 0 ? (
                   archivosPorTipo["PDF"].map((archivo, index) => {
@@ -135,13 +135,12 @@ export default function ShowLeccion() {
                         className="archivo-item flex gap-4 items-center"
                       >
                         <h4 className="font-bold text-indigo-500">
-                          {archivo.nombre}
+                          <button onClick={() => handleOpenViewModal(archivo)}>
+                            {archivo.nombre}
+                          </button>
                         </h4>
 
                         <div className="flex gap-2 items-center">
-                          <button onClick={() => handleOpenViewModal(archivo)}>
-                            Ver
-                          </button>
                           {/*  <a
                             href={archivoUrl}
                             target="_blank"
@@ -167,7 +166,7 @@ export default function ShowLeccion() {
               </div>
 
               {/* Columna de Imágenes */}
-              <div className="md:border-r">
+              <div className="md:border-r max-h-screen">
                 <h5 className="font-bold text-lg mb-2">Imágenes</h5>
                 {archivosPorTipo["IMG"] && archivosPorTipo["IMG"].length > 0 ? (
                   archivosPorTipo["IMG"].map((archivo, index) => {
@@ -177,14 +176,12 @@ export default function ShowLeccion() {
                         className="archivo-item flex gap-4 items-center"
                       >
                         <h4 className="font-bold text-indigo-500">
-                          {archivo.nombre}
+                          <button onClick={() => handleOpenViewModal(archivo)}>
+                            {archivo.nombre}
+                          </button>
                         </h4>
 
                         <div className="flex gap-2 items-center">
-                          <button onClick={() => handleOpenViewModal(archivo)}>
-                            Ver
-                          </button>
-
                           {/* <a
                             href={archivoUrl}
                             target="_blank"
@@ -210,7 +207,7 @@ export default function ShowLeccion() {
               </div>
 
               {/* Columna de Videos */}
-              <div className="">
+              <div className="md:border-r max-h-screen">
                 <h5 className="font-bold text-lg mb-2">Videos</h5>
                 {archivosPorTipo["VIDEO"] &&
                 archivosPorTipo["VIDEO"].length > 0 ? (
@@ -227,7 +224,6 @@ export default function ShowLeccion() {
                         </h4>
 
                         <div className="flex gap-2 items-center">
-                          <i className="fa-regular fa-eye text-green-600 transition-all ease-linear hover:scale-110"></i>
                           {/* <a
                             href={archivoUrl}
                             target="_blank"
