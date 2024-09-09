@@ -88,6 +88,7 @@ const ComentarioProvider = ({ children }) => {
         ...prevComentarios,
         response.data.comentario, // Asegúrate de acceder a la propiedad correcta
       ]);
+      setHaComentado(true);
     } catch (error) {
       console.error("Error:", Object.values(error.response.data.errors));
       setErrores(Object.values(error.response.data.errors));
