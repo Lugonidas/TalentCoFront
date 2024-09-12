@@ -32,7 +32,7 @@ const CourseProvider = ({ children }) => {
     data: cursosData,
     error: cursosError,
     mutate: mutateCursos,
-  } = useSWR(`/cursos`, fetcher, { refreshInterval: 5000 });
+  } = useSWR(`/cursos`, fetcher, { refreshInterval: 1000 });
 
 /*   // Fetch categorías
   const { data: categoriasData, error: categoriasError } = useSWR(

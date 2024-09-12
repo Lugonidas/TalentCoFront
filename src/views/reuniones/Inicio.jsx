@@ -12,6 +12,12 @@ export default function Inicio() {
     return `talentco${Date.now()}${Math.floor(Math.random() * 10000)}`;
   };
 
+  const handleCreateMeetingJitsiPro = () => {
+    setLoading(true);
+    const link = generarEnlaceReunion();
+    navigate(`/dashboard/reuniones/crear-reunion-pro/${link}`);
+    setLoading(false);
+  };
   const handleCreateMeeting = () => {
     setLoading(true);
     const link = generarEnlaceReunion();
@@ -71,6 +77,16 @@ export default function Inicio() {
         <img src="/img/camara.png" alt="Cámara" style={cameraStyle} />
       </p>
       <div className="flex flex-col lg:flex-row items-center gap-6">
+        {/* <div>
+          <button
+            onClick={handleCreateMeetingJitsiPro}
+            className="bg-indigo-600 text-white font-semibold py-2 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+            disabled={loading}
+          >
+            <i className="fa-solid fa-video me-2"></i>
+            {loading ? "Creando..." : "Crear Nueva Reunión Pro"}
+          </button>
+        </div> */}
         <div>
           <button
             onClick={handleCreateMeeting}

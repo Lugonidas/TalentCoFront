@@ -6,6 +6,7 @@ import UsersList from "./UsersList";
 import { useAuth } from "../../hooks/useAuth";
 import EditUser from "./EditUser";
 import "../../styles/spinner.scss";
+import Loader from "../../components/Loader";
 
 export default function Inicio() {
   const {
@@ -21,11 +22,7 @@ export default function Inicio() {
 
   // Dentro de tu componente ShowCourse
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <span className="loader"></span>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

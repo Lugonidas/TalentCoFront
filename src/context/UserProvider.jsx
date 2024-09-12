@@ -2,6 +2,12 @@ import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
 import useCourse from "../hooks/useCourse";
+import useSWR from "swr";
+
+const fetcher = (url, token) =>
+  clienteAxios
+    .get(url, { headers: { Authorization: `Bearer ${token}` } })
+    .then((res) => res.data);
 
 const UserContext = createContext();
 
@@ -17,6 +23,28 @@ const UserProvider = ({ children }) => {
   const [selectedRol, setSelectedRol] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Fetch cursos
+  const token = localStorage.getItem("AUTH_TOKEN");
+  const { data: usuariosData, error: usuariosError, mutate: mutateUsuarios } = useSWR(
+    token ? ['/usuarios', token] : null,  // Pasa la URL y el token correctamente
+    ([url, token]) => fetcher(url, token),  // Desestructura la clave y pásala al fetcher
+    { refreshInterval: 1000 }
+  );
+
+  useEffect(() => {
+    if (usuariosData) {
+      setUsers(usuariosData.usuarios);  // Asignas los usuarios obtenidos al estado
+      setLoading(false);
+    }
+  }, [usuariosData]);
+  
+  useEffect(() => {
+    if (usuariosError) {
+      console.error("Error:", usuariosError);
+      setErrores(usuariosError);
+    }
+  }, [usuariosError]);
+  
   const handleClickRol = (id) => {
     setSelectedRol(id);
   };
@@ -42,34 +70,12 @@ const UserProvider = ({ children }) => {
     setEditModal(false);
   };
 
-  const updateUsers = async () => {
-    const token = localStorage.getItem("AUTH_TOKEN");
-
-    // Asume que el token debería existir siempre en este punto.
-    if (!token) {
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const response = await clienteAxios.get("/usuarios", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUsers(response.data.usuarios);
-    } catch (error) {
-      setErrores(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const updateProfile = async (id, userData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
-      const response = await clienteAxios.put(
+      setLoading(true);
+      await clienteAxios.put(
         `/usuarios/perfil/${id}`,
         userData,
         {
@@ -81,8 +87,7 @@ const UserProvider = ({ children }) => {
 
       /*       setUsers(response.data.usuario); */
       handleUpdateSuccess();
-      updateCourses();
-      setLoading(false);
+      mutateUsuarios();
     } catch (errores) {
       console.error("Error:", errores);
       setErrores(errores);
@@ -98,9 +103,10 @@ const UserProvider = ({ children }) => {
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
-      updateUsers();
+      mutateUsuarios();
     });
   };
+
   const handleUpdateSuccess = () => {
     Swal.fire({
       title: "Usuario actualizado",
@@ -109,13 +115,14 @@ const UserProvider = ({ children }) => {
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
-      updateUsers();
+      mutateUsuarios();
     });
   };
 
   const createUser = async (userData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
+      setLoading(true)
       await clienteAxios.post("/usuarios", userData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -126,6 +133,7 @@ const UserProvider = ({ children }) => {
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
       setErrores(errores.response.data.errors);
+      setLoading(false)
     }
   };
 
@@ -174,19 +182,13 @@ const UserProvider = ({ children }) => {
         });
 
         Swal.fire("Eliminado!", "El usuario ha sido eliminado.", "success");
-
-        // Actualiza la lista de usuarios después de eliminar
-        updateUsers();
+        handleUpdateSuccess();
       }
     } catch (errores) {
       setErrores(errores);
       Swal.fire("Error!", "Hubo un problema al eliminar el usuario.", "error");
     }
   };
-
-  useEffect(() => {
-    updateUsers();
-  }, []);
 
   return (
     <UserContext.Provider
@@ -204,7 +206,6 @@ const UserProvider = ({ children }) => {
         handleCloseModals,
         handleClickRol,
         errores,
-        updateUsers,
         updateProfile,
         createUser,
         updateUser,

@@ -266,7 +266,7 @@ export default function Sidebar() {
           <div className="flex flex-col border-t border-dotted border-indigo-800">
             <div className="p-2 flex gap-2 items-center justify-between">
               <img
-                className="w-16"
+                className="w-16 h-16"
                 src={`${apiUrl}/storage/${user?.imagen}`}
                 alt={`Imagen ${user?.name}`}
               />

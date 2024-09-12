@@ -16,6 +16,7 @@ import CrearReunion from "./views/reuniones/CrearReunion";
 import Inicio from "./views/reuniones/Inicio";
 import ShowReunion from "./views/reuniones/ShowReunion";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CrearReunionPro from "./views/reuniones/CrearReunionPro";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "reuniones/crear-reunion/:reunionId",
         element: <CrearReunion />,
+      },
+      {
+        path: "reuniones/crear-reunion-pro/:reunionId",
+        element: <CrearReunionPro />,
       },
       {
         path: "reuniones/obtener-reunion/:reunionId",

@@ -5,6 +5,7 @@ import CoursesList from "./CoursesList";
 import FilterCategory from "../../components/FilterCategory";
 import useCourse from "../../hooks/useCourse";
 import { useAuth } from "../../hooks/useAuth";
+import Loader from "../../components/Loader";
 
 export default function Inicio() {
   const { user } = useAuth({ middleware: "guest" });
@@ -17,11 +18,7 @@ export default function Inicio() {
   } = useCourse();
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <span className="loader"></span>
-      </div>
-    );
+    return <Loader />
   }
 
   return (
