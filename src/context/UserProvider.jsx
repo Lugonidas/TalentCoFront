@@ -14,7 +14,7 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const { updateCourses } = useCourse();
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [createModal, setCreateModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -25,26 +25,31 @@ const UserProvider = ({ children }) => {
 
   // Fetch cursos
   const token = localStorage.getItem("AUTH_TOKEN");
-  const { data: usuariosData, error: usuariosError, mutate: mutateUsuarios } = useSWR(
-    token ? ['/usuarios', token] : null,  // Pasa la URL y el token correctamente
-    ([url, token]) => fetcher(url, token),  // Desestructura la clave y pásala al fetcher
+  const {
+    data: usuariosData,
+    error: usuariosError,
+    mutate: mutateUsuarios,
+  } = useSWR(
+    token ? ["/usuarios", token] : null, // Pasa la URL y el token correctamente
+    ([url, token]) => fetcher(url, token), // Desestructura la clave y pásala al fetcher
     { refreshInterval: 5000 }
   );
 
   useEffect(() => {
     if (usuariosData) {
-      setUsers(usuariosData.usuarios);  // Asignas los usuarios obtenidos al estado
-      setLoading(false);
+      setLoading(true);
+      setUsers(usuariosData.usuarios); // Asignas los usuarios obtenidos al estado
     }
+    setLoading(false);
   }, [usuariosData]);
-  
+
   useEffect(() => {
     if (usuariosError) {
       console.error("Error:", usuariosError);
       setErrores(usuariosError);
     }
   }, [usuariosError]);
-  
+
   const handleClickRol = (id) => {
     setSelectedRol(id);
   };
@@ -68,22 +73,32 @@ const UserProvider = ({ children }) => {
     setCreateModal(false);
     setViewModal(false);
     setEditModal(false);
+    setErrores({});
   };
+
+  /*   const obtenerUsuarios = async () => {
+    try {
+      setLoading(true);
+      const response = await clienteAxios.get("usuarios");
+      setUsers(response.data.usuarios);
+    } catch (errores) {
+      console.error("Error:", errores);
+      setErrores(errores);
+    } finally {
+      setLoading(false);
+    }
+  }; */
 
   const updateProfile = async (id, userData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
       setLoading(true);
-      await clienteAxios.put(
-        `/usuarios/perfil/${id}`,
-        userData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await clienteAxios.put(`/usuarios/perfil/${id}`, userData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       /*       setUsers(response.data.usuario); */
       handleUpdateSuccess();
@@ -103,6 +118,7 @@ const UserProvider = ({ children }) => {
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
+      setErrores({});
       mutateUsuarios();
     });
   };
@@ -122,18 +138,17 @@ const UserProvider = ({ children }) => {
   const createUser = async (userData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
-      setLoading(true)
+      setLoading(true);
       await clienteAxios.post("/usuarios", userData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       handleCreateSuccess();
-      setErrores({});
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
       setErrores(errores.response.data.errors);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -152,7 +167,6 @@ const UserProvider = ({ children }) => {
         confirmButtonText: "OK",
       }).then(() => {
         handleCloseModals();
-        updateUsers();
       });
     } catch (errores) {
       console.error("Error:", errores);
@@ -175,7 +189,7 @@ const UserProvider = ({ children }) => {
       });
 
       if (result.isConfirmed) {
-        const response = await clienteAxios.delete(`/usuarios/${id}`, {
+        await clienteAxios.delete(`/usuarios/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -190,6 +204,10 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  /*   useEffect(() => {
+    obtenerUsuarios();
+  }, []);
+ */
   return (
     <UserContext.Provider
       value={{

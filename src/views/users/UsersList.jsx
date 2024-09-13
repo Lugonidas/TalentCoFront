@@ -1,7 +1,6 @@
-import { useContext } from "react";
-import UserContext from "../../context/UserProvider";
 import { useAuth } from "../../hooks/useAuth";
 import { motion } from "framer-motion";
+import useUser from "../../hooks/useUser";
 
 export default function UsersList() {
   const { user: userAuth } = useAuth({ middleware: "auth" });
@@ -15,7 +14,7 @@ export default function UsersList() {
     handleClickRol,
     searchTerm,
     setSearchTerm,
-  } = useContext(UserContext);
+  } = useUser();
 
   const roles = {
     1: "Administrador",

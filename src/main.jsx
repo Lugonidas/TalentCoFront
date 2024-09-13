@@ -17,13 +17,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       {/* <ChatProvider> */}
         <CourseProvider>
           {/* <ComentarioProvider> */}
-            <UserProvider>
+           {/*  <UserProvider> */}
               {/* <LeccionProvider> */}
                 {/* <ArchivoProvider> */}
                   <RouterProvider router={router}></RouterProvider>
                 {/* </ArchivoProvider> */}
               {/* </LeccionProvider> */}
-            </UserProvider>
+           {/*  </UserProvider> */}
           {/* </ComentarioProvider> */}
         </CourseProvider>
       {/* </ChatProvider> */}
