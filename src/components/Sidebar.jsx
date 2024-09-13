@@ -78,6 +78,7 @@ export default function Sidebar() {
             } menu__logo p-2 grid items-center gap-2 font-bold text-indigo-800 text-xl`}
           >
             <img
+              loading="lazy"
               src="/icon.png"
               alt="Imagen Logotipo Talentos Colombia"
               className="col-span-1 mx-auto w-10"
@@ -103,6 +104,7 @@ export default function Sidebar() {
                 }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
               >
                 <img
+                  loading="lazy"
                   className="w-12"
                   src="/img/dashboard.png"
                   alt="Dashboard"
@@ -123,7 +125,12 @@ export default function Sidebar() {
                   isSidebarExpanded ? "grid-cols-4" : ""
                 }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
               >
-                <img className="w-12" src="/img/chat.png" alt="Chat" />
+                <img
+                  loading="lazy"
+                  className="w-12"
+                  src="/img/chat.png"
+                  alt="Chat"
+                />
                 {isSidebarExpanded && <span className="col-span-3">Chat</span>}
               </Link>
             </li>
@@ -138,7 +145,12 @@ export default function Sidebar() {
                   isSidebarExpanded ? "grid-cols-4" : ""
                 }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
               >
-                <img className="w-12" src="/img/cursos.png" alt="Cursos" />
+                <img
+                  loading="lazy"
+                  className="w-12"
+                  src="/img/cursos.png"
+                  alt="Cursos"
+                />
                 {isSidebarExpanded && (
                   <span className="col-span-3">Ver cursos</span>
                 )}
@@ -157,6 +169,7 @@ export default function Sidebar() {
                   }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
                 >
                   <img
+                    loading="lazy"
                     className="w-12"
                     src="/img/misCursos.png"
                     alt="mis Cursos"
@@ -181,6 +194,7 @@ export default function Sidebar() {
                     }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
                   >
                     <img
+                      loading="lazy"
                       className="w-12"
                       src="/img/misCursos.png"
                       alt="mis Cursos"
@@ -205,6 +219,7 @@ export default function Sidebar() {
                   }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
                 >
                   <img
+                    loading="lazy"
                     className="w-12"
                     src="/img/usuarios.png"
                     alt="Usuarios"
@@ -226,7 +241,12 @@ export default function Sidebar() {
                   isSidebarExpanded ? "grid-cols-4" : ""
                 }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
               >
-                <img className="w-12" src="/img/camara.png" alt="Camara" />
+                <img
+                  loading="lazy"
+                  className="w-12"
+                  src="/img/camara.png"
+                  alt="Camara"
+                />
                 {/* Icono de video */}
                 {isSidebarExpanded && (
                   <span className="col-span-3">Reuniones</span> // Texto del botón
@@ -244,7 +264,12 @@ export default function Sidebar() {
                   isSidebarExpanded ? "grid-cols-4" : ""
                 }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
               >
-                <img className="w-12" src="/img/perfil.png" alt="Perfil" />
+                <img
+                  loading="lazy"
+                  className="w-12"
+                  src="/img/perfil.png"
+                  alt="Perfil"
+                />
                 {isSidebarExpanded && (
                   <span className="col-span-3">Mi Perfil</span>
                 )}
@@ -266,6 +291,7 @@ export default function Sidebar() {
           <div className="flex flex-col border-t border-dotted border-indigo-800">
             <div className="p-2 flex gap-2 items-center justify-between">
               <img
+                loading="lazy"
                 className="w-16 h-16"
                 src={`${apiUrl}/storage/${user?.imagen}`}
                 alt={`Imagen ${user?.name}`}

@@ -6,12 +6,10 @@ import "../../styles/spinner.scss";
 import moment from "moment";
 import "moment/locale/es";
 import "moment-timezone";
-import Swal from "sweetalert2";
 
 export default function Perfil() {
   const { user, mutate } = useAuth({ middleware: "auth" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
-
 
   const { updateProfile } = useUser();
   const [isEditing, setIsEditing] = useState(false);
@@ -54,7 +52,7 @@ export default function Perfil() {
   const tiposDocumentos = {
     1: "Cédula de ciudadanía",
     2: "Tarjeta de identidad",
-    3: "Cedula de extranjeria",
+    3: "Cédula de extranjería",
   };
 
   const formattedBirthDate = moment(user.fecha_nacimiento)
@@ -81,16 +79,29 @@ export default function Perfil() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="bg-white shadow-lg rounded-lg max-w-2xl w-full p-6 relative">
+    <motion.div
+      className="flex items-center justify-center min-h-screen"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div
+        className="bg-white shadow-lg rounded-lg max-w-2xl w-full p-6 relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         {isEditing ? (
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="absolute right-0 top-0"
             onClick={() => setIsEditing(!isEditing)}
+            aria-label="Cerrar edición"
           >
-            <i className="fa-solid fa-xmark bg-indigo-800 text-white p-2  "></i>
+            <i className="fa-solid fa-xmark bg-indigo-800 text-white p-2"></i>
           </motion.button>
         ) : (
           <motion.button
@@ -98,12 +109,19 @@ export default function Perfil() {
             whileTap={{ scale: 0.9 }}
             className="absolute right-0 top-0"
             onClick={() => setIsEditing(!isEditing)}
+            aria-label="Editar perfil"
           >
             <i className="fa-solid fa-user-pen text-indigo-800 p-1 text-xl"></i>
           </motion.button>
         )}
         {isEditing ? (
-          <form onSubmit={handleSubmit}>
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+          >
             <h2 className="text-2xl font-black uppercase text-center mb-4 text-indigo-800">
               Editar Perfil
             </h2>
@@ -118,7 +136,6 @@ export default function Perfil() {
                   placeholder="Nombre"
                 />
               </div>
-
               <div>
                 <input
                   type="text"
@@ -130,7 +147,6 @@ export default function Perfil() {
                 />
               </div>
             </div>
-
             <div className="grid grid-cols-2 items-center gap-4 my-4">
               <div>
                 <input
@@ -153,7 +169,6 @@ export default function Perfil() {
                 />
               </div>
             </div>
-
             <div className="grid items-center gap-4 my-4">
               <div>
                 <input
@@ -166,32 +181,39 @@ export default function Perfil() {
                 />
               </div>
             </div>
-
             <div className="mt-6">
               <div className="flex justify-end">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   type="submit"
-                  className="bg-indigo-800 text-white px-6 py-1 rounded-lg font-bold "
+                  className="bg-indigo-800 text-white px-6 py-1 rounded-lg font-bold"
                 >
                   Guardar
                 </motion.button>
               </div>
             </div>
-          </form>
+          </motion.form>
         ) : (
-          <div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex items-center">
-              <img
+              <motion.img
                 className="w-24 h-24 rounded-full object-cover border-4 border-blue-500"
                 src={`${apiUrl}/storage/${user?.imagen}`}
                 alt="user"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
               />
               <div className="ml-4">
                 <h2 className="text-2xl font-semibold text-gray-800">{`${user?.name} ${user?.apellido}`}</h2>
                 <p className="text-gray-600 text-sm">@{user?.usuario}</p>
-                <p className=" font-bold text-xs text-indigo-800">
+                <p className="font-bold text-xs text-indigo-800">
                   {roles[user.id_rol] || "Unknown"}
                 </p>
               </div>
@@ -236,9 +258,9 @@ export default function Perfil() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

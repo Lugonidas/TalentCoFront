@@ -18,7 +18,7 @@ export default function Inicio() {
   } = useCourse();
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (

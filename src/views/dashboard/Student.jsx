@@ -22,17 +22,23 @@ export default function Student() {
         </h1>
         <div className="p-2">
           <p className="text-gray-600 text-xl">
-            Hola <strong className="text-indigo-800">{user.usuario}</strong>, nos alegra tenerte de vuelta.
+            Hola <strong className="text-indigo-800">{user.usuario}</strong>,
+            nos alegra tenerte de vuelta.
           </p>
         </div>
         <div className="">
           <div className="grid md:grid-cols-4 gap-8 m-8">
-          <Link
+            <Link
               to="/dashboard/chat"
               className=" transition-all ease-in-out shadow-md flex flex-col p-2 font-bold text-indigo-800 text-xl hover:shadow-xl hover:bg-gray-200 items-center justify-center rounded"
             >
               <span>
-                <img className="w-14" src="/img/chat.png" alt="Chat" />
+                <img
+                  loading="lazy"
+                  className="w-14"
+                  src="/img/chat.png"
+                  alt="Chat"
+                />
               </span>
               Chat
             </Link>
@@ -42,6 +48,7 @@ export default function Student() {
             >
               <span>
                 <img
+                  loading="lazy"
                   className="w-14"
                   src="/img/misCursos.png"
                   alt="Mis Cursos"
@@ -54,12 +61,11 @@ export default function Student() {
           <div className="">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 m-8">
               {/* Gráfico de barras */}
-
             </div>
           </div>
         </div>
 
-        <MisCursos/>
+        <MisCursos />
       </div>
     </>
   );

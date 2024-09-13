@@ -7,7 +7,7 @@ import ShowCourse from "../courses/ShowCourse";
 export default function Cursos() {
   return (
     <>
-      <div className="mx-auto">
+      <div className="mx-auto min-h-screen">
         <div className=" my-2">
           <h1 className="text-2xl font-black uppercase text-center mb-4 text-indigo-800">
             Cursos

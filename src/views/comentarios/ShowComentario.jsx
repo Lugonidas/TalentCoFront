@@ -238,6 +238,7 @@ export default function ShowCourse() {
                 <div className="grid md:grid-cols-2 gap-14 w-full border-b border-indigo-800 border-dotted pb-4">
                   <div className="">
                     <img
+                      loading="lazy"
                       className="max-h-[300px] block mx-auto"
                       src={`${apiUrl}/storage/${selectedCourse.imagen}`}
                       alt={`Imagen ${selectedCourse.titulo}`}
@@ -277,9 +278,7 @@ export default function ShowCourse() {
                     <p>
                       <i className="text-indigo-800 fa-regular fa-clock"></i>{" "}
                       {selectedCourse.duracion}
-                      {selectedCourse.duracion.length == 1
-                        ? " Hora"
-                        : " Horas"}
+                      {selectedCourse.duracion.length == 1 ? " Hora" : " Horas"}
                     </p>
                     <p>
                       <i className="text-indigo-800 fa-solid fa-swatchbook"></i>{" "}
@@ -427,6 +426,7 @@ export default function ShowCourse() {
                                 >
                                   <div className="flex border-b border-dotted border-indigo-800">
                                     <img
+                                      loading="lazy"
                                       className="w-16"
                                       src={`${apiUrl}/storage/${comentario.user.imagen}`}
                                       alt={`Imagen ${comentario.user.name}`}
@@ -444,19 +444,20 @@ export default function ShowCourse() {
                                     </div>
                                   </div>
                                   <span>{comentario.comentario}</span>
-                                  {haComentado && comentario.id_usuario == user.id && (
-                                    <motion.button
-                                      className="absolute top-0 right-0"
-                                      whileHover={{ scale: 1.1 }}
-                                      whileTap={{ scale: 0.9 }}
-                                      onClick={() =>
-                                        handleOpenEditModal(comentario)
-                                      }
-                                    >
-                                      {console.log(haComentado)}
-                                      <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
-                                    </motion.button>
-                                  )}
+                                  {haComentado &&
+                                    comentario.id_usuario == user.id && (
+                                      <motion.button
+                                        className="absolute top-0 right-0"
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        onClick={() =>
+                                          handleOpenEditModal(comentario)
+                                        }
+                                      >
+                                        {console.log(haComentado)}
+                                        <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
+                                      </motion.button>
+                                    )}
                                 </li>
                               ))}
                             </ul>

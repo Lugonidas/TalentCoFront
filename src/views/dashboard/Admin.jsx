@@ -9,6 +9,7 @@ import DynamicChart from "../../components/DynamicChart";
 import { useEffect } from "react";
 import Loader from "../../components/Loader";
 
+
 export default function Admin() {
   const { user } = useAuth({ middleware: "auth" });
   const { createModal, handleOpenCreateModal, users } = useUser();
@@ -94,7 +95,12 @@ export default function Admin() {
               className=" transition-all ease-in-out shadow-md flex flex-col p-2 font-bold text-indigo-800 text-xl hover:shadow-xl hover:bg-gray-200 items-center justify-center rounded"
             >
               <span>
-                <img className="w-14" src="/img/chat.png" alt="Chat" />
+                <img
+                  loading="lazy"
+                  className="w-14"
+                  src="/img/chat.png"
+                  alt="Chat"
+                />
               </span>
               Chat
             </Link>
@@ -104,6 +110,7 @@ export default function Admin() {
             >
               <span>
                 <img
+                  loading="lazy"
                   className="w-14"
                   src="/img/agregarUsuario.png"
                   alt="Agregar Usuario"
@@ -117,6 +124,7 @@ export default function Admin() {
             >
               <span>
                 <img
+                  loading="lazy"
                   className="w-14"
                   src="/img/agregarCurso.png"
                   alt="Agregar Curso"
@@ -130,6 +138,7 @@ export default function Admin() {
             >
               <span>
                 <img
+                  loading="lazy"
                   className="w-14"
                   src="/img/misCursos.png"
                   alt="Mis Cursos"
@@ -145,6 +154,7 @@ export default function Admin() {
                 <p className="font-bold">Total de cursos</p>
                 <div className="flex items-center gap-2 text-sky-900 text-5xl my-4">
                   <img
+                    loading="lazy"
                     className="w-14"
                     src="/img/cursos.png"
                     alt="Mis Cursos"
@@ -155,21 +165,36 @@ export default function Admin() {
               <div className="shadow-md flex flex-col p-2 items-center justify-center rounded bg-gray-50">
                 <p className="font-bold">Total Administradores</p>
                 <div className="flex items-center gap-2 text-yellow-600 text-5xl my-4">
-                <img className="w-14" src="/img/administrador.png" alt="Mis Cursos" />
+                  <img
+                    loading="lazy"
+                    className="w-14"
+                    src="/img/administrador.png"
+                    alt="Mis Cursos"
+                  />
                   <p className=" font-bold">{adminCount}</p>
                 </div>
               </div>
               <div className="shadow-md flex flex-col p-2 items-center justify-center rounded bg-gray-50 ">
                 <p className="font-bold">Total docentes</p>
                 <div className="flex items-center gap-2 text-indigo-800 text-5xl my-4">
-                <img className="w-14" src="/img/docente.png" alt="Mis Cursos" />
+                  <img
+                    loading="lazy"
+                    className="w-14"
+                    src="/img/docente.png"
+                    alt="Mis Cursos"
+                  />
                   <p className="font-bold ">{teacherCount}</p>
                 </div>
               </div>
               <div className="shadow-md flex flex-col p-2 items-center justify-center rounded bg-gray-50">
                 <p className="font-bold">Total estudiantes</p>
                 <div className="flex items-center gap-2 text-green-800 text-5xl my-4">
-                <img className="w-14" src="/img/estudiante.png" alt="Mis Cursos" />
+                  <img
+                    loading="lazy"
+                    className="w-14"
+                    src="/img/estudiante.png"
+                    alt="Mis Cursos"
+                  />
                   <p className="font-bold ">{studentCount}</p>
                 </div>
               </div>

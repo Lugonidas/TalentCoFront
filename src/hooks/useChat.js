@@ -1,8 +1,10 @@
-import { useContext } from "react"
-import ChatContext from "../context/ChatProvider"
+import { useContext } from "react";
+import ChatContext from "../context/ChatProvider";
 
-const useChat = () => {
-    return useContext(ChatContext)
+export default function useChat() {
+  const context = useContext(ChatContext);
+  if (!context) {
+    throw new Error("useChat debe usarse dentro de un ChatProvider");
+  }
+  return context;
 }
-
-export default useChat

@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import EditUser from "./EditUser";
 import "../../styles/spinner.scss";
 import Loader from "../../components/Loader";
+import { motion } from "framer-motion";
 
 export default function Inicio() {
   const {
@@ -20,7 +21,6 @@ export default function Inicio() {
 
   const { user } = useAuth({ middleware: "auth" });
 
-  // Dentro de tu componente ShowCourse
   if (loading) {
     return <Loader />;
   }
@@ -29,44 +29,62 @@ export default function Inicio() {
     <>
       {createModal && (
         <Modal>
-          <div className="relative w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
+          <motion.div
+            className="relative w-3/4 mx-auto my-4 p-6 bg-white shadow-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+          >
             <CreateUser />
-          </div>
+          </motion.div>
         </Modal>
       )}
 
       {viewModal && selectedUser && (
         <Modal>
-          <div className="relative mx-auto my-4 p-6 bg-white shadow-md text-center opacity-100">
-            <ShowUser />
-          </div>
+          <ShowUser />
         </Modal>
       )}
 
       {editModal && selectedUser && (
         <Modal>
-          <div className="relative w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
+          <motion.div
+            className="relative w-3/4 mx-auto my-4 p-6 bg-white shadow-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+          >
             <EditUser />
-          </div>
+          </motion.div>
         </Modal>
       )}
 
-      <div className="mx-auto px-2 h-screen overflow-hidden overflow-y-scroll">
-        {user && user.id_rol == 1 && (
+      <motion.div
+        className="mx-auto px-2 h-screen overflow-hidden overflow-y-scroll"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {user && user.id_rol === 1 && (
           <div className="px-2 my-2">
             <h1 className="text-2xl font-black uppercase text-center mb-4 text-indigo-800">
               Listado Usuarios
             </h1>
-            <button
+            <motion.button
               className="my-4 py-1 px-2 bg-indigo-800 text-white"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={handleOpenCreateModal}
             >
               <i className="fa-solid fa-user-plus"></i> Agregar Usuario
-            </button>
+            </motion.button>
             <UsersList />
           </div>
         )}
-      </div>
+      </motion.div>
     </>
   );
 }

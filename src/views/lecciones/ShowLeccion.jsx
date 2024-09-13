@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import Modal from "../../components/Modal";
 import CreateArchivo from "../archivo/CreateArchivo";
 import ShowArchivo from "../archivo/ShowArchivo";
+import { motion } from "framer-motion";
 
 export default function ShowLeccion() {
   const { user } = useAuth({ middleware: "guest" });
@@ -61,6 +62,7 @@ export default function ShowLeccion() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 border-dotted border-b border-indigo-800 mb-4">
             <div className="text-center">
               <img
+                loading="lazy"
                 className="max-h-[300px] block mx-auto"
                 src={`${apiUrl}/storage/${selectedLeccion.imagen}`}
                 alt={`Imagen ${selectedLeccion.titulo}`}
@@ -82,13 +84,15 @@ export default function ShowLeccion() {
               </div>
               {user && user.id == selectedLeccion.id_docente && (
                 <div className="flex gap-2">
-                  <button
-                    onClick={handleOpenCreateModal}
+                  <motion.button
                     className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-linear hover:scale-105"
+                    onClick={handleOpenCreateModal}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
                     Agregar archivo
-                  </button>
-                 {/*  <button
+                  </motion.button>
+                  {/*  <button
                     onClick={() => handleOpenEditModal(selectedLeccion)}
                     className="p-1 my-4 bg-yellow-500 text-black transition-all ease-linear hover:scale-105"
                   >
@@ -103,12 +107,14 @@ export default function ShowLeccion() {
               {selectedLeccion.orden}
             </span>
 
-            <button
-              className="absolute -top-5 -right-5 bottom-full text-4xl transition-all duration-100 ease hover:cursor-pointer hover:scale-110"
+            <motion.button
+              className="absolute -top-5 -right-5 bottom-full text-4xl transition-all duration-100 ease hover:cursor-pointer"
               onClick={handleCloseModals}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               <i className="fa-solid fa-rectangle-xmark text-indigo-800"></i>
-            </button>
+            </motion.button>
           </div>
 
           <div>
@@ -134,11 +140,12 @@ export default function ShowLeccion() {
                         key={index}
                         className="archivo-item flex gap-4 items-center"
                       >
-                        <h4 className="font-bold text-indigo-500">
-                          <button onClick={() => handleOpenViewModal(archivo)}>
-                            {archivo.nombre}
-                          </button>
-                        </h4>
+                        <motion.button
+                          className=" font-bold text-indigo-500 py-1 transition-all ease-linear cursor-pointer"
+                          onClick={() => handleOpenViewModal(archivo)}
+                        >
+                          {archivo.nombre}
+                        </motion.button>
 
                         <div className="flex gap-2 items-center">
                           {/*  <a
@@ -149,12 +156,12 @@ export default function ShowLeccion() {
                             <i className="fa-solid fa-download text-blue-600 transition-all ease-linear hover:scale-110"></i>
                           </a> */}
                           {user && user.id == selectedLeccion.id_docente && (
-                            <button
+                            <motion.button
+                              className="py-1 text-red-800 transition-all ease-linear cursor-pointer"
                               onClick={() => deleteArchivo(archivo.id)}
-                              className="py-1 text-red-800 transition-all ease-linear hover:scale-110"
                             >
                               <i className="fa-solid fa-trash"></i>
-                            </button>
+                            </motion.button>
                           )}
                         </div>
                       </div>
@@ -175,12 +182,12 @@ export default function ShowLeccion() {
                         key={index}
                         className="archivo-item flex gap-4 items-center"
                       >
-                        <h4 className="font-bold text-indigo-500">
-                          <button onClick={() => handleOpenViewModal(archivo)}>
-                            {archivo.nombre}
-                          </button>
-                        </h4>
-
+                        <motion.button
+                          className=" font-bold text-indigo-500 py-1 transition-all ease-linear cursor-pointer"
+                          onClick={() => handleOpenViewModal(archivo)}
+                        >
+                          {archivo.nombre}
+                        </motion.button>
                         <div className="flex gap-2 items-center">
                           {/* <a
                             href={archivoUrl}
@@ -190,12 +197,12 @@ export default function ShowLeccion() {
                             <i className="fa-solid fa-download text-blue-600 transition-all ease-linear hover:scale-110"></i>
                           </a> */}
                           {user && user.id == selectedLeccion.id_docente && (
-                            <button
+                            <motion.button
+                              className="py-1 text-red-800 transition-all ease-linear cursor-pointer"
                               onClick={() => deleteArchivo(archivo.id)}
-                              className="py-1 text-red-800 transition-all ease-linear hover:scale-110"
                             >
                               <i className="fa-solid fa-trash"></i>
-                            </button>
+                            </motion.button>
                           )}
                         </div>
                       </div>
@@ -217,12 +224,12 @@ export default function ShowLeccion() {
                         key={index}
                         className="archivo-item flex gap-4 items-center"
                       >
-                        <h4 className="font-bold text-indigo-500">
-                          <button onClick={() => handleOpenViewModal(archivo)}>
-                            {archivo.nombre}
-                          </button>
-                        </h4>
-
+                        <motion.button
+                          className=" font-bold text-indigo-500 py-1 transition-all ease-linear cursor-pointer"
+                          onClick={() => handleOpenViewModal(archivo)}
+                        >
+                          {archivo.nombre}
+                        </motion.button>
                         <div className="flex gap-2 items-center">
                           {/* <a
                             href={archivoUrl}
@@ -232,12 +239,12 @@ export default function ShowLeccion() {
                             <i className="fa-solid fa-download text-blue-600 transition-all ease-linear hover:scale-110"></i>
                           </a> */}
                           {user && user.id == selectedLeccion.id_docente && (
-                            <button
+                            <motion.button
+                              className="py-1 text-red-800 transition-all ease-linear cursor-pointer"
                               onClick={() => deleteArchivo(archivo.id)}
-                              className="py-1 text-red-800 transition-all ease-linear hover:scale-110"
                             >
                               <i className="fa-solid fa-trash"></i>
-                            </button>
+                            </motion.button>
                           )}
                         </div>
                       </div>

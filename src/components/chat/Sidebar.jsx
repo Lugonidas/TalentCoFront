@@ -21,7 +21,7 @@ export default function Sidebar() {
               selectedUser == user.id ? "bg-blue-100 font-bold" : ""
             }`}
           >
-            <img src="/vite.svg" alt="" />
+            <img src="/vite.svg" alt="" loading="lazy"/>
             {user.name}
           </li>
         ))}

@@ -74,7 +74,12 @@ export default function Inicio() {
         reunión para comenzar una conversación o unirte a una existente
         introduciendo el código de reunión. ¡Estamos emocionados de que formes
         parte de esta experiencia!
-        <img src="/img/camara.png" alt="Cámara" style={cameraStyle} />
+        <img
+          loading="lazy"
+          src="/img/camara.png"
+          alt="Cámara"
+          style={cameraStyle}
+        />
       </p>
       <div className="flex flex-col lg:flex-row items-center gap-6">
         {/* <div>

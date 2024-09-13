@@ -17,6 +17,12 @@ import Inicio from "./views/reuniones/Inicio";
 import ShowReunion from "./views/reuniones/ShowReunion";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CrearReunionPro from "./views/reuniones/CrearReunionPro";
+import { UserProvider } from "./context/UserProvider";
+import { ChatProvider } from "./context/ChatProvider";
+import { CourseProvider } from "./context/CourseProvider";
+import { ComentarioProvider } from "./context/ComentarioProvider";
+import { LeccionProvider } from "./context/LeccionProvider";
+import { ArchivoProvider } from "./context/ArchivoProvider";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +39,13 @@ const router = createBrowserRouter([
       },
       {
         path: "cursos/show/:courseId",
-        element: <ShowCourse />,
+        element: (
+          <ComentarioProvider>
+            <LeccionProvider>
+              <ShowCourse />,
+            </LeccionProvider>
+          </ComentarioProvider>
+        ),
       },
       {
         path: "login",
@@ -47,35 +59,74 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <ProtectedRoute middleware="auth"><AuthLayout /></ProtectedRoute>,
+    element: (
+      <ProtectedRoute middleware="auth">
+        <AuthLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
-        element: <InicioDashboard />,
+
+        element: (
+          <UserProvider>
+            <InicioDashboard />
+          </UserProvider>
+        ),
       },
       {
         path: "chat",
-        element: <InicioChat />,
+        element: (
+          <ChatProvider>
+            <InicioChat />
+          </ChatProvider>
+        ),
       },
       {
         path: "cursos",
-        element: <InicioCourses />,
+        element: (
+          <CourseProvider>
+            <InicioCourses />
+          </CourseProvider>
+        ),
       },
       {
         path: "cursos/show/:courseId",
-        element: <ShowCourse />,
+        element: (
+          <ComentarioProvider>
+            <LeccionProvider>
+              <ArchivoProvider>
+                <ShowCourse />
+              </ArchivoProvider>
+            </LeccionProvider>
+          </ComentarioProvider>
+        ),
       },
       {
         path: "misCursos",
-        element: <MisCursos />,
+        element: (
+          <ComentarioProvider>
+            <LeccionProvider>
+              <MisCursos />
+            </LeccionProvider>
+          </ComentarioProvider>
+        ),
       },
       {
         path: "usuarios",
-        element: <InicioUsers />,
+        element: (
+          <UserProvider>
+            <InicioUsers />
+          </UserProvider>
+        ),
       },
       {
         path: "perfil",
-        element: <Perfil />,
+        element: (
+          <UserProvider>
+            <Perfil />
+          </UserProvider>
+        ),
       },
       {
         path: "reuniones",

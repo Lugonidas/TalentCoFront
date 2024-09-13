@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserProvider";
+import { motion } from "framer-motion";
 
 export default function CreateUser() {
   const { createUser, handleCloseModals, errores } = useContext(UserContext);
@@ -292,20 +293,22 @@ export default function CreateUser() {
             </div>
 
             <div className="flex gap-2 justify-between">
-              <button
-                type="button"
+              <motion.button
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                 onClick={handleCloseModals}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 Cancelar
-              </button>
-              <button
-                type="button"
-                onClick={nextStep}
+              </motion.button>
+              <motion.button
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={nextStep}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 Siguiente
-              </button>
+              </motion.button>
             </div>
           </>
         )}
@@ -414,28 +417,32 @@ export default function CreateUser() {
             </div>
 
             <div className="grid md:flex md:justify-between gap-2">
-              <button
-                type="button"
+              <motion.button
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                 onClick={prevStep}
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 Anterior
-              </button>
+              </motion.button>
 
               <div className="grid md:grid-cols-2 gap-2">
-                <button
-                  type="button"
+                <motion.button
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                   onClick={handleCloseModals}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   Cancelar
-                </button>
-                <button
-                  type="submit"
+                </motion.button>
+                <motion.button
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  type="submit"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  Crear Usuario
-                </button>
+                  Agregar
+                </motion.button>
               </div>
             </div>
           </>

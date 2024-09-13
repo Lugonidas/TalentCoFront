@@ -99,7 +99,7 @@ export default function ShowArchivo() {
 
             {selectedArchivo.tipo === "IMG" && (
               <div className="image-container">
-                <img
+                <img loading="lazy"
                   src={archivoUrl}
                   alt={selectedArchivo.nombre}
                   className="w-full"

@@ -3,14 +3,6 @@ import AnimatedBackground from "../../components/AnimatedBackground";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useCourse from "../../hooks/useCourse";
 
-/* Paleta de colores */
-
-/* 003249
-007ea7
-80ced7
-9ad1d4
-ccdbdc */
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -109,10 +101,10 @@ export default function Inicio() {
                 >
                   <div className="px-4 py-2 h-60">
                     <img
+                      loading="lazy"
                       src={`${apiUrl}/storage/${course?.imagen}`}
                       alt={course.titulo}
                       className="course-image w-full h-auto"
-                      
                     />
                   </div>
                   <div className="p-2">
@@ -134,38 +126,91 @@ export default function Inicio() {
         </div>
       </div>
       <div className="min-h-64 w-full grid md:grid-cols-3 justify-center items-center md:px-6">
-  <div className="md:col-span-1 hidden md:block">
-    <img
-      src="../img/logoTalentCo.svg"
-      alt="Imagen logotipo TalentCo"
-      className="w-full mx-auto"
-    />
-  </div>
-  <div className="col-span-3 md:col-span-2 bg-white/50 backdrop-blur-md mx-auto p-4 md:min-h-[50vh] flex flex-col justify-center my-10 rounded-lg text-center text-gray-800">
-    <h2 className="text-2xl md:text-4xl font-black text-gray-400 text-center my-6">
-      ¿Por qué estudiar y aprender en{" "}
-      <span className="text-indigo-600">Talent.Co</span>?
-    </h2>
-    <div className="grid md:grid-cols-3 gap-4">
-      <div className="bg-indigo-400 rounded-md shadow-md p-4 flex flex-col items-center">
-        <svg className="w-12 h-12 text-white mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z"></path></svg>
-        <h3 className="text-white text-xl font-bold mb-2">Acceso a Cursos Exclusivos y Actualizados</h3>
-        <p className="text-white">Nuestros cursos están constantemente actualizados para reflejar las últimas tendencias y tecnologías.</p>
+        <div className="md:col-span-1 hidden md:block">
+          <img
+            loading="lazy"
+            src="../img/logoTalentCo.svg"
+            alt="Imagen logotipo TalentCo"
+            className="w-full mx-auto"
+          />
+        </div>
+        <div className="col-span-3 md:col-span-2 bg-white/50 backdrop-blur-md mx-auto p-4 md:min-h-[50vh] flex flex-col justify-center my-10 rounded-lg text-center text-gray-800">
+          <h2 className="text-2xl md:text-4xl font-black text-gray-400 text-center my-6">
+            ¿Por qué estudiar y aprender en{" "}
+            <span className="text-indigo-600">Talent.Co</span>?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-indigo-400 rounded-md shadow-md p-4 flex flex-col items-center">
+              <svg
+                className="w-12 h-12 text-white mb-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z"
+                ></path>
+              </svg>
+              <h3 className="text-white text-xl font-bold mb-2">
+                Acceso a Cursos Exclusivos y Actualizados
+              </h3>
+              <p className="text-white">
+                Nuestros cursos están constantemente actualizados para reflejar
+                las últimas tendencias y tecnologías.
+              </p>
+            </div>
+            <div className="bg-indigo-400 rounded-md shadow-md p-4 flex flex-col items-center">
+              <svg
+                className="w-12 h-12 text-white mb-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 15l7-7 7 7"
+                ></path>
+              </svg>
+              <h3 className="text-white text-xl font-bold mb-2">
+                Flexibilidad para Aprender a tu Ritmo
+              </h3>
+              <p className="text-white">
+                Puedes acceder a los cursos desde cualquier dispositivo y
+                adaptar el aprendizaje a tu horario.
+              </p>
+            </div>
+            <div className="bg-indigo-400 rounded-md shadow-md p-4 flex flex-col items-center">
+              <svg
+                className="w-12 h-12 text-white mb-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-3 3v-6m6 9h-6m-3-3H6m12-6V3h-4v3m-8 6v-3H4v3h4v9h4v-9h4z"
+                ></path>
+              </svg>
+              <h3 className="text-white text-xl font-bold mb-2">
+                Oportunidades de Crecimiento Profesional
+              </h3>
+              <p className="text-white">
+                Te ayudamos a destacar en el mercado laboral.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="bg-indigo-400 rounded-md shadow-md p-4 flex flex-col items-center">
-        <svg className="w-12 h-12 text-white mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
-        <h3 className="text-white text-xl font-bold mb-2">Flexibilidad para Aprender a tu Ritmo</h3>
-        <p className="text-white">Puedes acceder a los cursos desde cualquier dispositivo y adaptar el aprendizaje a tu horario.</p>
-      </div>
-      <div className="bg-indigo-400 rounded-md shadow-md p-4 flex flex-col items-center">
-        <svg className="w-12 h-12 text-white mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3 3v-6m6 9h-6m-3-3H6m12-6V3h-4v3m-8 6v-3H4v3h4v9h4v-9h4z"></path></svg>
-        <h3 className="text-white text-xl font-bold mb-2">Oportunidades de Crecimiento Profesional</h3>
-        <p className="text-white">Te ayudamos a destacar en el mercado laboral.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
     </>
   );
 }

@@ -199,6 +199,7 @@ export default function ShowCourse() {
                 <div className="grid md:grid-cols-2 gap-14 w-full border-b border-indigo-800 border-dotted pb-4">
                   <div className="">
                     <img
+                      loading="lazy"
                       className="max-h-[300px] block mx-auto"
                       src={`${apiUrl}/storage/${selectedCourse.imagen}`}
                       alt={`Imagen ${selectedCourse.titulo}`}
@@ -352,6 +353,7 @@ export default function ShowCourse() {
                               >
                                 <div className="flex border-b border-dotted border-indigo-800">
                                   <img
+                                    loading="lazy"
                                     className="w-16"
                                     src={`${apiUrl}/storage/${comentario.user.imagen}`}
                                     alt={`Imagen ${comentario.user.name}`}

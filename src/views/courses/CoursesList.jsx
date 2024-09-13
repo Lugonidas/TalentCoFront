@@ -135,6 +135,7 @@ export default function CoursesList() {
             >
               <div className="h-52">
                 <motion.img
+                  loading="lazy"
                   src={`${apiUrl}/storage/${curso.imagen}`}
                   alt={`Imagen ${curso.titulo}`}
                   className="h-48 w-48 mx-auto object-contain"

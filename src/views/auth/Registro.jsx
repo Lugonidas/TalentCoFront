@@ -68,7 +68,7 @@ export default function Registro() {
 
   return (
     <>
-      <div className="my-4 container mx-auto">
+      <div className="my-4 container mx-auto min-h-screen">
         <h2 className="text-2xl font-bold mb-4 text-center text-indigo-600">
           Registrarme
         </h2>

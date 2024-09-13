@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <div className="py-2 px-4 shadow-md flex justify-between items-center">
       <div className="flex items-center gap-2">
-        <img src="/vite.svg" alt="Imagen Usuario" />
+        <img loading="lazy" src="/vite.svg" alt="Imagen Usuario" />
         <p className="font-bold text-gray-600">{name}</p>
       </div>
 

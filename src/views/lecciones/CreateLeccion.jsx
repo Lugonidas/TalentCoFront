@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { CourseContext } from "../../context/CourseProvider";
 import { useAuth } from "../../hooks/useAuth";
 import useLeccion from "../../hooks/useLeccion";
+import { motion } from "framer-motion";
 
 export default function CreateLeccion() {
   const { user } = useAuth({ middleware: "auth" });
@@ -129,7 +130,7 @@ export default function CreateLeccion() {
               Orden
             </label>
             <input
-            min={0}
+              min={0}
               type="number"
               id="orden"
               name="orden"
@@ -170,21 +171,33 @@ export default function CreateLeccion() {
           </div>
         </div>
 
-        <div className="flex justify-end">
-          <button
+        <div className="flex justify-end gap-4">
+          <motion.button
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+            onClick={handleCloseModals}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Cancelar
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             type="submit"
             className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Agregar lección
-          </button>
+            Agregar
+          </motion.button>
         </div>
       </form>
-      <button
-        className="absolute -top-5 -right-5 bottom-full text-4xl transition-all duration-100 ease hover:cursor-pointer hover:scale-110"
+      <motion.button
+        className="absolute -top-5 -right-5 bottom-full text-4xl transition-all duration-100 ease hover:cursor-pointer"
         onClick={handleCloseModals}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
         <i className="fa-solid fa-rectangle-xmark text-indigo-800"></i>
-      </button>
+      </motion.button>
     </>
   );
 }

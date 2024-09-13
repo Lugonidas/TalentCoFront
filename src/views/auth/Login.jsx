@@ -21,6 +21,7 @@ export default function Login() {
 
     try {
       await login(datos);
+      console.log(errores);
     } catch (error) {
       console.log("Error iniciando sesión.", error);
     }
@@ -31,6 +32,7 @@ export default function Login() {
       <div className="w-full py-5 md:flex h-screen justify-center px-5">
         <div className="flex-1 flex flex-col justify-center items-center">
           <img
+            loading="lazy"
             src="../img/logo.png"
             alt="Imagen logotipo TalentCo"
             className="max-w-xs object-contain"
@@ -47,6 +49,12 @@ export default function Login() {
             Inicia sesión diligenciando el formulario
           </p>
 
+          {errores && !errores.email && !errores.password && (
+            <p className=" text-center p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+              {errores}
+            </p>
+          )}
+
           <div className="bg-white shadow-md rounded-md mt-5 p-5">
             <form onSubmit={handleSubmit}>
               <div className="flex-1 mb-4 flex flex-col gap-2">
@@ -58,7 +66,7 @@ export default function Login() {
                   ref={emailRef}
                   className="p-2 w-full bg-indigo-50 outline-none text-gray-600"
                   name="email"
-                  placeholder="Ej: lugo@correo.cmo"
+                  placeholder="Ej: lugo@correo.com"
                 />
                 {errores && errores.email && (
                   <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">

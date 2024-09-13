@@ -52,12 +52,17 @@ export default function Teacher() {
         </div>
         <div className="">
           <div className="grid md:grid-cols-4 gap-8 m-8">
-          <Link
+            <Link
               to="/dashboard/chat"
               className=" transition-all ease-in-out shadow-md flex flex-col p-2 font-bold text-indigo-800 text-xl hover:shadow-xl hover:bg-gray-200 items-center justify-center rounded"
             >
               <span>
-                <img className="w-14" src="/img/chat.png" alt="Chat" />
+                <img
+                  loading="lazy"
+                  className="w-14"
+                  src="/img/chat.png"
+                  alt="Chat"
+                />
               </span>
               Chat
             </Link>
@@ -67,6 +72,7 @@ export default function Teacher() {
             >
               <span>
                 <img
+                  loading="lazy"
                   className="w-14"
                   src="/img/misCursos.png"
                   alt="Mis Cursos"

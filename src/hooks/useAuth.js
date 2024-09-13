@@ -33,10 +33,10 @@ export const useAuth = ({ middleware, url }) => {
     try {
       setLoading(true);
       const { data } = await clienteAxios.post("login", datos);
-
       localStorage.setItem("AUTH_TOKEN", data.token);
-      await mutate();
+      mutate();
     } catch (errores) {
+      console.log(errores.response.data.errors)
       setErrores(errores.response.data.errors);
     } finally {
       setLoading(false);

@@ -19,7 +19,7 @@ export default function Navegacion() {
         <nav className={`${isOpen ? 'relative' : ' '} flex justify-between items-center gap-1 w-full p-4 border-b-2 border-dashed border-indigo-800 bg-white shadow-md`}>
             <div className="flex items-center">
                 <Link to="/" className="flex items-center gap-1 ">
-                    <img src="/icon.png" alt="Imagen Logotipo Talentos Colombia" className="h-10 w-10" />
+                    <img loading='lazy' src="/icon.png" alt="Imagen Logotipo Talentos Colombia" className="h-10 w-10" />
                     <span className="text-indigo-800 text-2xl font-bold">Talent<span className="text-pink-500">.</span>Co</span>
                 </Link>
             </div>
