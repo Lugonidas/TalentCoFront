@@ -28,7 +28,7 @@ const UserProvider = ({ children }) => {
   const { data: usuariosData, error: usuariosError, mutate: mutateUsuarios } = useSWR(
     token ? ['/usuarios', token] : null,  // Pasa la URL y el token correctamente
     ([url, token]) => fetcher(url, token),  // Desestructura la clave y pásala al fetcher
-    { refreshInterval: 1000 }
+    { refreshInterval: 5000 }
   );
 
   useEffect(() => {

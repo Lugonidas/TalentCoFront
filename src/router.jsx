@@ -4,6 +4,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import InicioDashboard from "./views/dashboard/Inicio";
 import InicioChat from "./views/chat/Inicio";
 import InicioCourses from "./views/courses/Inicio";
+import InicioCategorias from "./views/categorias/Inicio";
 import InicioUsers from "./views/users/Inicio";
 import Perfil from "./views/users/Perfil";
 import Login from "./views/auth/Login";
@@ -23,6 +24,7 @@ import { CourseProvider } from "./context/CourseProvider";
 import { ComentarioProvider } from "./context/ComentarioProvider";
 import { LeccionProvider } from "./context/LeccionProvider";
 import { ArchivoProvider } from "./context/ArchivoProvider";
+import { CategoriaProvider } from "./context/CategoriaProvider";
 
 const router = createBrowserRouter([
   {
@@ -67,7 +69,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-
         element: (
           <UserProvider>
             <InicioDashboard />
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
           <CourseProvider>
             <InicioCourses />
           </CourseProvider>
+        ),
+      },
+      {
+        path: "categorias",
+        element: (
+          <CategoriaProvider>
+            <InicioCategorias />
+          </CategoriaProvider>
         ),
       },
       {

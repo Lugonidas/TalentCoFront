@@ -72,7 +72,8 @@ export default function Sidebar() {
 
         {/* Contenido del sidebar */}
         <div>
-          <span
+          <Link
+            to="/dashboard"
             className={`${
               isSidebarExpanded ? "grid-cols-4" : ""
             } menu__logo p-2 grid items-center gap-2 font-bold text-indigo-800 text-xl`}
@@ -88,7 +89,7 @@ export default function Sidebar() {
                 Talent<span>.</span>Co
               </span>
             )}
-          </span>
+          </Link>
 
           {/* Links del menú */}
           <ul className="mt-5">
@@ -105,7 +106,7 @@ export default function Sidebar() {
               >
                 <img
                   loading="lazy"
-                  className="w-12"
+                  className="w-9 mx-auto"
                   src="/img/dashboard.png"
                   alt="Dashboard"
                 />
@@ -127,7 +128,7 @@ export default function Sidebar() {
               >
                 <img
                   loading="lazy"
-                  className="w-12"
+                  className="w-9 mx-auto"
                   src="/img/chat.png"
                   alt="Chat"
                 />
@@ -147,12 +148,12 @@ export default function Sidebar() {
               >
                 <img
                   loading="lazy"
-                  className="w-12"
+                  className="w-9 mx-auto"
                   src="/img/cursos.png"
                   alt="Cursos"
                 />
                 {isSidebarExpanded && (
-                  <span className="col-span-3">Ver cursos</span>
+                  <span className="col-span-3">Cursos</span>
                 )}
               </Link>
             </li>
@@ -170,7 +171,7 @@ export default function Sidebar() {
                 >
                   <img
                     loading="lazy"
-                    className="w-12"
+                    className="w-9 mx-auto"
                     src="/img/misCursos.png"
                     alt="mis Cursos"
                   />
@@ -195,7 +196,7 @@ export default function Sidebar() {
                   >
                     <img
                       loading="lazy"
-                      className="w-12"
+                      className="w-9 mx-auto"
                       src="/img/misCursos.png"
                       alt="mis Cursos"
                     />
@@ -207,28 +208,52 @@ export default function Sidebar() {
               </>
             )}
             {user && user.id_rol == 1 && (
-              <li>
-                <Link
-                  to="/dashboard/usuarios"
-                  className={`${
-                    isActive("/dashboard/usuarios")
-                      ? "active bg-indigo-500 text-white border-indigo-800 transition-all ease-linear"
-                      : ""
-                  } ${
-                    isSidebarExpanded ? "grid-cols-4" : ""
-                  }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
-                >
-                  <img
-                    loading="lazy"
-                    className="w-12"
-                    src="/img/usuarios.png"
-                    alt="Usuarios"
-                  />
-                  {isSidebarExpanded && (
-                    <span className="col-span-3">Ver usuarios</span>
-                  )}
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link
+                    to="/dashboard/categorias"
+                    className={`${
+                      isActive("/dashboard/categorias")
+                        ? "active bg-indigo-500 text-white border-indigo-800 transition-all ease-linear"
+                        : ""
+                    } ${
+                      isSidebarExpanded ? "grid-cols-4" : ""
+                    }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
+                  >
+                    <img
+                      loading="lazy"
+                      className="w-9 mx-auto"
+                      src="/img/categorias.png"
+                      alt="Usuarios"
+                    />
+                    {isSidebarExpanded && (
+                      <span className="col-span-3">Categorias</span>
+                    )}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashboard/usuarios"
+                    className={`${
+                      isActive("/dashboard/usuarios")
+                        ? "active bg-indigo-500 text-white border-indigo-800 transition-all ease-linear"
+                        : ""
+                    } ${
+                      isSidebarExpanded ? "grid-cols-4" : ""
+                    }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
+                  >
+                    <img
+                      loading="lazy"
+                      className="w-9 mx-auto"
+                      src="/img/usuarios.png"
+                      alt="Usuarios"
+                    />
+                    {isSidebarExpanded && (
+                      <span className="col-span-3">Usuarios</span>
+                    )}
+                  </Link>
+                </li>
+              </>
             )}
             <li>
               <Link
@@ -243,7 +268,7 @@ export default function Sidebar() {
               >
                 <img
                   loading="lazy"
-                  className="w-12"
+                  className="w-9 mx-auto"
                   src="/img/camara.png"
                   alt="Camara"
                 />
@@ -266,7 +291,7 @@ export default function Sidebar() {
               >
                 <img
                   loading="lazy"
-                  className="w-12"
+                  className="w-9 mx-auto"
                   src="/img/perfil.png"
                   alt="Perfil"
                 />
