@@ -1,9 +1,5 @@
 import FilterCategory from "../../components/FilterCategory";
-import Modal from "../../components/Modal";
-import useCourse from "../../hooks/useCourse";
 import CoursesList from "../courses/CoursesList";
-import ShowCourse from "../courses/ShowCourse";
-
 export default function Cursos() {
   return (
     <>

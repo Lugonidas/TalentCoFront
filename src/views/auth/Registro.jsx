@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 export default function Registro() {
   const { registro, errores } = useAuth({
@@ -9,6 +10,8 @@ export default function Registro() {
 
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [user, setUser] = useState({
     nombre: "",
@@ -42,7 +45,7 @@ export default function Registro() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true); 
+    setIsSubmitting(true);
     const formData = new FormData();
 
     Object.keys(user).forEach((key) => {
@@ -51,6 +54,18 @@ export default function Registro() {
 
     try {
       await registro(formData);
+      // Mostrar el mensaje de confirmación de correo
+      Swal.fire({
+        title: "Registro Exitoso",
+        text: "Hemos enviado un correo de verificación, por favor revisa tu bandeja de entrada.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then(() => {
+        // Redirigir al login después de aceptar el mensaje
+        window.location.href = "/login";
+      });
     } catch (error) {
       console.error("Error creating user", error);
     } finally {
@@ -223,9 +238,9 @@ export default function Registro() {
                     className="mt-1 block w-full px-3 py-2 border text-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   >
                     <option value="">Selecciona el tipo de documento</option>
-                    <option value="1">DNI</option>
-                    <option value="2">Pasaporte</option>
-                    {/* Agrega otros tipos de documento según sea necesario */}
+                    <option value="1">Cédula de ciudadanía</option>
+                    <option value="2">Cédula de extranjería</option>
+                    <option value="3">Tarjeta de identidad</option>{" "}
                   </select>
                   {errores && errores.id_tipo_documento && (
                     <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
@@ -371,23 +386,36 @@ export default function Registro() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
-                <div>
+                <div className="relative">
                   <label
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700"
                   >
                     Contraseña
                   </label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={user.password}
-                    onChange={handleChange}
-                    required
-                    className="mt-1 block w-full px-3 py-2 border text-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Introduce la contraseña del usuario"
-                  />
+                  <div className="relative">
+                    <input
+                      className="mt-1 block w-full px-3 py-2 border text-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      type={showPassword ? "text" : "password"} // Cambiar entre text y password
+                      id="password"
+                      name="password"
+                      value={user.password}
+                      onChange={handleChange}
+                      required
+                      placeholder="Introduce la contraseña del usuario"
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-0 rounded-r-md text-white bottom-0 top-0 bg-indigo-600 p-2"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <i className="fa-solid fa-eye-slash"></i>
+                      ) : (
+                        <i className="fa-solid fa-eye"></i>
+                      )}
+                    </button>
+                  </div>
                   {errores && errores.password && (
                     <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
                       {errores.password}
@@ -402,7 +430,7 @@ export default function Registro() {
                     Confirmar Contraseña
                   </label>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password_confirmation"
                     name="password_confirmation"
                     value={user.password_confirmation}
@@ -419,7 +447,7 @@ export default function Registro() {
                 </div>
               </div>
 
-              <div className="grid md:flex md:justify-between gap-2">
+              <div className="flex flex-col-reverse md:flex-row md:justify-between gap-2">
                 <button
                   type="button"
                   onClick={prevStep}
@@ -427,22 +455,17 @@ export default function Registro() {
                 >
                   Anterior
                 </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`${
+                    isSubmitting ? "bg-gray-400 cursor-not-allowed" : ""
+                  } mt-2 md:mt-0 w-full md:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                >
+                  {isSubmitting ? "Registrando..." : "Registrarme"}
+                </button>
 
-                <div className="">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`${
-                      isSubmitting
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : ""
-                    } inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
-                  >
-                    {isSubmitting ? "Registrando..." : "Registrarme"}
-                  </button>
-                </div>
-
-{/*                 <button
+                {/*                 <button
                   type="submit"
                   disabled={isSubmitting} // Deshabilitar el botón si isSubmitting es true
                   className={`py-2 px-4 text-white rounded ${

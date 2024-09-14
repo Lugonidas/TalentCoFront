@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
-import useCourse from "../hooks/useCourse";
 import useSWR from "swr";
 
 const fetcher = (url, token) =>
@@ -12,7 +11,6 @@ const fetcher = (url, token) =>
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const { updateCourses } = useCourse();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [createModal, setCreateModal] = useState(false);
@@ -131,6 +129,7 @@ const UserProvider = ({ children }) => {
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
+      setErrores({})
       mutateUsuarios();
     });
   };
@@ -151,10 +150,11 @@ const UserProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
+  
   const updateUser = async (id, userData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
+      setLoading(true);
       await clienteAxios.put(`/usuarios/${id}`, userData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -171,6 +171,8 @@ const UserProvider = ({ children }) => {
     } catch (errores) {
       console.error("Error:", errores);
       setErrores(errores);
+    }finally{
+      setLoading(false);
     }
   };
 

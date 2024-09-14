@@ -8,7 +8,6 @@ export default function UsersList() {
 
   const {
     handleOpenViewModal,
-    deleteUser,
     users,
     selectedRol,
     handleClickRol,

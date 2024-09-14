@@ -1,18 +1,16 @@
 import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
-import useCourse from "../hooks/useCourse";
-import useSWR from "swr";
+/* import useSWR from "swr"; */
 
-const fetcher = (url, token) =>
+/* const fetcher = (url, token) =>
   clienteAxios
     .get(url, { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
-
+ */
 const CategoriaContext = createContext();
 
 const CategoriaProvider = ({ children }) => {
-  const { getCourseById, selectedCourse } = useCourse();
   const [lecciones, setLecciones] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -163,7 +161,7 @@ const CategoriaProvider = ({ children }) => {
     }
   };
 
-  const deleteLeccion = async (id) => {
+/*   const deleteLeccion = async (id) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
       const result = await Swal.fire({
@@ -193,7 +191,7 @@ const CategoriaProvider = ({ children }) => {
       setErrores(error);
       Swal.fire("Error!", "Hubo un problema al eliminar el usuario.", "error");
     }
-  };
+  }; */
 
   // Función para registrar que un archivo ha sido visto
   const registrarArchivoVisto = async (idArchivo) => {
@@ -233,7 +231,6 @@ const CategoriaProvider = ({ children }) => {
         errores,
         createCategoria,
         updateCategoria,
-        deleteLeccion,
         getLeccionById,
         getArchivosLeccionById,
         updateLecciones,

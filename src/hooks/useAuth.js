@@ -48,7 +48,7 @@ export const useAuth = ({ middleware, url }) => {
       const { data } = await clienteAxios.post("registrarse", datos);
       localStorage.setItem("AUTH_TOKEN", data.token);
       setErrores([]);
-      await mutate();
+      mutate();
     } catch (error) {
       setErrores(error.response.data.errors);
     }
@@ -63,7 +63,7 @@ export const useAuth = ({ middleware, url }) => {
       });
       localStorage.removeItem("AUTH_TOKEN");
       navigate("/login");
-      await mutate(null, false);
+      mutate(null, false);
     } catch (error) {
       console.error("Error:", Object.values(error.response.data.errors));
     }

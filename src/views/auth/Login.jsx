@@ -1,4 +1,4 @@
-import { createRef } from "react";
+import { createRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -10,6 +10,8 @@ export default function Login() {
     middleware: "guest",
     url: "/dashboard",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,17 +77,30 @@ export default function Login() {
                 )}
               </div>
 
-              <div className="flex-1 mb-4 flex flex-col gap-2">
+              <div className=" flex-1 mb-4 flex flex-col gap-2">
                 <label htmlFor="password" className="text-slate-800">
                   Contraseña
                 </label>
-                <input
-                  type="password"
-                  ref={passwordRef}
-                  className="p-2 w-full bg-indigo-50 outline-none text-gray-600"
-                  name="password"
-                  placeholder="*************"
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"} // Cambiar entre text y password
+                    ref={passwordRef}
+                    className="p-2 w-full bg-indigo-50 outline-none text-gray-600"
+                    name="password"
+                    placeholder="*************"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-0 rounded-r-md text-white bottom-0 top-0 bg-indigo-600 p-2"
+                    onClick={() => setShowPassword(!showPassword)} // Alternar el estado de showPassword
+                  >
+                    {showPassword ? (
+                      <i className="fa-solid fa-eye-slash"></i>
+                    ) : (
+                      <i className="fa-solid fa-eye"></i>
+                    )}
+                  </button>
+                </div>
                 {errores && errores.password && (
                   <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
                     {errores.password}

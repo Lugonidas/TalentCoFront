@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import AnimatedBackground from "../../components/AnimatedBackground";
+/* import AnimatedBackground from "../../components/AnimatedBackground"; */
 import { Swiper, SwiperSlide } from "swiper/react";
 import useCourse from "../../hooks/useCourse";
 
@@ -149,9 +149,9 @@ export default function Inicio() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5z"
                 ></path>
               </svg>
@@ -172,9 +172,9 @@ export default function Inicio() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M5 15l7-7 7 7"
                 ></path>
               </svg>
@@ -195,9 +195,9 @@ export default function Inicio() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M9 12h6m-3 3v-6m6 9h-6m-3-3H6m12-6V3h-4v3m-8 6v-3H4v3h4v9h4v-9h4z"
                 ></path>
               </svg>
