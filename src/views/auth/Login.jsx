@@ -15,6 +15,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowPassword(false);
 
     const datos = {
       email: emailRef.current.value,
@@ -23,7 +24,6 @@ export default function Login() {
 
     try {
       await login(datos);
-      console.log(errores);
     } catch (error) {
       console.log("Error iniciando sesión.", error);
     }
@@ -51,7 +51,7 @@ export default function Login() {
             Inicia sesión diligenciando el formulario
           </p>
 
-          {errores && !errores.email && !errores.password && (
+          {errores && errores.length > 0 && !errores.email && !errores.password && (
             <p className=" text-center p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
               {errores}
             </p>

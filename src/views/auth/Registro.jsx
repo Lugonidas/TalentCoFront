@@ -45,6 +45,7 @@ export default function Registro() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowPassword(false);
     setIsSubmitting(true);
     const formData = new FormData();
 
@@ -54,20 +55,8 @@ export default function Registro() {
 
     try {
       await registro(formData);
-      // Mostrar el mensaje de confirmación de correo
-      Swal.fire({
-        title: "Registro Exitoso",
-        text: "Hemos enviado un correo de verificación, por favor revisa tu bandeja de entrada.",
-        icon: "success",
-        confirmButtonText: "Aceptar",
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-      }).then(() => {
-        // Redirigir al login después de aceptar el mensaje
-        window.location.href = "/login";
-      });
     } catch (error) {
-      console.error("Error creating user", error);
+      console.error("Error creando el usuario", error);
     } finally {
       setIsSubmitting(false); // Habilitar el botón nuevamente
     }
@@ -203,7 +192,7 @@ export default function Registro() {
                     htmlFor="imagen"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Imagen
+                    Imagen - MAX:4MB
                   </label>
                   <input
                     type="file"
@@ -375,9 +364,8 @@ export default function Registro() {
                     <option value="">Selecciona el tipo de usuario</option>
                     <option value="3">Docente</option>
                     <option value="2">Estudiante</option>
-                    {/* Agrega otros tipos de documento según sea necesario */}
                   </select>
-                  {errores && errores.id_tipo_documento && (
+                  {errores && errores.id_rol && (
                     <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
                       El tipo de documento es obligatorio
                     </p>

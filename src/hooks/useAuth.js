@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useNavigate } from "react-router-dom";
 import clienteAxios from "../config/axios";
+import Swal from "sweetalert2";
 
 export const useAuth = ({ middleware, url }) => {
-  const [errores, setErrores] = useState(null);
+  const [errores, setErrores] = useState([]);
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("AUTH_TOKEN");
 
@@ -36,7 +37,7 @@ export const useAuth = ({ middleware, url }) => {
       localStorage.setItem("AUTH_TOKEN", data.token);
       mutate();
     } catch (errores) {
-      console.log(errores.response.data.errors)
+      console.log(errores.response.data.errors);
       setErrores(errores.response.data.errors);
     } finally {
       setLoading(false);
@@ -47,6 +48,18 @@ export const useAuth = ({ middleware, url }) => {
     try {
       const { data } = await clienteAxios.post("registrarse", datos);
       localStorage.setItem("AUTH_TOKEN", data.token);
+      // Solo mostrar el mensaje de éxito si no hay errores
+      Swal.fire({
+        title: "Registro Exitoso",
+        text: "Hemos enviado un correo de verificación, por favor revisa tu bandeja de entrada.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then(() => {
+        // Redirigir al login después de aceptar el mensaje
+        window.location.href = "/login";
+      });
       setErrores([]);
       mutate();
     } catch (error) {
