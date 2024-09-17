@@ -175,7 +175,7 @@ export default function CreateUser() {
                   htmlFor="imagen"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Imagen
+                  Imagen - MAX:4MB
                 </label>
                 <input
                   type="file"

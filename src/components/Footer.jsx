@@ -9,7 +9,8 @@ export default function Footer() {
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <h3 className="text-lg font-bold mb-2">Talent.Co</h3>
             <p className="text-sm mb-4">
-              Tu plataforma de cursos en línea para aprender y crecer profesionalmente.
+              Tu plataforma de cursos en línea para aprender y crecer
+              profesionalmente.
             </p>
             <address className="text-sm">
               <p>Bogotá DC, Colombia</p>
@@ -22,11 +23,51 @@ export default function Footer() {
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <h3 className="text-lg font-bold mb-2">Enlaces Rápidos</h3>
             <ul className="text-sm">
-              <li><Link to="/cursos" className="hover:underline">Cursos</Link></li>
-              <li><Link to="/about" className="hover:underline">Sobre Nosotros</Link></li>
-              <li><Link to="/contact" className="hover:underline">Contacto</Link></li>
-              <li><Link to="/privacy" className="hover:underline">Política de Privacidad</Link></li>
-              <li><Link to="/terms" className="hover:underline">Términos y Condiciones</Link></li>
+              <li>
+                <Link
+                  aria-label="Ir a los cursos"
+                  to="/cursos"
+                  className="hover:underline"
+                >
+                  Cursos
+                </Link>
+              </li>
+              <li>
+                <Link
+                  aria-label="Ir a sobre nosotros"
+                  to="/about"
+                  className="hover:underline"
+                >
+                  Sobre Nosotros
+                </Link>
+              </li>
+              <li>
+                <Link
+                  aria-label="Ir a contacto"
+                  to="/contact"
+                  className="hover:underline"
+                >
+                  Contacto
+                </Link>
+              </li>
+              <li>
+                <Link
+                  aria-label="Ir a privacidad"
+                  to="/privacy"
+                  className="hover:underline"
+                >
+                  Política de Privacidad
+                </Link>
+              </li>
+              <li>
+                <Link
+                  aria-label="Ir a términos y condiciones"
+                  to="/terms"
+                  className="hover:underline"
+                >
+                  Términos y Condiciones
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -34,16 +75,32 @@ export default function Footer() {
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <h3 className="text-lg font-bold mb-2">Síguenos</h3>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" className="text-blue-600 hover:text-blue-800">
+              <a
+                aria-label="Ir a facebook"
+                href="https://facebook.com"
+                className="text-blue-600 hover:text-blue-800"
+              >
                 <i className="fa-brands fa-facebook-f"></i>
               </a>
-              <a href="https://twitter.com" className="text-blue-400 hover:text-blue-600">
+              <a
+                aria-label="Ir a twitter"
+                href="https://twitter.com"
+                className="text-blue-400 hover:text-blue-600"
+              >
                 <i className="fa-brands fa-twitter"></i>
               </a>
-              <a href="https://linkedin.com" className="text-blue-700 hover:text-blue-900">
+              <a
+                aria-label="Ir a Linkedin"
+                href="https://linkedin.com"
+                className="text-blue-700 hover:text-blue-900"
+              >
                 <i className="fa-brands fa-linkedin-in"></i>
               </a>
-              <a href="https://instagram.com" className="text-pink-600 hover:text-pink-800">
+              <a
+                aria-label="Ir a instagram"
+                href="https://instagram.com"
+                className="text-pink-600 hover:text-pink-800"
+              >
                 <i className="fa-brands fa-instagram"></i>
               </a>
             </div>
@@ -53,7 +110,8 @@ export default function Footer() {
           <div className="w-full md:w-1/4">
             <h3 className="text-lg font-bold mb-2">Suscríbete</h3>
             <p className="text-sm mb-4">
-              Suscríbete a nuestro boletín para recibir las últimas actualizaciones y ofertas.
+              Suscríbete a nuestro boletín para recibir las últimas
+              actualizaciones y ofertas.
             </p>
             <form action="#" method="POST">
               <input
@@ -65,6 +123,7 @@ export default function Footer() {
               <button
                 type="submit"
                 className="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800"
+                aria-label="Suscribirme"
               >
                 Suscribirse
               </button>
@@ -73,7 +132,10 @@ export default function Footer() {
         </div>
 
         <div className="text-center mt-8 border-t border-gray-600 pt-4">
-          <p className="text-sm">&copy; {new Date().getFullYear()} Talentos Colombia. Todos los derechos reservados.</p>
+          <p className="text-sm">
+            &copy; {new Date().getFullYear()} Talentos Colombia. Todos los
+            derechos reservados.
+          </p>
         </div>
       </div>
     </footer>

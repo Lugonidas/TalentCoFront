@@ -81,6 +81,7 @@ export default function CoursesList() {
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}
+                  aria-label="Ver todos los cursos"
                 >
                   Todos
                 </button>
@@ -91,6 +92,7 @@ export default function CoursesList() {
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}
+                  aria-label="Ver cursos activos"
                 >
                   Activos
                 </button>
@@ -101,6 +103,7 @@ export default function CoursesList() {
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}
+                  aria-label="Ver cursos inactivos"
                 >
                   Inactivos
                 </button>
@@ -149,6 +152,7 @@ export default function CoursesList() {
                 <strong className="font-bold mb-2 text-indigo-800">
                   <Link
                     to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
+                    aria-label="Ir a ver el curso"
                   >
                     {curso.titulo}
                   </Link>
@@ -170,10 +174,12 @@ export default function CoursesList() {
                 <div className="md:py-2">
                   <Link
                     to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
+                    aria-label="Ir a ver el curso"
                   >
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
+                      aria-label="Ir a ver el curso"
                     >
                       <i className="fa-solid fa-eye bg-green-600 text-white p-2"></i>
                     </motion.button>
@@ -201,6 +207,7 @@ export default function CoursesList() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => handleOpenEditModal(curso)}
+                        aria-label="Ir a editar el curso"
                       >
                         <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
                       </motion.button>

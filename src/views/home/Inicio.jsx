@@ -36,6 +36,7 @@ export default function Inicio() {
               <Link
                 to="/cursos"
                 className="text-indigo-800 font-bold text-sm ml-4 transition-all inline-block ease-out hover:-translate-y-1 hover:scale-110 "
+                aria-label="Ir a ver los cursos"
               >
                 Ver más &rarr;
               </Link>
@@ -52,12 +53,14 @@ export default function Inicio() {
             </p>
             <div className="my-5 flex justify-center items-center gap-2">
               <Link
+                aria-label="Ir a regisrtarme"
                 to="/registro"
                 className="text-gray-700 border-2 border-dashed py-2 border-indigo-800 font-bold px-4 rounded-full transition-all ease hover:border-2 hover:border-solid hover:py-2 hover:border-indigo-800 hover:bg-indigo-800 hover:text-white"
               >
                 Registrarme
               </Link>
               <Link
+                aria-label="Ir a ver los cursos"
                 to="/cursos"
                 className="bg-indigo-800 text-white py-2 px-4 font-bold rounded-full border-2 border-indigo-800 transition-all ease hover:border-2 hover:border-dashed hover:py-2 hover:border-indigo-800 hover:bg-white hover:text-gray-700"
               >
@@ -96,6 +99,7 @@ export default function Inicio() {
             {cursos.map((course) => (
               <SwiperSlide key={course.id}>
                 <Link
+                  aria-label={"Ir a ver el curso: " + course.titulo}
                   to={`/cursos/show/${course.id}`}
                   className="course-card shadow-md block bg-white mb-10"
                 >
@@ -103,7 +107,7 @@ export default function Inicio() {
                     <img
                       loading="lazy"
                       src={`${apiUrl}/storage/${course?.imagen}`}
-                      alt={course.titulo}
+                      alt={"Imagen del curso: " + course.titulo}
                       className="course-image w-full h-auto"
                     />
                   </div>

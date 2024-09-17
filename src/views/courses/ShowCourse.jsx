@@ -177,10 +177,11 @@ export default function ShowCourse() {
           <div className="mx-auto px-2">
             <div className="border border-dotted my-2 px-4 md:px-10">
               <div className="my-4 flex gap-4 items-center">
-                <Link to={`${user ? "/dashboard" : ""}/cursos`}>
+                <Link to={`${user ? "/dashboard" : ""}/cursos`} aria-label="Volver a los cursos">
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
+                    aria-label="Volver a los cursos"
                   >
                     <i className="fa-regular fa-circle-left text-3xl text-green-800"></i>
                   </motion.button>
@@ -190,6 +191,7 @@ export default function ShowCourse() {
                   <button
                     onClick={handleOpenCreateModal}
                     className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
+                    aria-label="Agregar Lección"
                   >
                     Agregar Lección
                   </button>
@@ -269,6 +271,7 @@ export default function ShowCourse() {
                       user?.id_rol != 3 && (
                         <div>
                           <button
+                            aria-label={textoBtnIncripcion}
                             onClick={() =>
                               inscribirme(user.id, selectedCourse.id)
                             }
@@ -378,6 +381,7 @@ export default function ShowCourse() {
                                       onClick={() =>
                                         handleOpenEditModal(comentario)
                                       }
+                                      aria-label="Editar Comentario"
                                     >
                                       <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
                                     </motion.button>

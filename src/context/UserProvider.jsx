@@ -116,8 +116,6 @@ const UserProvider = ({ children }) => {
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
-      setErrores({});
-      mutateUsuarios();
     });
   };
 
@@ -137,17 +135,17 @@ const UserProvider = ({ children }) => {
   const createUser = async (userData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
-      setLoading(true);
       await clienteAxios.post("/usuarios", userData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       handleCreateSuccess();
+      setErrores({});
+      mutateUsuarios();
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
       setErrores(errores.response.data.errors);
-      setLoading(false);
     }
   };
   

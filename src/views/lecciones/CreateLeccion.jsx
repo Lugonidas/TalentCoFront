@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CourseContext } from "../../context/CourseProvider";
 import { useAuth } from "../../hooks/useAuth";
 import useLeccion from "../../hooks/useLeccion";
@@ -7,7 +7,25 @@ import { motion } from "framer-motion";
 export default function CreateLeccion() {
   const { user } = useAuth({ middleware: "auth" });
   const { selectedCourse } = useContext(CourseContext);
-  const { handleCloseModals, createLeccion, errores } = useLeccion();
+  const { handleCloseModals, createLeccion, errores, lecciones } = useLeccion();
+
+  // Calcular el siguiente número de orden
+  useEffect(() => {
+    if (lecciones && lecciones.length > 0) {
+      const maxOrden = Math.max(
+        ...lecciones.map((leccion) => leccion.orden)
+      );
+      setLeccion((prevLeccion) => ({
+        ...prevLeccion,
+        orden: maxOrden + 1,
+      }));
+    } else {
+      setLeccion((prevLeccion) => ({
+        ...prevLeccion,
+        orden: 1,
+      }));
+    }
+  }, [lecciones]);
 
   const [leccion, setLeccion] = useState({
     titulo: "",
@@ -55,7 +73,7 @@ export default function CreateLeccion() {
               htmlFor="imagen"
               className="block text-sm font-medium text-gray-700"
             >
-              Imagen
+              Imagen - MAX:4MB
             </label>
             <input
               type="file"

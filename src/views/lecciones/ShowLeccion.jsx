@@ -8,6 +8,8 @@ import Modal from "../../components/Modal";
 import CreateArchivo from "../archivo/CreateArchivo";
 import ShowArchivo from "../archivo/ShowArchivo";
 import { motion } from "framer-motion";
+import { formatDistanceToNow } from "date-fns";
+import { es } from "date-fns/locale";
 
 export default function ShowLeccion() {
   const { user } = useAuth({ middleware: "guest" });
@@ -76,10 +78,18 @@ export default function ShowLeccion() {
 
               <div className="my-2">
                 <p className="text-xs">
-                  Creado: {moment(selectedLeccion.created_at).fromNow()}
+                  Creado:{" "}
+                  {formatDistanceToNow(new Date(selectedLeccion.created_at), {
+                    locale: es,
+                    addSuffix: true,
+                  })}
                 </p>
                 <p className="text-xs">
-                  Actualizado: {moment(selectedLeccion.updated_at).fromNow()}
+                  Actualizado:{" "}
+                  {formatDistanceToNow(new Date(selectedLeccion.updated_at), {
+                    locale: es,
+                    addSuffix: true,
+                  })}
                 </p>
               </div>
               {user && user.id == selectedLeccion.id_docente && (

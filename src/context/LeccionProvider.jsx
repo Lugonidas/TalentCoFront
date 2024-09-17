@@ -34,6 +34,7 @@ const LeccionProvider = ({ children }) => {
     setCreateModal(false);
     setViewModal(false);
     setEditModal(false);
+    setErrores({})
   };
 
   const getArchivosLeccionById = async (leccionId) => {

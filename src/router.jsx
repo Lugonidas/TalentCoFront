@@ -1,23 +1,8 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import AuthLayout from "./layouts/AuthLayout";
-import InicioDashboard from "./views/dashboard/Inicio";
-import InicioChat from "./views/chat/Inicio";
-import InicioCourses from "./views/courses/Inicio";
-import InicioCategorias from "./views/categorias/Inicio";
-import InicioUsers from "./views/users/Inicio";
-import Perfil from "./views/users/Perfil";
-import Login from "./views/auth/Login";
-import Registro from "./views/auth/Registro";
-import Home from "./views/home/Inicio";
-import Cursos from "./views/home/Cursos";
-import ShowCourse from "./views/courses/ShowCourse";
-import MisCursos from "./views/courses/MisCursos";
-import CrearReunion from "./views/reuniones/CrearReunion";
-import Inicio from "./views/reuniones/Inicio";
-import ShowReunion from "./views/reuniones/ShowReunion";
 import ProtectedRoute from "./components/ProtectedRoute";
-import CrearReunionPro from "./views/reuniones/CrearReunionPro";
 import { UserProvider } from "./context/UserProvider";
 import { ChatProvider } from "./context/ChatProvider";
 import { CourseProvider } from "./context/CourseProvider";
@@ -25,15 +10,42 @@ import { ComentarioProvider } from "./context/ComentarioProvider";
 import { LeccionProvider } from "./context/LeccionProvider";
 import { ArchivoProvider } from "./context/ArchivoProvider";
 import { CategoriaProvider } from "./context/CategoriaProvider";
+import Loader from "./components/Loader";
+const InicioDashboard = lazy(() => import("./views/dashboard/Inicio"));
+const InicioChat = lazy(() => import("./views/chat/Inicio"));
+const InicioCourses = lazy(() => import("./views/courses/Inicio"));
+const InicioCategorias = lazy(() => import("./views/categorias/Inicio"));
+const InicioUsers = lazy(() => import("./views/users/Inicio"));
+const Perfil = lazy(() => import("./views/users/Perfil"));
+const Login = lazy(() => import("./views/auth/Login"));
+const Registro = lazy(() => import("./views/auth/Registro"));
+const Home = lazy(() => import("./views/home/Inicio"));
+const Cursos = lazy(() => import("./views/home/Cursos"));
+const ShowCourse = lazy(() => import("./views/courses/ShowCourse"));
+const MisCursos = lazy(() => import("./views/courses/MisCursos"));
+const CrearReunion = lazy(() => import("./views/reuniones/CrearReunion"));
+const Inicio = lazy(() => import("./views/reuniones/Inicio"));
+const ShowReunion = lazy(() => import("./views/reuniones/ShowReunion"));
+const CrearReunionPro = lazy(() => import("./views/reuniones/CrearReunionPro"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <CourseProvider>
+          <Layout />
+        </CourseProvider>
+      </Suspense>
+    ),
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "cursos",
@@ -42,11 +54,13 @@ const router = createBrowserRouter([
       {
         path: "cursos/show/:courseId",
         element: (
-          <ComentarioProvider>
-            <LeccionProvider>
-              <ShowCourse />,
-            </LeccionProvider>
-          </ComentarioProvider>
+          <Suspense fallback={<Loader />}>
+            <ComentarioProvider>
+              <LeccionProvider>
+                <ShowCourse />,
+              </LeccionProvider>
+            </ComentarioProvider>
+          </Suspense>
         ),
       },
       {
@@ -62,79 +76,101 @@ const router = createBrowserRouter([
   {
     path: "dashboard",
     element: (
-      <ProtectedRoute middleware="auth">
-        <AuthLayout />
-      </ProtectedRoute>
+      <Suspense fallback={<Loader />}>
+        <ProtectedRoute middleware="auth">
+          <AuthLayout />
+        </ProtectedRoute>
+      </Suspense>
     ),
     children: [
       {
         index: true,
         element: (
-          <UserProvider>
-            <InicioDashboard />
-          </UserProvider>
+          <Suspense fallback={<Loader />}>
+            <UserProvider>
+              <CourseProvider>
+                <InicioDashboard />
+              </CourseProvider>
+            </UserProvider>
+          </Suspense>
         ),
       },
       {
         path: "chat",
         element: (
-          <ChatProvider>
-            <InicioChat />
-          </ChatProvider>
+          <Suspense fallback={<Loader />}>
+            <ChatProvider>
+              <InicioChat />
+            </ChatProvider>
+          </Suspense>
         ),
       },
       {
         path: "cursos",
         element: (
-          <CourseProvider>
-            <InicioCourses />
-          </CourseProvider>
+          <Suspense fallback={<Loader />}>
+            <CourseProvider>
+              <InicioCourses />
+            </CourseProvider>
+          </Suspense>
         ),
       },
       {
         path: "categorias",
         element: (
-          <CategoriaProvider>
-            <InicioCategorias />
-          </CategoriaProvider>
+          <Suspense fallback={<Loader />}>
+            <CategoriaProvider>
+              <InicioCategorias />
+            </CategoriaProvider>
+          </Suspense>
         ),
       },
       {
         path: "cursos/show/:courseId",
         element: (
-          <ComentarioProvider>
-            <LeccionProvider>
-              <ArchivoProvider>
-                <ShowCourse />
-              </ArchivoProvider>
-            </LeccionProvider>
-          </ComentarioProvider>
+          <Suspense fallback={<Loader />}>
+            <ComentarioProvider>
+              <LeccionProvider>
+                <ArchivoProvider>
+                  <ShowCourse />
+                </ArchivoProvider>
+              </LeccionProvider>
+            </ComentarioProvider>
+          </Suspense>
         ),
       },
       {
         path: "misCursos",
         element: (
-          <ComentarioProvider>
-            <LeccionProvider>
-              <MisCursos />
-            </LeccionProvider>
-          </ComentarioProvider>
+          <Suspense fallback={<Loader />}>
+            <CourseProvider>
+              <ComentarioProvider>
+                <LeccionProvider>
+                  <MisCursos />
+                </LeccionProvider>
+              </ComentarioProvider>
+            </CourseProvider>
+          </Suspense>
         ),
       },
       {
         path: "usuarios",
         element: (
-          <UserProvider>
-            <InicioUsers />
-          </UserProvider>
+          <Suspense fallback={<Loader />}>
+            <UserProvider>
+              <InicioUsers />
+            </UserProvider>
+          </Suspense>
         ),
       },
       {
         path: "perfil",
         element: (
-          <UserProvider>
-            <Perfil />
-          </UserProvider>
+          <Suspense fallback={<Loader />}>
+            <UserProvider>
+              <Perfil />
+            </UserProvider>
+          </Suspense>
         ),
       },
       {
