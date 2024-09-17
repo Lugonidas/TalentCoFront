@@ -37,15 +37,7 @@ export default function MisCursos() {
   }, [user]);
 
   if (loading) {
-    <Loader />
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <span className="loader"></span>
-      </div>
-    );
+    <Loader />;
   }
 
   return (

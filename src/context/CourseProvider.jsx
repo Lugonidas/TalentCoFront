@@ -34,7 +34,7 @@ const CourseProvider = ({ children }) => {
     mutate: mutateCursos,
   } = useSWR(`/cursos`, fetcher, { refreshInterval: 5000 });
 
-/*   // Fetch categorías
+  /*   // Fetch categorías
   const { data: categoriasData, error: categoriasError } = useSWR(
     token ? `/categorias?token=${token}` : null,
     fetcher
@@ -251,8 +251,8 @@ const CourseProvider = ({ children }) => {
     if (!token) {
       return;
     }
-
     try {
+      setLoading(true);
       const response = await clienteAxios.get(
         `/cursos/${tipoUsuario}/${userId}`,
         {
@@ -263,10 +263,10 @@ const CourseProvider = ({ children }) => {
       );
 
       setMisCursos(response.data.cursos);
-      setLoading(false);
       mutateCursos();
     } catch (error) {
       console.error("Error:", error);
+    } finally {
       setLoading(false);
     }
   };

@@ -82,19 +82,25 @@ export default function Teacher() {
             </Link>
           </div>
         </div>
-        <div className="w-full md:flex md:justify-center gap-2">
-          <div className="md:w-1/3">
+        <div className="w-full sm:grid md:grid-cols-2 gap-2">
+          <div className="max-h-full shadow-md m-2 p-2">
+            <h2 className="text-center font-bold text-xl text-gray-600">
+              No. de estudiantes por curso
+            </h2>
             <DynamicChart
               labels={labels}
               data={data}
               title="No. de estudiantes por curso"
               backgroundColor="rgba(255, 99, 132, 0.2)"
               borderColor="rgba(255, 99, 132, 1)"
-              borderWidth={20}
-              chartType="bar"
+              borderWidth={1}
+              chartType="radar"
             />
           </div>
-          <div className="md:w-1/3">
+          <div className="max-h-full shadow-md m-2 p-2">
+            <h2 className="text-center font-bold text-xl text-gray-600">
+              No. de cursos por categoria
+            </h2>
             <DynamicChart
               labels={labelsCategorias}
               data={dataCategorias}
