@@ -68,7 +68,7 @@ export default function Inicio() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
-        {user && user.id_rol === 1 && (
+        {user && user.id_rol == 1 && (
           <div className="px-2 my-2">
             <h1 className="text-2xl font-black uppercase text-center mb-4 text-indigo-800">
               Listado Usuarios

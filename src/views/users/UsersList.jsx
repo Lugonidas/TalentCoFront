@@ -30,7 +30,7 @@ export default function UsersList() {
   let filteredUsers = users.filter((user) => user.id !== userAuth.id);
 
   filteredUsers = filteredUsers.filter((user) => {
-    const matchesRol = selectedRol ? user.id_rol === selectedRol : true;
+    const matchesRol = selectedRol ? user.id_rol == selectedRol : true;
     const matchesSearchTerm = user.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -75,7 +75,7 @@ export default function UsersList() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleClickRol(rol.id)}
                   className={`py-0.5 px-2 border border-dotted border-indigo-800 transition-all ease-linear hover:cursor-pointer ${
-                    selectedRol === rol.id
+                    selectedRol == rol.id
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}
@@ -111,9 +111,9 @@ export default function UsersList() {
               <p className="text-xs capitalize">{user.usuario}</p>
               <strong className="text-xs text-gray-500">{user.email}</strong>
               <p className="font-bold text-gray-600 text-xs uppercase absolute bottom-1 right-2">
-                {user.id_rol === 1 && <span>Administrador</span>}
-                {user.id_rol === 2 && <span>Estudiante</span>}
-                {user.id_rol === 3 && <span>Docente</span>}
+                {user.id_rol == 1 && <span>Administrador</span>}
+                {user.id_rol == 2 && <span>Estudiante</span>}
+                {user.id_rol == 3 && <span>Docente</span>}
               </p>
               {/*  <div className="py-2">
                 {userAuth && userAuth.id_rol === 1 && (
