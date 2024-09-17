@@ -2,6 +2,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
+
 export default function AuthLayout() {
   return (
     <div className="flex">

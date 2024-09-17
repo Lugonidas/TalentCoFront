@@ -63,6 +63,7 @@ export default function Sidebar() {
         } h-screen flex flex-col justify-between transition-all ease-linear z-10`}
       >
         <button
+          aria-label="Ir a ver el menu"
           onClick={toggleSidebar}
           className="p-2 flex flex-col bg-indigo-800 text-white items-center absolute top-0 left-full transition-all ease-linear hover:translate-x-1 z-10"
         >
@@ -73,6 +74,7 @@ export default function Sidebar() {
         {/* Contenido del sidebar */}
         <div>
           <Link
+            aria-label="Ir a ver el dashboard"
             to="/dashboard"
             className={`${
               isSidebarExpanded ? "grid-cols-4" : ""
@@ -95,6 +97,7 @@ export default function Sidebar() {
           <ul className="mt-5">
             <li>
               <Link
+                aria-label="Ir a ver el dashboard"
                 to="/dashboard"
                 className={` ${
                   isActive("/dashboard")
@@ -117,6 +120,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
+                aria-label="Ir a ver al chat"
                 to="/dashboard/chat"
                 className={`${
                   isActive("/dashboard/chat")
@@ -137,6 +141,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
+                aria-label="Ir a ver todos los cursos"
                 to="/dashboard/cursos"
                 className={`${
                   isActive("/dashboard/cursos")
@@ -160,6 +165,7 @@ export default function Sidebar() {
             {user && user.id_rol == 2 && (
               <li>
                 <Link
+                  aria-label="Ir a ver mis cursos"
                   to="/dashboard/misCursos"
                   className={`${
                     isActive("/dashboard/misCursos")
@@ -185,6 +191,7 @@ export default function Sidebar() {
               <>
                 <li>
                   <Link
+                    aria-label="Ir a ver mis cursos"
                     to="/dashboard/misCursos"
                     className={`${
                       isActive("/dashboard/misCursos")
@@ -211,6 +218,7 @@ export default function Sidebar() {
               <>
                 <li>
                   <Link
+                    aria-label="Ir a ver las categorias"
                     to="/dashboard/categorias"
                     className={`${
                       isActive("/dashboard/categorias")
@@ -233,6 +241,7 @@ export default function Sidebar() {
                 </li>
                 <li>
                   <Link
+                    aria-label="Ir a ver los usuarios"
                     to="/dashboard/usuarios"
                     className={`${
                       isActive("/dashboard/usuarios")
@@ -257,6 +266,7 @@ export default function Sidebar() {
             )}
             <li>
               <Link
+                aria-label="Ir a ver las reuniones"
                 to="/dashboard/reuniones" // Ruta hacia la página de creación de reuniones
                 className={`${
                   isActive("/dashboard/reuniones")
@@ -280,6 +290,7 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
+                aria-label="Ir a ver el perfil"
                 to="/dashboard/perfil"
                 className={`${
                   isActive("/dashboard/perfil")
@@ -293,7 +304,7 @@ export default function Sidebar() {
                   loading="lazy"
                   className="w-9 mx-auto"
                   src="/img/perfil.png"
-                  alt="Perfil"
+                  alt="Imagen del perfil"
                 />
                 {isSidebarExpanded && (
                   <span className="col-span-3">Mi Perfil</span>
@@ -328,7 +339,7 @@ export default function Sidebar() {
                     <span className="text-indigo-800">Administrador</span>
                   )}
                   {user && user.id_rol == 3 && (
-                    <span className="text-indigo-800">Profesor</span>
+                    <span className="text-indigo-800">Docente</span>
                   )}
                   {user && user.id_rol == 2 && (
                     <span className="text-indigo-800">Estudiante</span>
@@ -339,6 +350,7 @@ export default function Sidebar() {
             <button
               onClick={logout}
               className="p-2 bg-green-800 text-white font-bold hover:bg-green-900 transition-all ease-linear duration-500 text-xl"
+              aria-label="Cerrar sesión"
             >
               <i className="fa-solid fa-arrow-right-from-bracket rotate-180 pl-1"></i>
               {isSidebarExpanded && <span>Cerrar sesión</span>}

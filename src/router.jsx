@@ -11,6 +11,7 @@ import { LeccionProvider } from "./context/LeccionProvider";
 import { ArchivoProvider } from "./context/ArchivoProvider";
 import { CategoriaProvider } from "./context/CategoriaProvider";
 import Loader from "./components/Loader";
+import VerifyEmail from "./views/auth/VerifyEmail";
 const InicioDashboard = lazy(() => import("./views/dashboard/Inicio"));
 const InicioChat = lazy(() => import("./views/chat/Inicio"));
 const InicioCourses = lazy(() => import("./views/courses/Inicio"));
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
         element: <Registro />,
       },
     ],
+  },
+  {
+    path: "veriry-email/:id/:hash",
+    element: <VerifyEmail />,
   },
   {
     path: "dashboard",
