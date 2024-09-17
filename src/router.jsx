@@ -129,13 +129,15 @@ const router = createBrowserRouter([
         path: "cursos/show/:courseId",
         element: (
           <Suspense fallback={<Loader />}>
-            <ComentarioProvider>
-              <LeccionProvider>
-                <ArchivoProvider>
-                  <ShowCourse />
-                </ArchivoProvider>
-              </LeccionProvider>
-            </ComentarioProvider>
+            <CourseProvider>
+              <ComentarioProvider>
+                <LeccionProvider>
+                  <ArchivoProvider>
+                    <ShowCourse />
+                  </ArchivoProvider>
+                </LeccionProvider>
+              </ComentarioProvider>
+            </CourseProvider>
           </Suspense>
         ),
       },
