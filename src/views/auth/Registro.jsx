@@ -367,7 +367,7 @@ export default function Registro() {
                   </select>
                   {errores && errores.id_rol && (
                     <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
-                      El tipo de documento es obligatorio
+                      {errores.id_rol}
                     </p>
                   )}
                 </div>
