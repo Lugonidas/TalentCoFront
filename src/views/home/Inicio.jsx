@@ -16,6 +16,9 @@ export default function Inicio() {
   const { cursos, loading } = useCourse();
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
+  const cursosActivos = cursos.filter(curso => curso.estado == 1);
+
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -96,7 +99,7 @@ export default function Inicio() {
               },
             }}
           >
-            {cursos.map((course) => (
+            {cursosActivos.map((course) => (
               <SwiperSlide key={course.id}>
                 <Link
                   aria-label={"Ir a ver el curso: " + course.titulo}

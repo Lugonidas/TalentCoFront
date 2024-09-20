@@ -45,8 +45,6 @@ export default function CoursesList() {
     return matchesCategoria && matchesSearchTerm && matchesEstado;
   });
 
-  console.log(filteredCursos)
-
   // Función para calcular la calificación promedio
   const calculateAverageRating = (comentarios) => {
     if (comentarios.length == 0) return 0;
