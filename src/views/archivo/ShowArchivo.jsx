@@ -2,6 +2,7 @@ import "moment/locale/es";
 import useArchivo from "../../hooks/useArchivo";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import Loader from "../../components/Loader";
 
 export default function ShowArchivo() {
   const { user } = useAuth({ middleware: "auth" });
@@ -68,9 +69,7 @@ export default function ShowArchivo() {
 
   if (!selectedArchivo) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <span className="loader"></span>
-      </div>
+      <Loader />
     );
   }
 

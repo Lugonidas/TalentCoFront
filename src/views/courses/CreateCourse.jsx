@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import useCourse from "../../hooks/useCourse";
+import { useDropzone } from "react-dropzone";
 
 export default function CreateCourse() {
   const { user, isAdmin } = useAuth({ middleware: "auth" });
+  const [filePreview, setFilePreview] = useState(null); // Para almacenar la URL del archivo
 
   const { createCourse, categoriasDisponibles, handleCloseModals, errores } =
     useCourse();
@@ -15,7 +17,7 @@ export default function CreateCourse() {
     duracion: 0,
     id_docente: user.id,
     id_categoria: "",
-    estado: 1,
+    estado: 0,
     fecha_inicio: "",
     fecha_fin: "",
   });
@@ -49,13 +51,28 @@ export default function CreateCourse() {
     }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (file) => {
+    setCurso((prevCurso) => ({
+      ...prevCurso,
+      imagen: file,
+    }));
+
+    // Verificamos si el archivo es una imagen o PDF y generamos la URL para vista previa
+    const fileType = file.type;
+    if (fileType.includes("image")) {
+      setFilePreview(URL.createObjectURL(file)); // Para imágenes
+    } else {
+      setFilePreview(null); // No soporta vista previa para otros tipos
+    }
+  };
+
+/*   const handleImageChange = (e) => {
     setCurso((prevCurso) => ({
       ...prevCurso,
       imagen: e.target.files[0],
     }));
   };
-
+ */
   const handleSwitchChange = () => {
     setCurso((prevCurso) => ({
       ...prevCurso,
@@ -78,12 +95,22 @@ export default function CreateCourse() {
     }
   };
 
+  // Configuración de drag and drop usando react-dropzone
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "image/*": [] },
+    onDrop: (acceptedFiles) => {
+      if (acceptedFiles.length > 0) {
+        handleImageChange(acceptedFiles[0]); // Maneja el archivo seleccionado
+      }
+    },
+  });
+
   return (
     <>
       <h2 className="text-2xl font-bold mb-4">Nuevo Curso</h2>
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <div className="grid md:grid-cols-2 gap-4">
-        <div>
+          <div>
             <label
               htmlFor="titulo"
               className="block text-sm font-medium text-gray-700"
@@ -106,7 +133,7 @@ export default function CreateCourse() {
               </p>
             )}
           </div>
-          <div>
+          {/* <div>
             <label
               htmlFor="imagen"
               className="block text-sm font-medium text-gray-700"
@@ -126,8 +153,7 @@ export default function CreateCourse() {
                 {errores.imagen}
               </p>
             )}
-          </div>
-         
+          </div> */}
         </div>
 
         <div>
@@ -259,6 +285,53 @@ export default function CreateCourse() {
               </p>
             )}
           </div>
+
+                  {/* Campo para la imagen */}
+        <div>
+          <label
+            htmlFor="archivo"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Archivo - MAX:4MB
+          </label>
+          <div
+            {...getRootProps({
+              className:
+                "mt-1 flex justify-center items-center w-full px-3 py-2 border-2 border-dashed border-gray-300 min-h-28 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+            })}
+          >
+            <input {...getInputProps()} />
+            <p className="text-gray-600 font-bold">
+              Arrastra y suelta un archivo aquí, o haz clic para seleccionar un
+              archivo
+            </p>
+          </div>
+          {/* Mostrar vista previa del archivo */}
+          {filePreview && (
+            <div className="mt-4">
+              {curso.imagen.type.includes("image") ? (
+                <img
+                  src={filePreview}
+                  alt="Vista previa de la imagen"
+                  className="max-w-xs max-h-xs"
+                />
+              ) : curso.imagen.type === "application/pdf" ? (
+                <iframe
+                  src={filePreview}
+                  title="Vista previa del PDF"
+                  className="w-full h-64"
+                ></iframe>
+              ) : (
+                <p>No se puede previsualizar este archivo</p>
+              )}
+            </div>
+          )}
+          {errores && errores.archivo && (
+            <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+              {errores.archivo}
+            </p>
+          )}
+        </div>
 
           {user && isAdmin && (
             <div className="flex flex-col">

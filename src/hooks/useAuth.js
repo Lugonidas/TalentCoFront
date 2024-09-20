@@ -37,7 +37,6 @@ export const useAuth = ({ middleware, url }) => {
       localStorage.setItem("AUTH_TOKEN", data.token);
       mutate();
     } catch (errores) {
-      console.log(errores.response.data.errors);
       setErrores(errores.response.data.errors);
     } finally {
       setLoading(false);
@@ -58,7 +57,7 @@ export const useAuth = ({ middleware, url }) => {
         allowEscapeKey: false,
       }).then(() => {
         // Redirigir al login después de aceptar el mensaje
-        window.location.href = "/login";
+        navigate("/login");
       });
       setErrores([]);
       mutate();
@@ -100,6 +99,8 @@ export const useAuth = ({ middleware, url }) => {
     error,
     errores,
     isAdmin: user?.id_rol == 1,
+    isTeacher: user?.id_rol == 3,
+    isStudent: user?.id_rol == 2,
     loading,
   };
 };

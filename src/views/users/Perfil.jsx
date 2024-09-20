@@ -6,6 +6,7 @@ import "../../styles/spinner.scss";
 import moment from "moment";
 import "moment/locale/es";
 import "moment-timezone";
+import Loader from "../../components/Loader";
 
 export default function Perfil() {
   const { user, mutate } = useAuth({ middleware: "auth" });
@@ -37,9 +38,7 @@ export default function Perfil() {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="spinner"></div>
-      </div>
+      <Loader />
     );
   }
 

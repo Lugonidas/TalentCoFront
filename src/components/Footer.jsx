@@ -7,21 +7,27 @@ export default function Footer() {
         <div className="flex flex-wrap justify-between">
           {/* Información de la Empresa */}
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
-            <h3 className="text-lg font-bold mb-2">Talent.Co</h3>
+            <h3 className="text-2xl font-bold mb-2">
+              <Link to={"/"} className="text-yellow-600 font-black">
+                TalentCo
+              </Link>
+            </h3>
             <p className="text-sm mb-4">
               Tu plataforma de cursos en línea para aprender y crecer
               profesionalmente.
             </p>
             <address className="text-sm">
               <p>Bogotá DC, Colombia</p>
-              <p>Email: contacto@talentoscolombia.com</p>
+              <p>Email: talentco@apitalentco.sociedad.la</p>
               <p>Teléfono: +57 318 281 2005</p>
             </address>
           </div>
 
           {/* Enlaces Rápidos */}
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
-            <h3 className="text-lg font-bold mb-2">Enlaces Rápidos</h3>
+            <h3 className="text-lg font-bold mb-2 text-yellow-600">
+              Enlaces Rápidos
+            </h3>
             <ul className="text-sm">
               <li>
                 <Link
@@ -35,7 +41,7 @@ export default function Footer() {
               <li>
                 <Link
                   aria-label="Ir a sobre nosotros"
-                  to="/about"
+                  to="/sobre-nosotros"
                   className="hover:underline"
                 >
                   Sobre Nosotros
@@ -44,7 +50,7 @@ export default function Footer() {
               <li>
                 <Link
                   aria-label="Ir a contacto"
-                  to="/contact"
+                  to="/contacto"
                   className="hover:underline"
                 >
                   Contacto
@@ -53,19 +59,19 @@ export default function Footer() {
               <li>
                 <Link
                   aria-label="Ir a privacidad"
-                  to="/privacy"
+                  to="/login"
                   className="hover:underline"
                 >
-                  Política de Privacidad
+                  Login
                 </Link>
               </li>
               <li>
                 <Link
                   aria-label="Ir a términos y condiciones"
-                  to="/terms"
+                  to="/registro"
                   className="hover:underline"
                 >
-                  Términos y Condiciones
+                  Registro
                 </Link>
               </li>
             </ul>
@@ -73,7 +79,7 @@ export default function Footer() {
 
           {/* Redes Sociales */}
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
-            <h3 className="text-lg font-bold mb-2">Síguenos</h3>
+            <h3 className="text-lg font-bold mb-2 text-yellow-600">Síguenos</h3>
             <div className="flex space-x-4">
               <a
                 aria-label="Ir a facebook"
@@ -104,30 +110,6 @@ export default function Footer() {
                 <i className="fa-brands fa-instagram"></i>
               </a>
             </div>
-          </div>
-
-          {/* Boletín Informativo */}
-          <div className="w-full md:w-1/4">
-            <h3 className="text-lg font-bold mb-2">Suscríbete</h3>
-            <p className="text-sm mb-4">
-              Suscríbete a nuestro boletín para recibir las últimas
-              actualizaciones y ofertas.
-            </p>
-            <form action="#" method="POST">
-              <input
-                type="email"
-                placeholder="Tu correo electrónico"
-                className="w-full px-3 py-2 mb-2 text-gray-800 rounded"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800"
-                aria-label="Suscribirme"
-              >
-                Suscribirse
-              </button>
-            </form>
           </div>
         </div>
 

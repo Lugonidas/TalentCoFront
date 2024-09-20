@@ -21,10 +21,12 @@ import CreateComentario from "../comentarios/CreateComentario";
 import Loader from "../../components/Loader";
 import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
+import useTarea from "../../hooks/useTarea";
+import CreateTarea from "../tareas/CreateTarea";
 
 moment.locale("es");
 export default function ShowCourse() {
-  const { user } = useAuth({ middleware: "guest" });
+  const { user, isAdmin, isTeacher } = useAuth({ middleware: "guest" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
   const { courseId } = useParams();
@@ -45,6 +47,8 @@ export default function ShowCourse() {
     setHaComentado,
     loading: loadingComentarios,
   } = useComentario();
+
+  const { createModalTarea, handleOpenCreateModalTarea } = useTarea();
 
   const {
     handleOpenCreateModal,
@@ -144,6 +148,13 @@ export default function ShowCourse() {
 
   return (
     <div>
+      {createModalTarea && (
+        <Modal>
+          <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
+            <CreateTarea />
+          </div>
+        </Modal>
+      )}
       {createModal && (
         <Modal>
           <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
@@ -177,7 +188,10 @@ export default function ShowCourse() {
           <div className="mx-auto px-2">
             <div className="border border-dotted my-2 px-4 md:px-10">
               <div className="my-4 flex gap-4 items-center">
-                <Link to={`${user ? "/dashboard" : ""}/cursos`} aria-label="Volver a los cursos">
+                <Link
+                  to={`${user ? "/dashboard" : ""}/cursos`}
+                  aria-label="Volver a los cursos"
+                >
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
@@ -188,13 +202,34 @@ export default function ShowCourse() {
                 </Link>
 
                 {user?.id == selectedCourse.id_docente && (
-                  <button
-                    onClick={handleOpenCreateModal}
-                    className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
-                    aria-label="Agregar Lección"
+                  <>
+                    <button
+                      onClick={handleOpenCreateModal}
+                      className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
+                      aria-label="Agregar Lección"
+                    >
+                      Agregar Lección
+                    </button>
+                    <button
+                      onClick={handleOpenCreateModalTarea}
+                      className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
+                      aria-label="Agregar Lección"
+                    >
+                      Agregar Tarea
+                    </button>
+                  </>
+                )}
+
+                {estaInscrito || isTeacher || isAdmin ? (
+                  <Link
+                    to={`/dashboard/tareas/curso/${selectedCourse.id}`}
+                    className="my-4 py-1 px-2 bg-yellow-600 text-white transition-all ease-in-out hover:scale-105"
+                    aria-label="Ver tareas"
                   >
-                    Agregar Lección
-                  </button>
+                    Ver Tareas
+                  </Link>
+                ) : (
+                  <></>
                 )}
               </div>
               <div>
@@ -227,11 +262,6 @@ export default function ShowCourse() {
                         readOnly={true}
                         className="flex items-center gap-2"
                       />
-                      <p>
-                        <span className="font-bold">
-                          {promedioCalificaciones}/5
-                        </span>
-                      </p>
                     </div>
 
                     <p>
@@ -329,7 +359,6 @@ export default function ShowCourse() {
                         Valoración del curso
                       </h4>
                       <strong className="text-gray-500 flex items-center">
-                        {promedioCalificaciones}/5
                         <Rating
                           initialRating={promedioCalificaciones}
                           readOnly={true}

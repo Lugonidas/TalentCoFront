@@ -25,12 +25,10 @@ const CourseProvider = ({ children }) => {
   const [selectedCategoria, setSelectedCategoria] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const token = localStorage.getItem("AUTH_TOKEN");
-
   // Fetch cursos
   const {
     data: cursosData,
-    error: cursosError,
+    error,
     mutate: mutateCursos,
   } = useSWR(`/cursos`, fetcher, { refreshInterval: 5000 });
 
@@ -40,6 +38,14 @@ const CourseProvider = ({ children }) => {
     fetcher
   );
  */
+
+  /*   useEffect(() => {
+    if (cursosError) {
+      console.error("Error:", cursosError);
+      setErrores(cursosError);
+    }
+  }, [cursosError]); */
+
   useEffect(() => {
     if (cursosData) {
       const categoriasSet = new Set(
@@ -49,21 +55,11 @@ const CourseProvider = ({ children }) => {
         (id) =>
           cursosData.cursos.find((curso) => curso.categoria.id == id).categoria
       );
+      setCursos(cursosData.cursos);
       setCategoriasCursos(categoriasArray);
       setCategoriasDisponibles(categoriasArray);
     }
   }, [cursosData]);
-
-  useEffect(() => {
-    if (cursosError) {
-      console.error("Error:", cursosError);
-      setErrores(cursosError);
-    }
-  }, [cursosError]);
-
-  const handleClickCategoria = (id) => {
-    setSelectedCategoria(id);
-  };
 
   const handleOpenCreateModal = () => {
     setSelectedCourse(null);
@@ -87,45 +83,6 @@ const CourseProvider = ({ children }) => {
     setErrores({});
   };
 
-  const updateCourses = async () => {
-    const token = localStorage.getItem("AUTH_TOKEN");
-    try {
-      setLoading(true);
-      const response = await clienteAxios.get("cursos", null, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setCursos(response.data.cursos);
-
-      const categoriasSet = new Set(
-        response.data.cursos.map((curso) => curso.categoria.id)
-      );
-      const categoriasArray = Array.from(categoriasSet).map(
-        (id) =>
-          response.data.cursos.find((curso) => curso.categoria.id == id)
-            .categoria
-      );
-
-      setCategoriasCursos(categoriasArray);
-    } catch (errores) {
-      console.error("Error:", errores);
-      setErrores(errores);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchCategorias = async () => {
-    try {
-      const response = await clienteAxios.get("categorias");
-      setCategoriasDisponibles(response.data.categorias);
-    } catch (errores) {
-      console.error("Error:", errores);
-      setErrores(errores);
-    }
-  };
-
   const handleCreateSuccess = () => {
     Swal.fire({
       title: "Curso creado",
@@ -146,8 +103,11 @@ const CourseProvider = ({ children }) => {
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
-      updateCourses();
     });
+  };
+
+  const handleClickCategoria = (id) => {
+    setSelectedCategoria(id);
   };
 
   const createCourse = async (courseData) => {
@@ -180,9 +140,10 @@ const CourseProvider = ({ children }) => {
 
       handleUpdateSuccess();
       obtenerMisCursos(response.data.curso.id_docente, "docente");
-      /*       obtenerMisCursos(user.id, user.id_rol === 1 || user.id_rol === 3 ? "docente" : "estudiante"); */
-      setErrores({});
+      updateCourses();
       mutateCursos();
+      setErrores({});
+      /*       obtenerMisCursos(user.id, user.id_rol === 1 || user.id_rol === 3 ? "docente" : "estudiante"); */
     } catch (errores) {
       if (errores.response && errores.response.status == 422) {
         console.error("Error:", Object.values(errores.response.data.errors));
@@ -191,6 +152,24 @@ const CourseProvider = ({ children }) => {
         console.error("Error al actualizar el curso:", errores);
       }
       throw errores;
+    }
+  };
+
+  const getCourseById = async (courseId) => {
+    const token = localStorage.getItem("AUTH_TOKEN");
+    try {
+      setLoading(true);
+      const response = await clienteAxios.get(`/cursos/${courseId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setSelectedCourse(response.data.curso);
+    } catch (errores) {
+      console.error("Error:", Object.values(errores.response.data.errors));
+      setErrores(Object.values(errores.response.data.errors));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -227,21 +206,43 @@ const CourseProvider = ({ children }) => {
     }
   };
 
-  const getCourseById = async (courseId) => {
+  const updateCourses = async () => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
-      setLoading(true);
-      const response = await clienteAxios.get(`/cursos/${courseId}`, {
+      const response = await clienteAxios.get("cursos", null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setSelectedCourse(response.data.curso);
+
+      setCursos(response.data.cursos);
+      console.log(cursos)
+
+      const categoriasSet = new Set(
+        response.data.cursos.map((curso) => curso.categoria.id)
+      );
+      const categoriasArray = Array.from(categoriasSet).map(
+        (id) =>
+          response.data.cursos.find((curso) => curso.categoria.id == id)
+            .categoria
+      );
+
+      setCategoriasCursos(categoriasArray);
     } catch (errores) {
-      console.error("Error:", Object.values(errores.response.data.errors));
-      setErrores(Object.values(errores.response.data.errors));
+      console.error("Error:", errores);
+      setErrores(errores);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchCategorias = async () => {
+    try {
+      const response = await clienteAxios.get("categorias");
+      setCategoriasDisponibles(response.data.categorias);
+    } catch (errores) {
+      console.error("Error:", errores);
+      setErrores(errores);
     }
   };
 

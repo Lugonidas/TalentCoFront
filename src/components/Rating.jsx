@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 
-export default function Rating({ initialRating = 0, onRatingChange, readOnly = false }) {
+export default function Rating({
+  initialRating = 0,
+  onRatingChange,
+  readOnly = false,
+}) {
   const [rating, setRating] = useState(initialRating);
   const { user } = useAuth({ middleware: "auth" });
 
@@ -31,7 +35,9 @@ export default function Rating({ initialRating = 0, onRatingChange, readOnly = f
           key={i}
           className={`fa-solid fa-star ${
             isFilled ? "text-yellow-500" : "text-gray-300"
-          } ${isHalfFilled ? "fa-star-half-alt" : ""} transition-all ease-linear ${
+          } ${
+            isHalfFilled ? "fa-star-half-alt" : ""
+          } transition-all ease-linear ${
             user ? "hover:scale-125 hover:text-yellow-500 cursor-pointer" : ""
           } ${readOnly ? "cursor-default" : ""}`}
           onClick={() => handleClick(i, isHalfFilled)}
@@ -41,5 +47,10 @@ export default function Rating({ initialRating = 0, onRatingChange, readOnly = f
     return stars;
   };
 
-  return <div className="flex">{renderStars()}</div>;
+  return (
+    <div className="flex items-center">
+      {renderStars()}
+      <span className="ms-2 font-bold">{rating}/5</span>
+    </div>
+  );
 }

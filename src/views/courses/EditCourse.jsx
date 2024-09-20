@@ -65,14 +65,14 @@ export default function EditCourse() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-/*     const formData = new FormData();
+    /*     const formData = new FormData();
 
     // Agregar todos los campos de courseData a formData
     Object.keys(curso).forEach((key) => {
       formData.append(key, curso[key]);
     }); */
 
-/*     console.log("Curso");
+    /*     console.log("Curso");
     console.log(curso);
     console.log("FormData");
     console.log(...[formData]);

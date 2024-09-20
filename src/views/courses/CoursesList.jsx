@@ -12,7 +12,7 @@ export default function CoursesList() {
 
   const {
     handleOpenEditModal,
-    cursosData,
+    cursos,
     selectedCategoria,
     searchTerm,
     setSearchTerm,
@@ -22,10 +22,10 @@ export default function CoursesList() {
 
   const [estadoFiltro, setEstadoFiltro] = useState("todos");
 
-  const cursos = cursosData?.cursos || [];
+  let filteredCursos = cursos || [];
 
   // Filtrar cursos por categoría seleccionada, término de búsqueda y estado
-  const filteredCursos = cursos.filter((curso) => {
+  filteredCursos = cursos.filter((curso) => {
     const matchesCategoria = selectedCategoria
       ? curso.categoria.id == selectedCategoria
       : true;
@@ -44,6 +44,8 @@ export default function CoursesList() {
 
     return matchesCategoria && matchesSearchTerm && matchesEstado;
   });
+
+  console.log(filteredCursos)
 
   // Función para calcular la calificación promedio
   const calculateAverageRating = (comentarios) => {
@@ -141,7 +143,7 @@ export default function CoursesList() {
                   loading="lazy"
                   src={`${apiUrl}/storage/${curso.imagen}`}
                   alt={`Imagen ${curso.titulo}`}
-                  className="h-48 w-48 mx-auto object-contain"
+                  className=" mx-auto aspect-square w-full h-full"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
@@ -166,9 +168,6 @@ export default function CoursesList() {
                 </span>
                 <div className="flex items-center gap-1">
                   <Rating initialRating={averageRating} readOnly />
-                  <p className="text-xs">
-                    <span>{averageRating.toFixed(1)}/5</span>
-                  </p>
                 </div>
                 {/* Acciones */}
                 <div className="md:py-2">

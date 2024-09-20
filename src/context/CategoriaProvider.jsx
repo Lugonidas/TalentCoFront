@@ -161,7 +161,7 @@ const CategoriaProvider = ({ children }) => {
     }
   };
 
-/*   const deleteLeccion = async (id) => {
+  /*   const deleteLeccion = async (id) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
       const result = await Swal.fire({

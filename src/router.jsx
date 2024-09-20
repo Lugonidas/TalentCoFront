@@ -10,8 +10,9 @@ import { ComentarioProvider } from "./context/ComentarioProvider";
 import { LeccionProvider } from "./context/LeccionProvider";
 import { ArchivoProvider } from "./context/ArchivoProvider";
 import { CategoriaProvider } from "./context/CategoriaProvider";
+import { TareaProvider } from "./context/TareaProvider";
+import { RespuestaEstudianteProvider } from "./context/RespuestaEstudianteProvider";
 import Loader from "./components/Loader";
-import VerifyEmail from "./views/auth/VerifyEmail";
 const InicioDashboard = lazy(() => import("./views/dashboard/Inicio"));
 const InicioChat = lazy(() => import("./views/chat/Inicio"));
 const InicioCourses = lazy(() => import("./views/courses/Inicio"));
@@ -28,6 +29,10 @@ const CrearReunion = lazy(() => import("./views/reuniones/CrearReunion"));
 const Inicio = lazy(() => import("./views/reuniones/Inicio"));
 const ShowReunion = lazy(() => import("./views/reuniones/ShowReunion"));
 const CrearReunionPro = lazy(() => import("./views/reuniones/CrearReunionPro"));
+const InicioTareas = lazy(() => import("./views/tareas/Inicio"));
+const Nosotros = lazy(() => import("./views/home/Nosotros"));
+const Contacto = lazy(() => import("./views/home/Contacto"));
+const VerifyEmail = lazy(() => import("./views/auth/VerifyEmail"));
 
 const router = createBrowserRouter([
   {
@@ -58,11 +63,21 @@ const router = createBrowserRouter([
           <Suspense fallback={<Loader />}>
             <ComentarioProvider>
               <LeccionProvider>
-                <ShowCourse />,
+                <TareaProvider>
+                  <ShowCourse />,
+                </TareaProvider>
               </LeccionProvider>
             </ComentarioProvider>
           </Suspense>
         ),
+      },
+      {
+        path: "sobre-nosotros",
+        element: <Nosotros />,
+      },
+      {
+        path: "contacto",
+        element: <Contacto />,
       },
       {
         path: "login",
@@ -75,7 +90,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "veriry-email/:id/:hash",
+    path: "verify/:id/:hash",
     element: <VerifyEmail />,
   },
   {
@@ -121,6 +136,22 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "tareas/curso/:courseId",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <CourseProvider>
+              <TareaProvider>
+                <RespuestaEstudianteProvider>
+                  <ComentarioProvider>
+                    <InicioTareas />
+                  </ComentarioProvider>
+                </RespuestaEstudianteProvider>
+              </TareaProvider>
+            </CourseProvider>
+          </Suspense>
+        ),
+      },
+      {
         path: "categorias",
         element: (
           <Suspense fallback={<Loader />}>
@@ -138,7 +169,9 @@ const router = createBrowserRouter([
               <ComentarioProvider>
                 <LeccionProvider>
                   <ArchivoProvider>
-                    <ShowCourse />
+                    <TareaProvider>
+                      <ShowCourse />
+                    </TareaProvider>
                   </ArchivoProvider>
                 </LeccionProvider>
               </ComentarioProvider>
