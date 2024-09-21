@@ -165,6 +165,7 @@ const CourseProvider = ({ children }) => {
         },
       });
       setSelectedCourse(response.data.curso);
+      updateCourses();
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
       setErrores(Object.values(errores.response.data.errors));
@@ -216,7 +217,6 @@ const CourseProvider = ({ children }) => {
       });
 
       setCursos(response.data.cursos);
-      console.log(cursos)
 
       const categoriasSet = new Set(
         response.data.cursos.map((curso) => curso.categoria.id)

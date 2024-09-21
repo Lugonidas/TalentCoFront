@@ -132,16 +132,16 @@ export default function Inicio() {
           </Swiper>
         </div>
       </div>
-      <div className="min-h-64 w-full grid md:grid-cols-3 justify-center items-center md:px-6">
-        <div className="md:col-span-1 hidden md:block">
+      <div className="min-h-64 w-full grid justify-center items-center md:px-6">
+{/*         <div className="md:col-span-1 hidden md:block">
           <img
             loading="lazy"
             src="../img/logoTalentCo.svg"
             alt="Imagen logotipo TalentCo"
             className="w-full mx-auto"
           />
-        </div>
-        <div className="col-span-3 md:col-span-2 bg-white/50 backdrop-blur-md mx-auto p-4 md:min-h-[50vh] flex flex-col justify-center my-10 rounded-lg text-center text-gray-800">
+        </div> */}
+        <div className="col-span-3 md:w-3/4 bg-white/50 backdrop-blur-md mx-auto p-4 md:min-h-[50vh] flex flex-col justify-center my-10 rounded-lg text-center text-gray-800">
           <h2 className="text-2xl md:text-4xl font-black text-gray-400 text-center my-6">
             ¿Por qué estudiar y aprender en{" "}
             <span className="text-indigo-600">Talent.Co</span>?

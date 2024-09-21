@@ -91,12 +91,10 @@ export default function ShowTarea() {
             </h3>
             <div className="grid grid-cols-2 gap-4">
               {estudiantes.map((estudiante) => {
-                // Buscar la respuesta del estudiante
                 const respuestaEstudiante = respuestas.find(
-                  (respuesta) => respuesta.id_estudiante === estudiante.id
+                  (respuesta) => respuesta.id_estudiante == estudiante.id
                 );
 
-                // Verificar si el estudiante ha entregado
                 const haEntregado = !!respuestaEstudiante;
 
                 return (
@@ -105,29 +103,24 @@ export default function ShowTarea() {
                     className="relative shadow-lg p-2 grid grid-cols-2 gap-4 mb-4 transition-all ease-in hover:shadow-lg"
                   >
                     <div className="border-r-2">
-                      <div className="">
-                        <strong className="text-xs">Nombre Completo </strong>
-                        <p className="capitalize">
-                          {estudiante.name} {estudiante.apellido}
-                        </p>
-                      </div>
-                      <div className="">
-                        <strong className="text-xs">Email </strong>
-                        <p className="capitalize">{estudiante.email}</p>
-                      </div>
+                      <strong className="text-xs">Nombre Completo</strong>
+                      <p className="capitalize">
+                        {estudiante.name} {estudiante.apellido}
+                      </p>
+                      <strong className="text-xs">Email</strong>
+                      <p className="capitalize">{estudiante.email}</p>
                     </div>
 
-                    {haEntregado && (
-                      <div className="">
-                        <strong className="text-xs">Respuesta: </strong>
+                    {haEntregado ? (
+                      <div>
+                        <strong className="text-xs">Respuesta:</strong>
                         <p className="capitalize">
                           {respuestaEstudiante.texto_respuesta}
                         </p>
-
                         {respuestaEstudiante.archivo && (
                           <div className="mt-2">
                             <strong className="text-xs">
-                              Archivo Entregado:{" "}
+                              Archivo Entregado:
                             </strong>
                             <a
                               href={`${apiUrl}/storage/${respuestaEstudiante.archivo}`}
@@ -140,14 +133,13 @@ export default function ShowTarea() {
                           </div>
                         )}
                       </div>
+                    ) : (
+                      <div className="absolute right-0 bottom-0">
+                        <p className="p-1 text-xs font-bold text-white bg-red-600">
+                          No entregado
+                        </p>
+                      </div>
                     )}
-                    <div
-                      className={`${
-                        haEntregado ? "bg-green-600" : "bg-red-600"
-                      } absolute right-0 bottom-0`}
-                    >
-                      <p className="p-1 text-xs font-bold text-white">{haEntregado ? "Entregado" : "No entregado"}</p>
-                    </div>
                   </div>
                 );
               })}
@@ -155,17 +147,47 @@ export default function ShowTarea() {
           </div>
         )}
 
-        <div>
-          {isStudent && (
-            <button
-              onClick={handleOpenCreateModal}
-              className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
-              aria-label="Agregar Lección"
-            >
-              Agregar Entrega
-            </button>
-          )}
-        </div>
+        {isStudent && (
+          <div>
+            {respuestas.map((respuesta) => {
+              if (respuesta.id_estudiante == user.id) {
+                return (
+                  <div key={respuesta.id}>
+                    <strong className="text-indigo-800 text-2xl">
+                      Tu Respuesta:
+                    </strong>
+                    <p>{respuesta.texto_respuesta}</p>
+                    {respuesta.archivo && (
+                      <div className="mt-2 flex flex-col">
+                        <strong className="text-xs">Archivo Entregado:</strong>
+                        <a
+                          href={`${apiUrl}/storage/${respuesta.archivo}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:underline"
+                        >
+                          Ver Archivo
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              return null; // Para los casos donde no coincide
+            })}
+            {respuestas.find(
+              (respuesta) => respuesta.id_estudiante == user.id
+            ) ? null : (
+              <button
+                onClick={handleOpenCreateModal}
+                className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
+                aria-label="Agregar Entrega"
+              >
+                Agregar Entrega
+              </button>
+            )}
+          </div>
+        )}
 
         <button
           className="absolute top-2 right-2 text-2xl transition-all duration-100 ease hover:cursor-pointer hover:scale-110"

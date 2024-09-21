@@ -127,7 +127,7 @@ const UserProvider = ({ children }) => {
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
-      setErrores({})
+      setErrores({});
       mutateUsuarios();
     });
   };
@@ -148,7 +148,7 @@ const UserProvider = ({ children }) => {
       setErrores(errores.response.data.errors);
     }
   };
-  
+
   const updateUser = async (id, userData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
@@ -169,7 +169,7 @@ const UserProvider = ({ children }) => {
     } catch (errores) {
       console.error("Error:", errores);
       setErrores(errores);
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -204,6 +204,42 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const updatePassword = async (userId, passwordData) => {
+    // Obtén el token desde localStorage
+    const token = localStorage.getItem("AUTH_TOKEN");
+
+    /*     await clienteAxios.put(`usuarios/${userId}/update-password`, passwordData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }); */
+
+    const response = await fetch(
+      `http://localhost:8006/api/usuarios/${userId}/update-password`,
+      {
+        method: "PUT",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Aquí pasas el token
+        },
+        withCredentials: true,
+        body: JSON.stringify(passwordData),
+      }
+    );
+
+    console.error(response);
+
+    // Verifica la respuesta
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Error al actualizar la contraseña");
+    }
+
+    // Si necesitas manejar la respuesta, puedes hacerlo aquí
+    return await response.json(); // Devuelve la respuesta en caso de éxito
+  };
+
   /*   useEffect(() => {
     obtenerUsuarios();
   }, []);
@@ -230,6 +266,7 @@ const UserProvider = ({ children }) => {
         deleteUser,
         searchTerm,
         setSearchTerm,
+        updatePassword,
       }}
     >
       {children}

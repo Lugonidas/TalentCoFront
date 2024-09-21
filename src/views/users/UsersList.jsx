@@ -60,7 +60,7 @@ export default function UsersList() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleClickRol(null)}
                 className={`py-0.5 px-2 border border-dotted border-indigo-800 transition-all ease-linear hover:cursor-pointer ${
-                  selectedRol === null
+                  selectedRol == null
                     ? "bg-indigo-800 text-white"
                     : "hover:bg-indigo-800 hover:text-white"
                 }`}

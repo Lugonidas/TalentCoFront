@@ -25,6 +25,26 @@ export default function Student() {
             Hola <strong className="text-indigo-800">{user.usuario}</strong>,
             nos alegra tenerte de vuelta.
           </p>
+          {user.email === "hansduerte@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Hola Gay, todos sabemos que eres gay y te gusta el pene
+            </div>
+          )}
+          {user.email === "dannylaverde95@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Hola Gay, todos sabemos que eres gay y te gusta el pene
+            </div>
+          )}
+          {user.email === "danielbelmont98@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Hola Gay, todos sabemos que eres gay y te gusta el pene, acabe rápido esa puta documentación
+            </div>
+          )}
+          {user.email === "danielasilvabenavides@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Te amo, apenas acabe TalentCo ya no me vuelvo a acostar tarde
+            </div>
+          )}
         </div>
         <div className="">
           <div className="grid md:grid-cols-4 gap-8 m-8">

@@ -75,7 +75,7 @@ export default function Inicio() {
         </Modal>
       )}
       <div className="border border-dotted my-2 px-4 md:px-10">
-        <div className="my-4 flex gap-4 items-center">
+        <div className="mb-4 flex justify-end gap-4 items-center ">
           <Link
             to={`${user ? "/dashboard" : ""}/cursos/show/${selectedCourse.id}`}
             aria-label={`Volver al curso ` + selectedCourse.titulo}
@@ -203,7 +203,7 @@ export default function Inicio() {
         {loading ? (
           <Loader /> // Mostrar el loader mientras se cargan las tareas
         ) : tareas && tareas.length > 0 ? (
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-4">
             {tareas.map((tarea) => (
               <div
                 key={tarea.id}

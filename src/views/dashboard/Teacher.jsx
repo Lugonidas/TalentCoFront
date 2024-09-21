@@ -3,11 +3,14 @@ import { useAuth } from "../../hooks/useAuth";
 import BarChart from "../../components/DynamicChart";
 import useCourse from "../../hooks/useCourse";
 import DynamicChart from "../../components/DynamicChart";
+import { useState } from "react";
 
 export default function Teacher() {
   const { user } = useAuth({ middleware: "auth" });
 
   const { cursos } = useCourse();
+
+  const [itemsToShowEstudiantes, setItemsToShowEstudiantes] = useState(4); // Para el gráfico de estudiantes por curso
 
   // Dentro de tu componente ShowCourse
   if (!user) {
@@ -31,9 +34,15 @@ export default function Teacher() {
   const labelsCategorias = Object.keys(categorias);
   const dataCategorias = Object.values(categorias);
 
+  // Filtrar los cursos que tienen estudiantes
+  const cursosConEstudiantes = cursos
+    .filter((curso) => curso.estudiantes.length > 0) // Solo cursos con estudiantes
+    .sort((a, b) => b.estudiantes.length - a.estudiantes.length) // Ordenar por cantidad de estudiantes de mayor a menor
+    .slice(0, itemsToShowEstudiantes); // Limitar a los primeros 8 cursos
+
   // Preparar datos para el gráfico
-  const labels = cursos.map((curso) => curso.titulo);
-  const data = cursos.map((curso) => curso.estudiantes.length);
+  const labels = cursosConEstudiantes.map((curso) => curso.titulo); // Usar los cursos filtrados y ordenados
+  const data = cursosConEstudiantes.map((curso) => curso.estudiantes.length); // Cantidad de estudiantes
 
   return (
     <>
@@ -49,6 +58,26 @@ export default function Teacher() {
             </strong>
             , nos alegra tenerte de vuelta.
           </p>
+          {user.email === "hansduerte@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Hola Gay, todos sabemos que eres gay y te gusta el pene
+            </div>
+          )}
+          {user.email === "dannylaverde95@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Hola Gay, todos sabemos que eres gay y te gusta el pene
+            </div>
+          )}
+          {user.email === "danielbelmont98@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Hola Gay, todos sabemos que eres gay y te gusta el pene
+            </div>
+          )}
+          {user.email === "danielasilvabenavides@gmail.com" && (
+            <div className="text-indigo-800 font-black uppercase text-center text-4xl">
+              Te amo, apenas acabe TalentCo ya no me vuelvo a acostar tarde
+            </div>
+          )}
         </div>
         <div className="">
           <div className="grid md:grid-cols-4 gap-8 m-8">
@@ -84,9 +113,29 @@ export default function Teacher() {
         </div>
         <div className="w-full sm:grid md:grid-cols-2 gap-2">
           <div className="max-h-full shadow-md m-2 p-2">
-            <h2 className="text-center font-bold text-xl text-gray-600">
-              No. de estudiantes por curso
-            </h2>
+            <div className="my-4 text-center">
+              <label
+                htmlFor="itemsToShowEstudiantes"
+                className="text-center font-bold text-xl text-gray-600 me-2"
+              >
+                No. de estudiantes por curso:
+              </label>
+              <select
+                id="itemsToShowEstudiantes"
+                value={itemsToShowEstudiantes}
+                onChange={(e) =>
+                  setItemsToShowEstudiantes(Number(e.target.value))
+                }
+                className="border rounded p-1 bg-indigo-800 text-white"
+              >
+                <option value={2}>2</option>
+                <option value={4}>4</option>
+                <option value={6}>6</option>
+                <option value={8}>8</option>
+                <option value={10}>10</option>
+                <option value={12}>12</option>
+              </select>
+            </div>
             <DynamicChart
               labels={labels}
               data={data}

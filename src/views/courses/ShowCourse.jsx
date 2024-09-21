@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/es";
@@ -23,11 +23,20 @@ import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
 import useTarea from "../../hooks/useTarea";
 import CreateTarea from "../tareas/CreateTarea";
+import StudentList from "../students/StudentList";
 
 moment.locale("es");
 export default function ShowCourse() {
   const { user, isAdmin, isTeacher } = useAuth({ middleware: "guest" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
+  const [viewStudents, setViewStudents] = useState(false);
+
+  const handleOpenViewStudents = () => {
+    setViewStudents(true);
+  };
+  const handleCloseViewStudents = () => {
+    setViewStudents(false);
+  };
 
   const { courseId } = useParams();
   const {
@@ -38,6 +47,9 @@ export default function ShowCourse() {
     loading,
   } = useCourse();
 
+  const { estudiantes } = selectedCourse ? selectedCourse : [];
+  console.log(estudiantes);
+
   const {
     handleOpenEditModal,
     editModal: editModalComentario,
@@ -47,6 +59,23 @@ export default function ShowCourse() {
     setHaComentado,
     loading: loadingComentarios,
   } = useComentario();
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  // Función para manejar el clic fuera del menú
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false); // Cierra el menú si se hace clic fuera
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
 
   const { createModalTarea, handleOpenCreateModalTarea } = useTarea();
 
@@ -148,6 +177,19 @@ export default function ShowCourse() {
 
   return (
     <div>
+      {viewStudents && (
+        <Modal>
+          <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-indigo-600 shadow-md opacity-100">
+            <StudentList students={estudiantes}></StudentList>
+            <button
+              className="py-2 px-4 my-2 text-white border "
+              onClick={handleCloseViewStudents}
+            >
+              Cerrar
+            </button>
+          </div>
+        </Modal>
+      )}
       {createModalTarea && (
         <Modal>
           <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
@@ -187,7 +229,8 @@ export default function ShowCourse() {
         <>
           <div className="mx-auto px-2">
             <div className="border border-dotted my-2 px-4 md:px-10">
-              <div className="my-4 flex gap-4 items-center">
+              <div className="mb-4 flex justify-end gap-4 items-center ">
+                {/* Botón para volver a los cursos */}
                 <Link
                   to={`${user ? "/dashboard" : ""}/cursos`}
                   aria-label="Volver a los cursos"
@@ -201,25 +244,7 @@ export default function ShowCourse() {
                   </motion.button>
                 </Link>
 
-                {user?.id == selectedCourse.id_docente && (
-                  <>
-                    <button
-                      onClick={handleOpenCreateModal}
-                      className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
-                      aria-label="Agregar Lección"
-                    >
-                      Agregar Lección
-                    </button>
-                    <button
-                      onClick={handleOpenCreateModalTarea}
-                      className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
-                      aria-label="Agregar Lección"
-                    >
-                      Agregar Tarea
-                    </button>
-                  </>
-                )}
-
+                {/* Enlace para ver tareas si está inscrito o es docente/admin */}
                 {estaInscrito || isTeacher || isAdmin ? (
                   <Link
                     to={`/dashboard/tareas/curso/${selectedCourse.id}`}
@@ -228,10 +253,52 @@ export default function ShowCourse() {
                   >
                     Ver Tareas
                   </Link>
-                ) : (
-                  <></>
+                ) : null}
+
+                {/* Menú de tres puntitos */}
+                {user?.id == selectedCourse.id_docente && (
+                  <div className="relative">
+                    {/* Icono de tres puntitos */}
+                    <button
+                      className="text-indigo-800 text-3xl hover:text-gray-400 p-2"
+                      onClick={() => setIsMenuOpen((prev) => !prev)} // Toggle del menú al hacer clic
+                      aria-label="Mostrar menú"
+                    >
+                      <i className="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+
+                    {isMenuOpen && (
+                      <div
+                        className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10"
+                        ref={menuRef} // Referencia al menú para detectar clics fuera
+                      >
+                        <button
+                          onClick={handleOpenCreateModal}
+                          className="block w-full py-2 px-4 text-left text-gray-800 hover:bg-gray-200"
+                          aria-label="Agregar Lección"
+                        >
+                          Agregar Lección
+                        </button>
+                        <button
+                          onClick={handleOpenCreateModalTarea}
+                          className="block w-full py-2 px-4 text-left text-gray-800 hover:bg-gray-200"
+                          aria-label="Agregar Tarea"
+                        >
+                          Agregar Tarea
+                        </button>
+                        <button
+                          onClick={handleOpenViewStudents}
+                          className="block w-full py-2 px-4 text-left text-gray-800 hover:bg-gray-200"
+                          aria-label="Ver Estudiantes"
+                        >
+                          Ver Estudiantes
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
+
               <div>
                 <div className="grid md:grid-cols-2 gap-14 w-full border-b border-indigo-800 border-dotted pb-4">
                   <div className="">

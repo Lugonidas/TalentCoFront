@@ -12,7 +12,9 @@ export default function Perfil() {
   const { user, mutate } = useAuth({ middleware: "auth" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
-  const { updateProfile } = useUser();
+  // Verifica si los tres inputs tienen datos
+
+  const { updateProfile, updatePassword } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -22,6 +24,18 @@ export default function Perfil() {
     imagen: "",
     usuario: "",
   });
+
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    password_confirmation: "",
+  });
+
+  const [passwordError, setPasswordError] = useState("");
+  const isButtonEnabled =
+    passwordData.password_confirmation &&
+    passwordData.newPassword &&
+    passwordData.currentPassword;
 
   useEffect(() => {
     if (user) {
@@ -37,9 +51,7 @@ export default function Perfil() {
   }, [user]);
 
   if (!user) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   const roles = {
@@ -67,13 +79,37 @@ export default function Perfil() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData({
+      ...passwordData,
+      [name]: value,
+    });
+  };
+
+  const handleProfileSubmit = async (e) => {
     e.preventDefault();
     try {
       await updateProfile(user.id, formData);
       await mutate();
+      setIsEditing(false);
     } catch (error) {
       console.error("Error updating user:", error);
+    }
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData();
+    formData.append("current_password", passwordData.currentPassword);
+    formData.append("new_password", passwordData.newPassword);
+    formData.append("password_confirmation", passwordData.password_confirmation);
+
+    try {
+      await updatePassword(user.id, formData);
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
     }
   };
 
@@ -113,9 +149,10 @@ export default function Perfil() {
             <i className="fa-solid fa-user-pen text-indigo-800 p-1 text-xl"></i>
           </motion.button>
         )}
+
         {isEditing ? (
           <motion.form
-            onSubmit={handleSubmit}
+            onSubmit={handleProfileSubmit}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -124,7 +161,7 @@ export default function Perfil() {
             <h2 className="text-2xl font-black uppercase text-center mb-4 text-indigo-800">
               Editar Perfil
             </h2>
-            <div className="grid grid-cols-2 items-center gap-4 my-4">
+            <div className="grid md:grid-cols-2 items-center gap-4 my-4">
               <div>
                 <input
                   type="text"
@@ -146,7 +183,7 @@ export default function Perfil() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 items-center gap-4 my-4">
+            <div className="grid md:grid-cols-2 items-center gap-4 my-4">
               <div>
                 <input
                   type="text"
@@ -219,7 +256,7 @@ export default function Perfil() {
             </div>
             <div className="mt-6">
               <div className="grid grid-cols-1 gap-4">
-                <div className="grid grid-cols-2">
+                <div className="grid md:grid-cols-2">
                   <div>
                     <span className="font-semibold text-indigo-800">
                       Email:
@@ -233,22 +270,6 @@ export default function Perfil() {
                     <p className="text-gray-800">{formattedBirthDate}</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-2">
-                  <div>
-                    <span className="font-semibold text-indigo-800">
-                      Tipo de Documento:
-                    </span>
-                    <p className="text-gray-800">
-                      {tiposDocumentos[user.id_tipo_documento] || "Unknown"}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-indigo-800">
-                      No. de Documento:
-                    </span>
-                    <p className="text-gray-800">{user?.numero_documento}</p>
-                  </div>
-                </div>
                 <div>
                   <span className="font-semibold text-indigo-800">
                     Dirección:
@@ -259,6 +280,51 @@ export default function Perfil() {
             </div>
           </motion.div>
         )}
+        <h2 className="text-2xl font-black uppercase text-center my-4 text-indigo-800">
+          Cambiar Contraseña
+        </h2>
+        <form onSubmit={handlePasswordSubmit}>
+          <div className="grid gap-4">
+            <input
+              type="password"
+              name="currentPassword"
+              value={passwordData.currentPassword}
+              onChange={handlePasswordChange}
+              placeholder="Contraseña actual"
+              className="w-full font-semibold text-gray-600 outline-none placeholder:text-indigo-800 border-b border-b-indigo-800"
+            />
+            <input
+              type="password"
+              name="newPassword"
+              value={passwordData.newPassword}
+              onChange={handlePasswordChange}
+              placeholder="Nueva contraseña"
+              className="w-full font-semibold text-gray-600 outline-none placeholder:text-indigo-800 border-b border-b-indigo-800"
+            />
+            <input
+              type="password"
+              name="password_confirmation"
+              value={passwordData.password_confirmation}
+              onChange={handlePasswordChange}
+              placeholder="Confirma nueva contraseña"
+              className="w-full font-semibold text-gray-600 outline-none placeholder:text-indigo-800 border-b border-b-indigo-800"
+            />
+            {passwordError && <p className="text-red-500">{passwordError}</p>}
+            <div className="flex justify-end">
+              <button
+                className={`${
+                  isButtonEnabled
+                    ? "bg-indigo-800 text-white"
+                    : "disabled cursor-not-allowed bg-gray-300 text-gray-700"
+                }  py-2 px-4 font-bold `}
+                onClick={isButtonEnabled ? handlePasswordChange : undefined}
+                disabled={!isButtonEnabled}
+              >
+                Cambiar Contraseña
+              </button>
+            </div>
+          </div>
+        </form>
       </motion.div>
     </motion.div>
   );

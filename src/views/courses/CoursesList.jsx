@@ -130,7 +130,7 @@ export default function CoursesList() {
           return (
             <motion.li
               key={curso.id}
-              className="grid md:grid-cols-2 gap-2 bg-white shadow-md transition-all ease-linear hover:shadow-xl overflow-hidden relative"
+              className="grid md:grid-cols-2 gap-2 bg-white shadow-lg transition-all ease-linear hover:shadow-xl overflow-hidden relative"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -148,35 +148,33 @@ export default function CoursesList() {
                 />
               </div>
 
-              <div>
-                <strong className="font-bold mb-2 text-indigo-800">
-                  <Link
-                    to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
-                    aria-label="Ir a ver el curso"
-                  >
-                    {curso.titulo}
-                  </Link>
-                </strong>
-                <p>
-                  <i className="fa-solid fa-user-tie"></i>
-                  <span> {curso.docente.name}</span>
-                </p>
-                <span>
-                  <i className="fa-regular fa-clock"></i> {curso.duracion} Horas
-                </span>
-                <div className="flex items-center gap-1">
-                  <Rating initialRating={averageRating} readOnly />
+              <div className="md:flex flex-col justify-between">
+                <div>
+                  <strong className="font-bold mb-2 text-indigo-800">
+                    <Link
+                      to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
+                      aria-label="Ir a ver el curso"
+                    >
+                      {curso.titulo}
+                    </Link>
+                  </strong>
+                  <p>
+                    <i className="fa-solid fa-user-tie"></i>
+                    <span> {curso.docente.name}</span>
+                  </p>
+                  <div className="flex items-center gap-1">
+                    <Rating initialRating={averageRating} readOnly />
+                  </div>
                 </div>
                 {/* Acciones */}
-                <div className="md:py-2">
+                <div className={`${user ? "" : "block w-full"} `}>
                   <Link
                     to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
                     aria-label="Ir a ver el curso"
                   >
                     <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
                       aria-label="Ir a ver el curso"
+                      className={`${user ? "" : "block w-full bg-green-600 hover:bg-green-700"} `}
                     >
                       <i className="fa-solid fa-eye bg-green-600 text-white p-2"></i>
                     </motion.button>
