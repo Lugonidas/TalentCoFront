@@ -15,7 +15,7 @@ export default function ShowUser() {
       transition={{ duration: 0.3 }}
     >
       <motion.div
-        className="bg-white shadow-xl rounded-lg max-w-xl w-full p-4 relative"
+        className="bg-white shadow-xl rounded-lg w-full md:w-1/4 mx-2 p-4 relative"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -20, opacity: 0 }}
@@ -42,7 +42,7 @@ export default function ShowUser() {
           />
         </div>
         <div>
-          <h3 className="text-center text-xl text-gray-900 font-medium capitalize mb-2">
+          <h3 className="text-center text-xl text-gray-900 font-medium capitalize">
             {selectedUser.name} {selectedUser.apellido}
           </h3>
           <div className="text-center text-gray-400 text-xs font-semibold mb-3">
@@ -50,40 +50,48 @@ export default function ShowUser() {
           </div>
           <table className="w-full text-xs">
             <tbody>
-              <tr>
-                <td className="px-2 py-1 text-gray-500 font-semibold">
+              <tr className="flex flex-col md:flex-row text-sm">
+                <td className="px-2 py-1 text-indigo-800 font-semibold">
                   Usuario
                 </td>
                 <td className="px-2 py-1 capitalize">{selectedUser.usuario}</td>
               </tr>
-              <tr>
-                <td className="px-2 py-1 text-gray-500 font-semibold">
+              <tr className="flex flex-col md:flex-row text-sm">
+                <td className="px-2 py-1 text-indigo-800 font-semibold">
                   Tipo de Documento
                 </td>
                 <td className="px-2 py-1 capitalize">
-                  {selectedUser.id_tipo_documento}
+                  {selectedUser.id_tipo_documento == 1 && (
+                    <span>Cédula de ciudadanía</span>
+                  )}
+                  {selectedUser.id_tipo_documento == 2 && (
+                    <span>Cédula de extranjería</span>
+                  )}
+                  {selectedUser.id_tipo_documento == 3 && (
+                    <span>Tarjeta de identidad</span>
+                  )}
                 </td>
               </tr>
-              <tr>
-                <td className="px-2 py-1 text-gray-500 font-semibold">
+              <tr className="flex flex-col md:flex-row text-sm">
+                <td className="px-2 py-1 text-indigo-800 font-semibold">
                   Número de Documento
                 </td>
                 <td className="px-2 py-1 capitalize">
                   {selectedUser.numero_documento}
                 </td>
               </tr>
-              <tr>
-                <td className="px-2 py-1 text-gray-500 font-semibold">Email</td>
+              <tr className="flex flex-col md:flex-row text-sm">
+                <td className="px-2 py-1 text-indigo-800 font-semibold">Email</td>
                 <td className="px-2 py-1">{selectedUser.email}</td>
               </tr>
-              <tr>
-                <td className="px-2 py-1 text-gray-500 font-semibold">
+              <tr className="flex flex-col md:flex-row text-sm">
+                <td className="px-2 py-1 text-indigo-800 font-semibold">
                   Fecha de Nacimiento
                 </td>
                 <td className="px-2 py-1">{selectedUser.fecha_nacimiento}</td>
               </tr>
-              <tr>
-                <td className="px-2 py-1 text-gray-500 font-semibold">
+              <tr className="flex flex-col md:flex-row text-sm">
+                <td className="px-2 py-1 text-indigo-800 font-semibold">
                   Dirección
                 </td>
                 <td className="px-2 py-1">{selectedUser.direccion}</td>

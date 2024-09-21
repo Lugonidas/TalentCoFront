@@ -208,36 +208,85 @@ const UserProvider = ({ children }) => {
     // Obtén el token desde localStorage
     const token = localStorage.getItem("AUTH_TOKEN");
 
-    /*     await clienteAxios.put(`usuarios/${userId}/update-password`, passwordData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }); */
+    try {
+      await clienteAxios.put(
+        `usuarios/${userId}/update-password`,
+        passwordData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    const response = await fetch(
-      `http://localhost:8006/api/usuarios/${userId}/update-password`,
+      Swal.fire({
+        title: "Contraseña actualizada",
+        text: "La contraseña se ha actualizado correctamente",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        window.location.reload();
+      });
+      setErrores({}); // Limpiar errores si la solicitud es exitosa
+    } catch (errores) {
+      // Verifica si el error tiene un mensaje específico como "contraseña no válida"
+      if (errores.response && errores.response.status === 422) {
+        if (
+          errores.response.data.message === "La contraseña actual no es válida."
+        ) {
+          Swal.fire({
+            title: "Error",
+            text: "La contraseña actual no es válida.",
+            icon: "error",
+            confirmButtonText: "OK",
+          }).then(() => {});
+        } else if (errores.response.data.message === "La nueva contraseña no puede ser igual a la contraseña actual.") {
+          Swal.fire({
+            title: "Error",
+            text: "La nueva contraseña no puede ser igual a la contraseña actual.",
+            icon: "error",
+            confirmButtonText: "OK",
+          }).then(() => {});
+        } else if (errores.response.data.errors) {
+          // Si hay otros errores de validación, manejarlos aquí
+          console.error(
+            "Errores de validación:",
+            Object.values(errores.response.data.errors)
+          );
+          setErrores(errores.response.data.errors); // Muestra los errores en la UI
+        }
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Ocurrió un error al intentar actualizar la contraseña.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        console.error("Error inesperado:", errores);
+      }
+    }
+
+    /*     const response = await fetch(
+      `http://localhost:8006/api/usuarios/${userId}/update-password/`,
       {
         method: "PUT",
         headers: {
           "X-Requested-With": "XMLHttpRequest",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Aquí pasas el token
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
         body: JSON.stringify(passwordData),
       }
-    );
+    ); */
 
-    console.error(response);
+    /* console.error(response);
 
     // Verifica la respuesta
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || "Error al actualizar la contraseña");
-    }
-
-    // Si necesitas manejar la respuesta, puedes hacerlo aquí
-    return await response.json(); // Devuelve la respuesta en caso de éxito
+    } */
   };
 
   /*   useEffect(() => {

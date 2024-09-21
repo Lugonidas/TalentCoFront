@@ -36,12 +36,12 @@ export default function Registro() {
     }));
   };
 
-  const handleImageChange = (e) => {
+/*   const handleImageChange = (e) => {
     setUser((prevUser) => ({
       ...prevUser,
       imagen: e.target.files[0],
     }));
-  };
+  }; */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -187,7 +187,7 @@ export default function Registro() {
                     </p>
                   )}
                 </div>
-                <div>
+                {/* <div>
                   <label
                     htmlFor="imagen"
                     className="block text-sm font-medium text-gray-700"
@@ -207,7 +207,7 @@ export default function Registro() {
                       {errores.imagen}
                     </p>
                   )}
-                </div>
+                </div> */}
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">

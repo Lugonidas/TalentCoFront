@@ -14,7 +14,7 @@ export default function Perfil() {
 
   // Verifica si los tres inputs tienen datos
 
-  const { updateProfile, updatePassword } = useUser();
+  const { updateProfile, updatePassword, errores } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -26,16 +26,15 @@ export default function Perfil() {
   });
 
   const [passwordData, setPasswordData] = useState({
-    currentPassword: "",
-    newPassword: "",
+    password_actual: "",
+    password: "",
     password_confirmation: "",
   });
 
-  const [passwordError, setPasswordError] = useState("");
   const isButtonEnabled =
-    passwordData.password_confirmation &&
-    passwordData.newPassword &&
-    passwordData.currentPassword;
+    passwordData.password_actual &&
+    passwordData.password &&
+    passwordData.password_confirmation;
 
   useEffect(() => {
     if (user) {
@@ -58,12 +57,6 @@ export default function Perfil() {
     1: "Admin",
     2: "Estudiante",
     3: "Docente",
-  };
-
-  const tiposDocumentos = {
-    1: "Cédula de ciudadanía",
-    2: "Tarjeta de identidad",
-    3: "Cédula de extranjería",
   };
 
   const formattedBirthDate = moment(user.fecha_nacimiento)
@@ -99,17 +92,12 @@ export default function Perfil() {
   };
 
   const handlePasswordSubmit = async (e) => {
-    e.preventDefault()
-
-    const formData = new FormData();
-    formData.append("current_password", passwordData.currentPassword);
-    formData.append("new_password", passwordData.newPassword);
-    formData.append("password_confirmation", passwordData.password_confirmation);
+    e.preventDefault();
 
     try {
-      await updatePassword(user.id, formData);
+      await updatePassword(user.id, passwordData);
     } catch (error) {
-      console.error("Error en la solicitud:", error);
+      console.error("Error updating password:", error);
     }
   };
 
@@ -287,16 +275,19 @@ export default function Perfil() {
           <div className="grid gap-4">
             <input
               type="password"
-              name="currentPassword"
-              value={passwordData.currentPassword}
+              name="password_actual"
+              value={passwordData.password_actual}
               onChange={handlePasswordChange}
               placeholder="Contraseña actual"
               className="w-full font-semibold text-gray-600 outline-none placeholder:text-indigo-800 border-b border-b-indigo-800"
             />
+            {errores && errores.password_actual && (
+              <p className="text-red-500">{errores.password_actual}</p>
+            )}
             <input
               type="password"
-              name="newPassword"
-              value={passwordData.newPassword}
+              name="password"
+              value={passwordData.password}
               onChange={handlePasswordChange}
               placeholder="Nueva contraseña"
               className="w-full font-semibold text-gray-600 outline-none placeholder:text-indigo-800 border-b border-b-indigo-800"
@@ -306,10 +297,20 @@ export default function Perfil() {
               name="password_confirmation"
               value={passwordData.password_confirmation}
               onChange={handlePasswordChange}
-              placeholder="Confirma nueva contraseña"
+              placeholder="Confirmar contraseña"
               className="w-full font-semibold text-gray-600 outline-none placeholder:text-indigo-800 border-b border-b-indigo-800"
             />
-            {passwordError && <p className="text-red-500">{passwordError}</p>}
+            {errores && errores.password && (
+              <div className="text-red-500">
+                {errores.password.map((error, index) => (
+                  <div key={index}>
+                    <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+                      {error}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="flex justify-end">
               <button
                 className={`${
@@ -317,7 +318,7 @@ export default function Perfil() {
                     ? "bg-indigo-800 text-white"
                     : "disabled cursor-not-allowed bg-gray-300 text-gray-700"
                 }  py-2 px-4 font-bold `}
-                onClick={isButtonEnabled ? handlePasswordChange : undefined}
+                type="submit"
                 disabled={!isButtonEnabled}
               >
                 Cambiar Contraseña
