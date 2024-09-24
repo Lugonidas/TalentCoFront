@@ -29,16 +29,13 @@ moment.locale("es");
 export default function ShowCourse() {
   const { user, isAdmin, isTeacher } = useAuth({ middleware: "guest" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
-  const [viewStudents, setViewStudents] = useState(false);
-
-  const handleOpenViewStudents = () => {
-    setViewStudents(true);
-  };
-  const handleCloseViewStudents = () => {
-    setViewStudents(false);
-  };
-
   const { courseId } = useParams();
+  const menuRef = useRef(null);
+
+  const [viewStudents, setViewStudents] = useState(false);
+  const [estaInscrito, setEstaInscrito] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const {
     selectedCourse,
     getCourseById,
@@ -59,23 +56,6 @@ export default function ShowCourse() {
     loading: loadingComentarios,
   } = useComentario();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-
-  // Función para manejar el clic fuera del menú
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false); // Cierra el menú si se hace clic fuera
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuRef]);
-
   const { createModalTarea, handleOpenCreateModalTarea } = useTarea();
 
   const {
@@ -88,7 +68,26 @@ export default function ShowCourse() {
     updateLecciones,
   } = useLeccion();
 
-  const [estaInscrito, setEstaInscrito] = useState(false);
+  const handleOpenViewStudents = () => {
+    setViewStudents(true);
+  };
+  const handleCloseViewStudents = () => {
+    setViewStudents(false);
+  };
+
+  // Función para manejar el clic fuera del menú
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -176,7 +175,7 @@ export default function ShowCourse() {
   console.log(promedioCalificaciones);
   console.log(haComentado);
 
-  if (loading || loadingLecciones) {
+  if (loading) {
     return <Loader />;
   }
 
