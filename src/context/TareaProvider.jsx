@@ -107,6 +107,17 @@ const TareaProvider = ({ children }) => {
     });
   };
 
+  const handleCreateNotaSuccess = () => {
+    Swal.fire({
+      title: "Nota asignada",
+      text: "La nota se ha asignado correctamente",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then(() => {
+      handleCloseModals();
+    });
+  };
+
   const handleCreateSuccess = () => {
     Swal.fire({
       title: "Tarea creada",
@@ -170,7 +181,7 @@ const TareaProvider = ({ children }) => {
         },
       });
 
-      /* handleCreateSuccess(); */
+      handleCreateNotaSuccess();
       setErrores({});
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
