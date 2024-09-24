@@ -174,6 +174,7 @@ export default function ShowCourse() {
     return <Loader />;
   }
 
+  console.log(totalCalificaciones)
   console.log(promedioCalificaciones)
 
   return (
