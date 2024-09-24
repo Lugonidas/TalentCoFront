@@ -48,7 +48,6 @@ export default function ShowCourse() {
   } = useCourse();
 
   const { estudiantes } = selectedCourse ? selectedCourse : [];
-  console.log(estudiantes);
 
   const {
     handleOpenEditModal,
@@ -161,7 +160,7 @@ export default function ShowCourse() {
   };
 
   // Redondear el progreso a un decimal
-  const progresoCurso = progreso != null ? progreso.toFixed(1) : null;
+  const progresoCurso = progreso != null ? progreso.toFixed(0) : null;
 
   // Calcular el promedio de calificaciones
   const totalCalificaciones = comentarios.reduce(
@@ -174,6 +173,8 @@ export default function ShowCourse() {
   if (loading || loadingLecciones) {
     return <Loader />;
   }
+
+  console.log(promedioCalificaciones)
 
   return (
     <div>

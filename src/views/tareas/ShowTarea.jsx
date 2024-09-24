@@ -219,9 +219,9 @@ export default function ShowTarea() {
                           </motion.button>
 
                           {/* Mostrar modal solo si el estudiante coincide con modalEstudianteAbierto */}
-                          {modalEstudianteAbierto === estudiante.id && (
+                          {modalEstudianteAbierto == estudiante.id && (
                             <EditNota
-                              isOpen={modalEstudianteAbierto === estudiante.id}
+                              isOpen={modalEstudianteAbierto == estudiante.id}
                               onClose={handleCloseModal}
                               estudiante={estudiante}
                               notaEstudiante={respuestaEstudiante.nota.nota}
