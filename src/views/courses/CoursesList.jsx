@@ -125,7 +125,7 @@ export default function CoursesList() {
       </div>
       <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {filteredCursos.map((curso) => {
-          const averageRating = calculateAverageRating(curso.comentarios);
+          const averageRating = calculateAverageRating(curso.comentarios).toFixed(1);
 
           return (
             <motion.li

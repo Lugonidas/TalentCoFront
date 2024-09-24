@@ -105,13 +105,13 @@ export default function ShowCourse() {
   useEffect(() => {
     if (selectedCourse && user) {
       const estaInscrito = selectedCourse.estudiantes.some(
-        (estudiante) => estudiante.id == user.id
+        (estudiante) => Number(estudiante.id) == Number(user.id)
       );
       setEstaInscrito(estaInscrito);
 
       // Verificar si el usuario ha comentado
       const haComentado = comentarios.some(
-        (comentario) => comentario.id_usuario == user.id
+        (comentario) => Number(comentario.id_usuario) == Number(user.id)
       );
       setHaComentado(haComentado);
     }
@@ -160,21 +160,20 @@ export default function ShowCourse() {
   };
 
   // Redondear el progreso a un decimal
-  const progresoCurso = progreso != null ? progreso.toFixed(0) : null;
+  const progresoCurso = progreso != null ? progreso.toFixed(1) : null;
 
   const totalCalificaciones = comentarios.reduce(
     (acc, comentario) => acc + Number(comentario.calificacion), // Convertir a número
     0
   );
-  
+
   const promedioCalificaciones =
     comentarios.length > 0
-      ? totalCalificaciones / comentarios.length
+      ? (Number(totalCalificaciones) / comentarios.length).toFixed(1)
       : 0;
-  
+
   console.log(totalCalificaciones);
   console.log(promedioCalificaciones);
-  
 
   if (loading || loadingLecciones) {
     return <Loader />;
