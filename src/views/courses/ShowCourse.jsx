@@ -102,19 +102,18 @@ export default function ShowCourse() {
   }, [courseId]);
 
   useEffect(() => {
-    if (selectedCourse && user) {
+    if (selectedCourse && user && comentarios.length > 0) {
       const estaInscrito = selectedCourse.estudiantes.some(
-        (estudiante) => Number(estudiante.id) == Number(user.id)
+        (estudiante) => Number(estudiante.id) === Number(user.id)
       );
       setEstaInscrito(estaInscrito);
 
-      // Verificar si el usuario ha comentado
-      const haComentado = comentarios.some(
-        (comentario) => Number(comentario.id_usuario) == Number(user.id)
+      const comentado = comentarios.some(
+        (comentario) => Number(comentario.id_usuario) === Number(user.id)
       );
-      setHaComentado(haComentado);
+      setHaComentado(comentado);
     }
-  }, [selectedCourse, user]);
+  }, [selectedCourse, user, comentarios]);
 
   const textoBtnIncripcion = estaInscrito ? "Ya inscrito" : "Inscribirse";
 

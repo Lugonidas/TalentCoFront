@@ -9,7 +9,9 @@ import EditCourse from "./EditCourse";
 import Loader from "../../components/Loader";
 
 export default function MisCursos() {
-  const { user } = useAuth({ middleware: "guest" });
+  const { user, isStudent, isAdmin, isTeacher } = useAuth({
+    middleware: "guest",
+  });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
   const {
@@ -145,7 +147,27 @@ export default function MisCursos() {
         {cursosActivos.length == 0 && (
           <div className="text-center w-full">
             <p className="text-xl md:text-2xl">
-              No te has inscrito a ningún curso
+              {isAdmin || isTeacher ? (
+                <div>
+                  <span>Aún no has creao ningún curso</span>
+                  <button
+                    className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
+                    onClick={handleOpenCreateModal}
+                  >
+                    Agregar Curso
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <span>No te has inscrito a ningún curso</span>
+                  <Link
+                    to="/dashboard/cursos"
+                    className="text-indigo-800 font-bold mx-1"
+                  >
+                    Ver cursos
+                  </Link>
+                </div>
+              )}
               <Link
                 to="/dashboard/cursos"
                 className="text-indigo-800 font-bold mx-1"
