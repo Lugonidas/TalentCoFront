@@ -53,7 +53,7 @@ export default function ShowCourse() {
     const fetchData = async () => {
       await getCourseById(courseId);
       updateLecciones(courseId);
-      if (user && user.id_rol == 2) {
+      if (user && Number(user.id_rol) == 2) {
         await obtenerProgresoCurso(courseId);
       }
     };
@@ -64,13 +64,13 @@ export default function ShowCourse() {
   useEffect(() => {
     if (selectedCourse && user) {
       const estaInscrito = selectedCourse.estudiantes.some(
-        (estudiante) => estudiante.id == user.id
+        (estudiante) => Number(estudiante.id) == Number(user.id)
       );
       setEstaInscrito(estaInscrito);
 
       // Verificar si el usuario ha comentado
       const haComentado = selectedCourse.comentarios.some(
-        (comentario) => comentario.id_usuario == user.id
+        (comentario) => Number(comentario.id_usuario) == Number(user.id)
       );
       setHaComentado(haComentado);
     }
@@ -88,7 +88,7 @@ export default function ShowCourse() {
   const textoBtnIncripcion = estaInscrito ? "Ya inscrito" : "Inscribirse";
 
   const leccionesFiltradas =
-    selectedCourse && user?.id == selectedCourse.id_docente
+    selectedCourse && Number(user?.id) == Number(selectedCourse.id_docente)
       ? lecciones
       : lecciones.filter((leccion) => leccion.estado == 1);
 
@@ -225,7 +225,7 @@ export default function ShowCourse() {
                   </motion.button>
                 </Link>
 
-                {user?.id == selectedCourse.id_docente && (
+                {Number(user?.id) == Number(selectedCourse.id_docente) && (
                   <button
                     onClick={handleOpenCreateModal}
                     className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
@@ -364,48 +364,50 @@ export default function ShowCourse() {
                         />
                       </strong>
                     </div>
-                    {!haComentado && estaInscrito && user.id_rol == 2 && (
-                      <form
-                        onSubmit={handleSubmit}
-                        className="space-y-4 my-2 border-t border-dotted border-indigo-800"
-                        noValidate
-                      >
-                        <div className="my-2">
-                          <label
-                            htmlFor="comentario"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Comentario
-                          </label>
-                          <textarea
-                            id="comentario"
-                            name="comentario"
-                            value={calificacion.comentario}
-                            onChange={handleChange}
-                            required
-                            rows={3}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Describe brevemente el curso"
-                          />
-                        </div>
-                        <div className="flex items-center gap-1">
-                          Calificación:
-                          <Rating
-                            initialRating={rating}
-                            onRatingChange={handleRatingChange}
-                          />
-                        </div>
+                    {!haComentado &&
+                      estaInscrito &&
+                      Number(user.id_rol) == 2 && (
+                        <form
+                          onSubmit={handleSubmit}
+                          className="space-y-4 my-2 border-t border-dotted border-indigo-800"
+                          noValidate
+                        >
+                          <div className="my-2">
+                            <label
+                              htmlFor="comentario"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Comentario
+                            </label>
+                            <textarea
+                              id="comentario"
+                              name="comentario"
+                              value={calificacion.comentario}
+                              onChange={handleChange}
+                              required
+                              rows={3}
+                              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              placeholder="Describe brevemente el curso"
+                            />
+                          </div>
+                          <div className="flex items-center gap-1">
+                            Calificación:
+                            <Rating
+                              initialRating={rating}
+                              onRatingChange={handleRatingChange}
+                            />
+                          </div>
 
-                        <div className="flex justify-end">
-                          <button
-                            type="submit"
-                            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                          >
-                            Agregar Calificación
-                          </button>
-                        </div>
-                      </form>
-                    )}
+                          <div className="flex justify-end">
+                            <button
+                              type="submit"
+                              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                              Agregar Calificación
+                            </button>
+                          </div>
+                        </form>
+                      )}
 
                     {selectedCourse.comentarios &&
                       selectedCourse.comentarios.length > 0 && (
@@ -445,7 +447,8 @@ export default function ShowCourse() {
                                   </div>
                                   <span>{comentario.comentario}</span>
                                   {haComentado &&
-                                    comentario.id_usuario == user.id && (
+                                    Number(comentario.id_usuario) ==
+                                      Number(user.id) && (
                                       <motion.button
                                         className="absolute top-0 right-0"
                                         whileHover={{ scale: 1.1 }}

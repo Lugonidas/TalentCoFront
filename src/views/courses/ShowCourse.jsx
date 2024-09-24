@@ -94,7 +94,7 @@ export default function ShowCourse() {
     const fetchData = async () => {
       await getCourseById(courseId);
       updateLecciones(courseId);
-      if (user && user.id_rol == 2) {
+      if (user && Number(user.id_rol) == 2) {
         await obtenerProgresoCurso(courseId);
       }
     };

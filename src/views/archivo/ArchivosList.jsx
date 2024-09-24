@@ -18,7 +18,7 @@ export default function CoursesList() {
 
   // Filtrar cursos por categoría seleccionada
   const filteredCursos = selectedCategoria
-    ? cursos.filter((curso) => curso.categoria.id == selectedCategoria)
+    ? cursos.filter((curso) => Number(curso.categoria.id) == Number(selectedCategoria))
     : cursos;
 
   return (
@@ -66,7 +66,7 @@ export default function CoursesList() {
                 <i className="fa-solid fa-eye bg-green-600 text-white p-2"></i>
               </motion.button>
 
-              { user && (user.id_rol == 1 || user.id_rol == 2) && (
+              { user && (Number(user.id_rol) == 1 || Number(user.id_rol) == 2) && (
                 <>
                   <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => handleOpenEditModal(curso)}>
                     <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>

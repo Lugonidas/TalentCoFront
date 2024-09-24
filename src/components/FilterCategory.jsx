@@ -29,7 +29,7 @@ export default function FilterCategory() {
                 <button
                   onClick={() => handleClickCategoria(categoria.id)}
                   className={`py-0.5 px-2 border border-dotted border-indigo-800 transition-all ease-linear hover:cursor-pointer ${
-                    selectedCategoria == categoria.id
+                    Number(selectedCategoria) == Number(categoria.id)
                       ? "bg-indigo-800 text-white"
                       : "hover:bg-indigo-800 hover:text-white"
                   }`}

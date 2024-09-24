@@ -98,9 +98,9 @@ export const useAuth = ({ middleware, url }) => {
     user,
     error,
     errores,
-    isAdmin: user?.id_rol == 1,
-    isTeacher: user?.id_rol == 3,
-    isStudent: user?.id_rol == 2,
+    isAdmin: Number(user?.id_rol) == 1,
+    isTeacher: Number(user?.id_rol) == 3,
+    isStudent: Number(user?.id_rol) == 2,
     loading,
   };
 };

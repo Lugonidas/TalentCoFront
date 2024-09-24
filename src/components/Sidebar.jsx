@@ -162,7 +162,7 @@ export default function Sidebar() {
                 )}
               </Link>
             </li>
-            {user && user.id_rol == 2 && (
+            {user && Number(Number(user.id_rol)) == 2 && (
               <li>
                 <Link
                   aria-label="Ir a ver mis cursos"
@@ -187,34 +187,36 @@ export default function Sidebar() {
                 </Link>
               </li>
             )}
-            {user && (user.id_rol == 1 || user.id_rol == 3) && (
-              <>
-                <li>
-                  <Link
-                    aria-label="Ir a ver mis cursos"
-                    to="/dashboard/misCursos"
-                    className={`${
-                      isActive("/dashboard/misCursos")
-                        ? "active bg-indigo-500 text-white border-indigo-800 transition-all ease-linear"
-                        : ""
-                    } ${
-                      isSidebarExpanded ? "grid-cols-4" : ""
-                    }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
-                  >
-                    <img
-                      loading="lazy"
-                      className="w-9 mx-auto"
-                      src="/img/misCursos.png"
-                      alt="mis Cursos"
-                    />
-                    {isSidebarExpanded && (
-                      <span className="col-span-3">Mis cursos</span>
-                    )}
-                  </Link>
-                </li>
-              </>
-            )}
-            {user && user.id_rol == 1 && (
+            {user &&
+              (Number(Number(user.id_rol)) == 1 ||
+                Number(Number(user.id_rol)) == 3) && (
+                <>
+                  <li>
+                    <Link
+                      aria-label="Ir a ver mis cursos"
+                      to="/dashboard/misCursos"
+                      className={`${
+                        isActive("/dashboard/misCursos")
+                          ? "active bg-indigo-500 text-white border-indigo-800 transition-all ease-linear"
+                          : ""
+                      } ${
+                        isSidebarExpanded ? "grid-cols-4" : ""
+                      }  nav-link grid p-2 gap-2 items-center text-gray-700 font-bold hover:text-white hover:bg-indigo-400 transition-all ease-linear duration-500 text-xl`}
+                    >
+                      <img
+                        loading="lazy"
+                        className="w-9 mx-auto"
+                        src="/img/misCursos.png"
+                        alt="mis Cursos"
+                      />
+                      {isSidebarExpanded && (
+                        <span className="col-span-3">Mis cursos</span>
+                      )}
+                    </Link>
+                  </li>
+                </>
+              )}
+            {user && Number(user.id_rol) == 1 && (
               <>
                 <li>
                   <Link
@@ -335,13 +337,13 @@ export default function Sidebar() {
               {isSidebarExpanded && (
                 <p className="font-bold flex flex-col text-end capitalize ">
                   {user?.usuario}
-                  {user && user.id_rol == 1 && (
+                  {user && Number(user.id_rol) == 1 && (
                     <span className="text-indigo-800">Administrador</span>
                   )}
-                  {user && user.id_rol == 3 && (
+                  {user && Number(user.id_rol) == 3 && (
                     <span className="text-indigo-800">Docente</span>
                   )}
-                  {user && user.id_rol == 2 && (
+                  {user && Number(user.id_rol) == 2 && (
                     <span className="text-indigo-800">Estudiante</span>
                   )}
                 </p>

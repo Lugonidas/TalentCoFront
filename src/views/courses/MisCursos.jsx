@@ -28,16 +28,16 @@ export default function MisCursos() {
 
   useEffect(() => {
     if (user) {
-      if (user.id_rol == 1 || user.id_rol == 3) {
+      if (Number(user.id_rol) == 1 || Number(user.id_rol) == 3) {
         obtenerMisCursos(user.id, "docente");
-      } else if (user.id_rol == 2) {
+      } else if (Number(user.id_rol) == 2) {
         obtenerMisCursos(user.id, "estudiante");
       }
     }
   }, [user]);
 
   if (loading) {
-    <Loader />;
+    return <Loader />;
   }
 
   return (
@@ -64,7 +64,7 @@ export default function MisCursos() {
             Mis Cursos
           </h1>
 
-          {user && (user.id_rol == 1 || user.id_rol == 3) && (
+          {user && (Number(user.id_rol) == 1 || Number(user.id_rol) == 3) && (
             <button
               className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
               onClick={handleOpenCreateModal}
@@ -126,7 +126,7 @@ export default function MisCursos() {
                       </motion.button>
                     </Link>
 
-                    {user && user.id == curso.id_docente && (
+                    {user && Number(user.id) == Number(curso.id_docente) && (
                       <>
                         <motion.button
                           whileHover={{ scale: 1.1 }}

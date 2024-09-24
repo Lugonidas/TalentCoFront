@@ -65,7 +65,7 @@ export default function CreateComentario() {
 
   return (
     <>
-      <h2 className="text-2xl font-bold mb-4">Editar Comentario</h2>
+      <h2 className="text-2xl font-bold mb-4">Crear Comentario</h2>
       <form
         onSubmit={handleSubmit}
         className="space-y-4 my-2 border-t border-dotted border-indigo-800"

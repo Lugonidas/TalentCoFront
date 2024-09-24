@@ -121,7 +121,7 @@ const ComentarioProvider = ({ children }) => {
       // Actualiza el estado con la respuesta correcta
       setComentarios((prevComentarios) =>
         prevComentarios.map((comentario) =>
-          comentario.id == id ? response.data.comentario : comentario
+          Number(comentario.id) == Number(id) ? response.data.comentario : comentario
         )
       );
 

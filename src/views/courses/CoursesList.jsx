@@ -27,7 +27,7 @@ export default function CoursesList() {
   // Filtrar cursos por categoría seleccionada, término de búsqueda y estado
   filteredCursos = cursos.filter((curso) => {
     const matchesCategoria = selectedCategoria
-      ? curso.categoria.id == selectedCategoria
+      ? Number(curso.categoria.id) == Number(selectedCategoria)
       : true;
     const matchesSearchTerm = curso.titulo
       .toLowerCase()
@@ -196,7 +196,7 @@ export default function CoursesList() {
                     </div>
                   )}
 
-                  {user && user.id == curso.id_docente && (
+                  {user && Number(user.id) == Number(curso.id_docente) && (
                     <>
                       <motion.button
                         whileHover={{ scale: 1.1 }}

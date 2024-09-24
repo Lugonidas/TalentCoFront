@@ -53,7 +53,7 @@ const CourseProvider = ({ children }) => {
       );
       const categoriasArray = Array.from(categoriasSet).map(
         (id) =>
-          cursosData.cursos.find((curso) => curso.categoria.id == id).categoria
+          cursosData.cursos.find((curso) => Number(curso.categoria.id) == Number(id)).categoria
       );
       setCursos(cursosData.cursos);
       setCategoriasCursos(categoriasArray);
@@ -223,7 +223,7 @@ const CourseProvider = ({ children }) => {
       );
       const categoriasArray = Array.from(categoriasSet).map(
         (id) =>
-          response.data.cursos.find((curso) => curso.categoria.id == id)
+          response.data.cursos.find((curso) => Number(curso.categoria.id) == Number(id))
             .categoria
       );
 
