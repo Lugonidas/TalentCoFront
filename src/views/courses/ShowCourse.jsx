@@ -162,20 +162,23 @@ export default function ShowCourse() {
   // Redondear el progreso a un decimal
   const progresoCurso = progreso != null ? progreso.toFixed(0) : null;
 
-  // Calcular el promedio de calificaciones
   const totalCalificaciones = comentarios.reduce(
-    (acc, comentario) => acc + comentario.calificacion,
+    (acc, comentario) => acc + Number(comentario.calificacion), // Convertir a número
     0
   );
+  
   const promedioCalificaciones =
-    comentarios.length > 0 ? totalCalificaciones / comentarios.length : 0;
+    comentarios.length > 0
+      ? totalCalificaciones / comentarios.length
+      : 0;
+  
+  console.log(totalCalificaciones);
+  console.log(promedioCalificaciones);
+  
 
   if (loading || loadingLecciones) {
     return <Loader />;
   }
-
-  console.log(totalCalificaciones)
-  console.log(promedioCalificaciones)
 
   return (
     <div>
