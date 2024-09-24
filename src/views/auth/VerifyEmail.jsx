@@ -19,7 +19,7 @@ const VerifyEmail = () => {
 
         
         setTimeout(() => {
-          navigate("/login");
+          navigate("login");
         }, 3000);
       } catch (error) {
         setMessage(
@@ -27,7 +27,7 @@ const VerifyEmail = () => {
         );
         {
           setTimeout(() => {
-            navigate("/login");
+            navigate("login");
           }, 3000);
         }
       } finally {

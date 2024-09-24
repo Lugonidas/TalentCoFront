@@ -26,9 +26,16 @@ const TareaProvider = ({ children }) => {
     setEditModal(true);
   };
 
-  const handleOpenViewModal = (tarea) => {
-    setSelectedTarea(tarea);
-    setViewModal(true);
+  const handleOpenViewModal = async (tarea) => {
+    setLoading(true); // Opcional: puedes manejar el loading aquí si es necesario
+    try {
+      await getTareaById(tarea.id); // Espera a que se complete la consulta
+      setViewModal(true); // Abre el modal solo después de recibir la tarea
+    } catch (error) {
+      console.error("Error al obtener la tarea:", error);
+    } finally {
+      setLoading(false); // Opcional: restablece el loading
+    }
   };
 
   const handleCloseModals = () => {
@@ -56,6 +63,24 @@ const TareaProvider = ({ children }) => {
     }
   };
 
+  const getTareaById = async (tareaId) => {
+    const token = localStorage.getItem("AUTH_TOKEN");
+    try {
+      setLoading(true);
+      const response = await clienteAxios.get(`/tareas/${tareaId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setSelectedTarea(response.data.tarea);
+    } catch (errores) {
+      console.error("Error:", Object.values(errores.response.data.errors));
+      setErrores(Object.values(errores.response.data.errors));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   /*   const getLeccionById = async (leccionId) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
@@ -70,6 +95,17 @@ const TareaProvider = ({ children }) => {
       setErrores(Object.values(errores.response.data.errors));
     }
   }; */
+
+  const handleUpdateSuccess = () => {
+    Swal.fire({
+      title: "Actualizado",
+      text: "La nota se ha actualizado correctamente",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then(() => {
+      handleCloseModals();
+    });
+  };
 
   const handleCreateSuccess = () => {
     Swal.fire({
@@ -99,10 +135,10 @@ const TareaProvider = ({ children }) => {
     }
   };
 
-  const updateTarea = async (id, tareaData) => {
+  const updateTarea = async (id, tareaData, cursoId) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
-      await clienteAxios.patch(`/tareas/${id}`, tareaData, {
+      const response = await clienteAxios.put(`/tareas/${id}`, tareaData, {
         headers: {
           "Content-Type": "application/json",
           /* "Content-Type": "multipart/form-data", */
@@ -115,12 +151,47 @@ const TareaProvider = ({ children }) => {
         icon: "success",
         confirmButtonText: "OK",
       }).then(() => {
+        getTareasByCurso(cursoId)
         handleCloseModals();
         /*         updateLecciones(selectedTarea.id_curso); */
       });
     } catch (error) {
       console.error("Error:", error);
       setErrores(error);
+    }
+  };
+
+  const createNota = async (notaData) => {
+    const token = localStorage.getItem("AUTH_TOKEN");
+    try {
+      await clienteAxios.post("/notas", notaData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      /* handleCreateSuccess(); */
+      setErrores({});
+    } catch (errores) {
+      console.error("Error:", Object.values(errores.response.data.errors));
+      setErrores(errores.response.data.errors);
+    }
+  };
+
+  const updateNota = async (notaData) => {
+    const token = localStorage.getItem("AUTH_TOKEN");
+    try {
+      await clienteAxios.put(`notas/actualizar`, notaData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      handleUpdateSuccess();
+      setErrores({});
+    } catch (errores) {
+      console.error("Error:", Object.values(errores.response.data.errors));
+      setErrores(errores.response.data.errors);
     }
   };
 
@@ -182,6 +253,8 @@ const TareaProvider = ({ children }) => {
     <TareaContext.Provider
       value={{
         getTareasByCurso,
+        createNota,
+        updateNota,
         createModalTarea,
         viewModal,
         editModal,

@@ -58,6 +58,11 @@ export default function CreateTarea() {
       formData.append(key, tarea[key]);
     });
 
+    if (tarea.nota_maxima < 0 || tarea.nota_maxima > 100) {
+      alert("La nota debe estar entre 0 y 100.");
+      return;
+    }
+
     try {
       await createTarea(formData);
     } catch {
@@ -164,6 +169,7 @@ export default function CreateTarea() {
             id="fecha_inicio"
             name="fecha_inicio"
             value={tarea.fecha_inicio}
+            min={new Date().toISOString().split("T")[0]}
             onChange={handleChange}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -189,6 +195,7 @@ export default function CreateTarea() {
             name="fecha_fin"
             value={tarea.fecha_fin}
             onChange={handleChange}
+            min={tarea.fecha_inicio}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />

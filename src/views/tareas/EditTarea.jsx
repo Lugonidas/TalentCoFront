@@ -21,7 +21,7 @@ export default function EditTarea() {
     nota_maxima: "",
     fecha_inicio: "",
     fecha_fin: "",
-    estado: "",
+    estado: 0,
   });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function EditTarea() {
         nota_maxima: selectedTarea.nota_maxima || "",
         fecha_inicio: selectedTarea.fecha_inicio || "",
         fecha_fin: selectedTarea.fecha_fin || "",
-        estado: selectedTarea.estado || "",
+        estado: selectedTarea.estado || 0,
       });
     }
   }, [selectedTarea]);
@@ -76,8 +76,13 @@ export default function EditTarea() {
       }
     });
 
+    if (tarea.nota_maxima < 0 || tarea.nota_maxima > 100) {
+      alert("La nota debe estar entre 0 y 100.");
+      return;
+    }
+
     try {
-      await updateTarea(selectedTarea.id, formData);
+      await updateTarea(selectedTarea.id, formData, selectedCourse.id);
     } catch (error) {
       console.log("Error al actualizar la tarea:", error);
     }
@@ -160,7 +165,7 @@ export default function EditTarea() {
               Nota máxima
             </label>
             <input
-              type="text"
+              type="number"
               id="nota_maxima"
               name="nota_maxima"
               value={tarea.nota_maxima}

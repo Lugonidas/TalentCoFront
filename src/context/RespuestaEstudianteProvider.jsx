@@ -74,12 +74,15 @@ const RespuestaEstudianteProvider = ({ children }) => {
 
   const handleCreateSuccess = () => {
     Swal.fire({
-      title: "Tarea creada",
-      text: "La tarea se ha creado correctamente",
+      title: "Respuesta enviada",
+      text: "La respuesta se ha enviado correctamente",
       icon: "success",
       confirmButtonText: "OK",
     }).then(() => {
       handleCloseModals();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     });
   };
 
@@ -92,9 +95,6 @@ const RespuestaEstudianteProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log(response);
-
       handleCreateSuccess();
       setErrores({});
     } catch (errores) {
@@ -105,8 +105,6 @@ const RespuestaEstudianteProvider = ({ children }) => {
 
   const updateTarea = async (id, tareaData) => {
     const token = localStorage.getItem("AUTH_TOKEN");
-
-    console.log([...tareaData]);
 
     try {
       await clienteAxios.patch(`/tareas/${id}`, tareaData, {

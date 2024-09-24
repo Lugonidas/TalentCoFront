@@ -174,9 +174,9 @@ export default function CoursesList() {
                   >
                     <motion.button
                       aria-label="Ir a ver el curso"
-                      className={`${user ? "" : "block w-full bg-green-600 hover:bg-green-700"} `}
+                      className={`${user ? "" : "block w-full bg-indigo-800 transition-all ease-in hover:bg-indigo-700"} `}
                     >
-                      <i className="fa-solid fa-eye bg-green-600 text-white p-2"></i>
+                      <i className="fa-solid fa-eye bg-indigo-800 text-white p-2"></i>
                     </motion.button>
                   </Link>
 

@@ -28,6 +28,7 @@ export default function Inicio() {
     viewModal,
     handleOpenViewModal,
   } = useTarea();
+
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
   const { courseId } = useParams();
@@ -228,6 +229,20 @@ export default function Inicio() {
                   })}
                 </p>
 
+                <span
+                  className={`${
+                    new Date() >
+                    new Date(tarea.fecha_fin).setHours(23, 59, 59, 999)
+                      ? "bg-red-600" // Si la fecha actual es mayor que la fecha de cierre, está cerrada
+                      : "bg-green-600" // De lo contrario, está activa
+                  } my-2 px-2 py-1 text-xs inline-block w-min text-white font-bold`}
+                >
+                  {new Date() >
+                  new Date(tarea.fecha_fin).setHours(23, 59, 59, 999)
+                    ? "Cerrada"
+                    : "Activa"}{" "}
+                </span>
+
                 {/* Acciones */}
                 <div className="pt-2 flex gap-2">
                   <button
@@ -237,21 +252,21 @@ export default function Inicio() {
                     Ver
                   </button>
 
-                  {user && isAdmin && (
+                  {/*                   {user && isAdmin && (
                     <div className="space-y-4 my-2 absolute bottom-0 right-2">
                       <div className="flex flex-col">
                         <label className="relative inline-flex items-center cursor-pointer">
                           <input
                             type="checkbox"
                             className="sr-only peer"
-                            /* checked={tarea.estado == 1} */
-                            /* onChange={() => handleSwitchChange(curso)} */
+                            checked={tarea.estado == 1}
+                            onChange={() => handleSwitchChange(curso)}
                           />
                           <div className="peer ring-0 bg-rose-400 rounded-full outline-none duration-300 after:duration-500 w-8 h-8 shadow-md peer-checked:bg-emerald-500 peer-focus:outline-none after:content-['✖️'] after:rounded-full after:absolute after:outline-none after:h-6 after:w-6 after:bg-gray-50 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-hover:after:scale-75 peer-checked:after:content-['✔️'] after:-rotate-180 peer-checked:after:rotate-0"></div>
                         </label>
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   {user && user.id == selectedCourse.id_docente && (
                     <>

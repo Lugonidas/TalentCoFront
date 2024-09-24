@@ -132,7 +132,7 @@ const CourseProvider = ({ children }) => {
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
-      const response = await clienteAxios.put(`/cursos/${id}`, courseData, {
+      const response = await clienteAxios.put(`cursos/${id}`, courseData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -159,7 +159,7 @@ const CourseProvider = ({ children }) => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
       setLoading(true);
-      const response = await clienteAxios.get(`/cursos/${courseId}`, {
+      const response = await clienteAxios.get(`cursos/${courseId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

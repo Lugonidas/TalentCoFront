@@ -46,21 +46,18 @@ export default function CreateRespuestaEstudiante() {
 
     const formData = new FormData();
 
-    
-
     Object.keys(respuesta).forEach((key) => {
-        formData.append(key, respuesta[key]);
+      formData.append(key, respuesta[key]);
     });
 
     console.log([...formData]);
     // Envía el formulario a la API
     try {
-        await createRespuestaEstudiante(formData);
+      await createRespuestaEstudiante(formData);
     } catch {
-        console.log(errores);
+      console.log(errores);
     }
-};
-
+  };
 
   // Configuración de dropzone para archivos
   const { getRootProps, getInputProps } = useDropzone({
@@ -73,7 +70,7 @@ export default function CreateRespuestaEstudiante() {
   });
 
   return (
-    <>
+    <div className="">
       <h2 className="text-2xl font-bold mb-4">Agregar Respuesta</h2>
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         {/* Campo para el texto de respuesta */}
@@ -154,6 +151,6 @@ export default function CreateRespuestaEstudiante() {
           </motion.button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
