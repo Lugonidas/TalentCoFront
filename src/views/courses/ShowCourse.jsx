@@ -163,7 +163,7 @@ export default function ShowCourse() {
   const progresoCurso = progreso != null ? progreso.toFixed(1) : null;
 
   const totalCalificaciones = comentarios.reduce(
-    (acc, comentario) => acc + Number(comentario.calificacion), // Convertir a número
+    (acc, comentario) => acc + Number(comentario.calificacion),
     0
   );
 
@@ -174,6 +174,7 @@ export default function ShowCourse() {
 
   console.log(totalCalificaciones);
   console.log(promedioCalificaciones);
+  console.log(haComentado);
 
   if (loading || loadingLecciones) {
     return <Loader />;
@@ -399,7 +400,7 @@ export default function ShowCourse() {
 
                   {estaInscrito && (
                     <strong className="text-xs text-indigo-800">
-                      Progreso: <span>{progresoCurso}%</span>
+                      Progreso: <span>{progresoCurso} %</span>
                     </strong>
                   )}
 

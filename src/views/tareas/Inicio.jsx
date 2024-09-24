@@ -42,11 +42,14 @@ export default function Inicio() {
 
   // Calcular el promedio de calificaciones
   const totalCalificaciones = comentarios.reduce(
-    (acc, comentario) => acc + comentario.calificacion,
+    (acc, comentario) => acc + Number(comentario.calificacion),
     0
   );
+
   const promedioCalificaciones =
-    comentarios.length > 0 ? totalCalificaciones / comentarios.length : 0;
+    comentarios.length > 0
+      ? (Number(totalCalificaciones) / comentarios.length).toFixed(1)
+      : 0;
 
   if (!selectedCourse) {
     return <Loader />;
