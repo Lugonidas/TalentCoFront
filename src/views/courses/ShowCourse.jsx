@@ -161,7 +161,7 @@ export default function ShowCourse() {
   };
 
   // Redondear el progreso a un decimal
-  const progresoCurso = progreso != null ? progreso.toFixed(0) : null;
+  const progresoCurso = progreso != null ? progreso.toFixed(1) : null;
 
   // Calcular el promedio de calificaciones
   const totalCalificaciones = comentarios.reduce(
