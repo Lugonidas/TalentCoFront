@@ -102,14 +102,15 @@ export default function ShowCourse() {
   }, [courseId]);
 
   useEffect(() => {
-    if (selectedCourse && user && comentarios.length > 0) {
+    if (selectedCourse && user) {
       const estaInscrito = selectedCourse.estudiantes.some(
-        (estudiante) => Number(estudiante.id) === Number(user.id)
+        (estudiante) => Number(estudiante.id) == Number(user.id)
       );
       setEstaInscrito(estaInscrito);
 
+      // Verificar si el usuario ha comentado
       const comentado = comentarios.some(
-        (comentario) => Number(comentario.id_usuario) === Number(user.id)
+        (comentario) => Number(comentario.id_usuario) == Number(user.id)
       );
       setHaComentado(comentado);
     }
