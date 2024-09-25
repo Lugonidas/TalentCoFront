@@ -14,7 +14,7 @@ const AnimatedBackground = () => {
 
         // Función para inicializar las partículas
         const initParticles = () => {
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 20; i++) {
                 particles.current.push(new Particle(canvas, ctx));
             }
         };
@@ -26,7 +26,7 @@ const AnimatedBackground = () => {
                 this.ctx = ctx;
                 this.x = Math.random() * this.canvas.width;
                 this.y = Math.random() * this.canvas.height;
-                this.radius = Math.random() * 8 + 10; // Tamaño aleatorio para círculos
+                this.radius = Math.random() * 8 + 20; // Tamaño aleatorio para círculos
                 this.side = Math.random() * 2 + 12; // Lado aleatorio para cuadrados
                 this.color = generateRandomColor(); // Color aleatorio
                 this.type = Math.floor(Math.random() * 3); // 0 para círculos, 1 para cuadrados, 2 para triángulos

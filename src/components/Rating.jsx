@@ -48,7 +48,7 @@ export default function Rating({
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center text-sm">
       {renderStars()}
       <span className="ms-2 font-bold">{rating}/5</span>
     </div>

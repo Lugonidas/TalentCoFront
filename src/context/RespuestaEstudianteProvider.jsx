@@ -8,7 +8,7 @@ const RespuestaEstudianteProvider = ({ children }) => {
   /*   const { getCourseById, selectedCourse } = useCourse();
   const [lecciones, setLecciones] = useState([]); */
   /*   const [tareas, setTareas] = useState([]); */
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [createModal, setCreateModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -36,25 +36,6 @@ const RespuestaEstudianteProvider = ({ children }) => {
     setViewModal(false);
     setEditModal(false);
     setErrores({});
-  };
-
-  const getTareasByCurso = async (cursoId) => {
-    const token = localStorage.getItem("AUTH_TOKEN");
-    try {
-      setLoading(true);
-      const response = await clienteAxios.get(`/tareas/curso/${cursoId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response);
-      setTareas(response.data.tareas);
-    } catch (errores) {
-      console.error("Error:", Object.values(errores.response.data.errors));
-      setErrores(Object.values(errores.response.data.errors));
-    } finally {
-      setLoading(false);
-    }
   };
 
   /*   const getLeccionById = async (leccionId) => {
@@ -90,6 +71,7 @@ const RespuestaEstudianteProvider = ({ children }) => {
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
+      setLoading(true);
       const response = await clienteAxios.post("respuestas", respuestaData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -100,6 +82,8 @@ const RespuestaEstudianteProvider = ({ children }) => {
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
       setErrores(errores.response.data.errors);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -126,6 +110,25 @@ const RespuestaEstudianteProvider = ({ children }) => {
     } catch (error) {
       console.error("Error:", error);
       setErrores(error);
+    }
+  };
+
+  const getTareasByCurso = async (cursoId) => {
+    const token = localStorage.getItem("AUTH_TOKEN");
+    try {
+      setLoading(true);
+      const response = await clienteAxios.get(`/tareas/curso/${cursoId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response);
+      setTareas(response.data.tareas);
+    } catch (errores) {
+      console.error("Error:", Object.values(errores.response.data.errors));
+      setErrores(Object.values(errores.response.data.errors));
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-/* import AnimatedBackground from "../../components/AnimatedBackground"; */
+import AnimatedBackground from "../../components/AnimatedBackground";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useCourse from "../../hooks/useCourse";
 
@@ -16,8 +16,7 @@ export default function Inicio() {
   const { cursos, loading } = useCourse();
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
-  const cursosActivos = cursos.filter(curso => curso.estado == 1);
-
+  const cursosActivos = cursos.filter((curso) => curso.estado == 1);
 
   if (loading) {
     return (
@@ -30,7 +29,7 @@ export default function Inicio() {
   return (
     <>
       <div className="min-h-screen flex flex-col items-center">
-        {/*       <AnimatedBackground /> */}
+        <AnimatedBackground />
 
         <div className=" shadow-lg backdrop-blur mx-auto p-2 md:min-h-[50vh] flex flex-col justify-center my-10">
           <div className="p-2 text-center">
@@ -133,7 +132,7 @@ export default function Inicio() {
         </div>
       </div>
       <div className="min-h-64 w-full grid justify-center items-center md:px-6">
-{/*         <div className="md:col-span-1 hidden md:block">
+        {/*         <div className="md:col-span-1 hidden md:block">
           <img
             loading="lazy"
             src="../img/logoTalentCo.svg"

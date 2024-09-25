@@ -125,7 +125,9 @@ export default function CoursesList() {
       </div>
       <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {filteredCursos.map((curso) => {
-          const averageRating = calculateAverageRating(curso.comentarios).toFixed(1);
+          const averageRating = calculateAverageRating(
+            curso.comentarios
+          ).toFixed(1);
 
           return (
             <motion.li
@@ -150,18 +152,21 @@ export default function CoursesList() {
 
               <div className="md:flex flex-col justify-between">
                 <div>
-                  <strong className="font-bold mb-2 text-indigo-800">
-                    <Link
-                      to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
-                      aria-label="Ir a ver el curso"
-                    >
-                      {curso.titulo}
-                    </Link>
-                  </strong>
+                  <Link
+                    className="font-bold mb-2 text-indigo-800"
+                    to={`${user ? "/dashboard" : ""}/cursos/show/${curso.id}`}
+                    aria-label="Ir a ver el curso"
+                  >
+                    {curso.titulo}
+                  </Link>
                   <p>
                     <i className="fa-solid fa-user-tie"></i>
                     <span> {curso.docente.name}</span>
                   </p>
+                  <span>
+                    <i className="text-indigo-800 fa-solid fa-graduation-cap"></i>{" "}
+                    {curso.estudiantes.length}
+                  </span>
                   <div className="flex items-center gap-1">
                     <Rating initialRating={averageRating} readOnly />
                   </div>
@@ -174,7 +179,11 @@ export default function CoursesList() {
                   >
                     <motion.button
                       aria-label="Ir a ver el curso"
-                      className={`${user ? "" : "block w-full bg-indigo-800 transition-all ease-in hover:bg-indigo-700"} `}
+                      className={`${
+                        user
+                          ? ""
+                          : "block w-full bg-indigo-800 transition-all ease-in hover:bg-indigo-700"
+                      } `}
                     >
                       <i className="fa-solid fa-eye bg-indigo-800 text-white p-2"></i>
                     </motion.button>

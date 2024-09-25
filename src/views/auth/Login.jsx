@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
 export default function Login() {
-  const emailRef = createRef();
+  const usuarioRef = createRef();
   const passwordRef = createRef();
 
   const { login, errores, loading } = useAuth({
@@ -18,7 +18,7 @@ export default function Login() {
     setShowPassword(false);
 
     const datos = {
-      email: emailRef.current.value,
+      usuario: usuarioRef.current.value,
       password: passwordRef.current.value,
     };
 
@@ -51,7 +51,7 @@ export default function Login() {
             Inicia sesión diligenciando el formulario
           </p>
 
-          {errores && errores.length > 0 && !errores.email && !errores.password && (
+          {errores && errores.length > 0 && !errores.usuario && !errores.password && (
             <p className=" text-center p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
               {errores}
             </p>
@@ -60,19 +60,19 @@ export default function Login() {
           <div className="bg-white shadow-md rounded-md mt-5 p-5">
             <form onSubmit={handleSubmit}>
               <div className="flex-1 mb-4 flex flex-col gap-2">
-                <label htmlFor="email" className="text-slate-800">
-                  Correo
+                <label htmlFor="usuario" className="text-slate-800">
+                  Usuario
                 </label>
                 <input
-                  type="email"
-                  ref={emailRef}
+                  type="text"
+                  ref={usuarioRef}
                   className="p-2 w-full bg-indigo-50 outline-none text-gray-600"
-                  name="email"
-                  placeholder="Ej: lugo@correo.com"
+                  name="usuario"
+                  placeholder="Ej: lugonidas"
                 />
-                {errores && errores.email && (
+                {errores && errores.usuario && (
                   <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
-                    {errores.email}
+                    {errores.usuario}
                   </p>
                 )}
               </div>

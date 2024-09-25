@@ -53,7 +53,9 @@ const CourseProvider = ({ children }) => {
       );
       const categoriasArray = Array.from(categoriasSet).map(
         (id) =>
-          cursosData.cursos.find((curso) => Number(curso.categoria.id) == Number(id)).categoria
+          cursosData.cursos.find(
+            (curso) => Number(curso.categoria.id) == Number(id)
+          ).categoria
       );
       setCursos(cursosData.cursos);
       setCategoriasCursos(categoriasArray);
@@ -137,10 +139,8 @@ const CourseProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       handleUpdateSuccess();
-      obtenerMisCursos(response.data.curso.id_docente, "docente");
-      updateCourses();
+      /* obtenerMisCursos(response.data.curso.id_docente, "docente"); */
       mutateCursos();
       setErrores({});
       /*       obtenerMisCursos(user.id, user.id_rol === 1 || user.id_rol === 3 ? "docente" : "estudiante"); */
@@ -223,8 +223,9 @@ const CourseProvider = ({ children }) => {
       );
       const categoriasArray = Array.from(categoriasSet).map(
         (id) =>
-          response.data.cursos.find((curso) => Number(curso.categoria.id) == Number(id))
-            .categoria
+          response.data.cursos.find(
+            (curso) => Number(curso.categoria.id) == Number(id)
+          ).categoria
       );
 
       setCategoriasCursos(categoriasArray);
@@ -249,9 +250,6 @@ const CourseProvider = ({ children }) => {
   const obtenerMisCursos = async (userId, tipoUsuario) => {
     const token = localStorage.getItem("AUTH_TOKEN");
 
-    if (!token) {
-      return;
-    }
     try {
       setLoading(true);
       const response = await clienteAxios.get(
@@ -262,7 +260,6 @@ const CourseProvider = ({ children }) => {
           },
         }
       );
-
       setMisCursos(response.data.cursos);
       mutateCursos();
     } catch (error) {

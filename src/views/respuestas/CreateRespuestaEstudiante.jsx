@@ -7,7 +7,7 @@ import useTarea from "../../hooks/useTarea";
 
 export default function CreateRespuestaEstudiante() {
   const { user } = useAuth({ middleware: "auth" });
-  const { createRespuestaEstudiante, errores, handleCloseModals } =
+  const { createRespuestaEstudiante, errores, handleCloseModals, loading } =
     useRespuestaEstudiante();
   const { selectedTarea } = useTarea();
 
@@ -50,8 +50,6 @@ export default function CreateRespuestaEstudiante() {
       formData.append(key, respuesta[key]);
     });
 
-    console.log([...formData]);
-    // Envía el formulario a la API
     try {
       await createRespuestaEstudiante(formData);
     } catch {
@@ -142,13 +140,39 @@ export default function CreateRespuestaEstudiante() {
           >
             Cancelar
           </motion.button>
-          <motion.button
-            type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            whileTap={{ scale: 0.95 }}
-          >
-            Enviar Entrega
-          </motion.button>
+
+          {loading ? (
+            <div className="flex justify-center">
+              <svg
+                className="animate-spin h-6 w-6 text-indigo-800"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zM12 4a8 8 0 010 16v4c6.627 0 12-5.373 12-12h-4z"
+                ></path>
+              </svg>
+            </div>
+          ) : (
+            <motion.button
+              type="submit"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              whileTap={{ scale: 0.95 }}
+            >
+              Enviar Entrega
+            </motion.button>
+          )}
         </div>
       </form>
     </div>
