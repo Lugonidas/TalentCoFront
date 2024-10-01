@@ -117,7 +117,7 @@ export default function MisCursos() {
                       <motion.img
                         src={`${apiUrl}/storage/${curso.imagen}`}
                         alt={`Imagen ${curso.titulo}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain mx-auto"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3 }}

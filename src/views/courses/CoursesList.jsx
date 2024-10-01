@@ -143,7 +143,7 @@ export default function CoursesList() {
                   loading="lazy"
                   src={`${apiUrl}/storage/${curso.imagen}`}
                   alt={`Imagen ${curso.titulo}`}
-                  className=" mx-auto aspect-square w-full h-full"
+                  className=" mx-auto object-contain w-full h-full"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
