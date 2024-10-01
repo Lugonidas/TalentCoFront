@@ -1,7 +1,6 @@
 import "moment/locale/es";
 import useLeccion from "../../hooks/useLeccion";
 import useArchivo from "../../hooks/useArchivo";
-import moment from "moment";
 import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import Modal from "../../components/Modal";

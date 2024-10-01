@@ -171,10 +171,6 @@ export default function ShowCourse() {
       ? (Number(totalCalificaciones) / comentarios.length).toFixed(1)
       : 0;
 
-  console.log(totalCalificaciones);
-  console.log(promedioCalificaciones);
-  console.log(haComentado);
-
   if (loading) {
     return <Loader />;
   }
