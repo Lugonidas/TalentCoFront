@@ -113,7 +113,7 @@ export default function MisCursos() {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div>
+                    <div className="h-52">
                       <motion.img
                         src={`${apiUrl}/storage/${curso.imagen}`}
                         alt={`Imagen ${curso.titulo}`}
