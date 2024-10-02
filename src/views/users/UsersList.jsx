@@ -93,7 +93,7 @@ export default function UsersList() {
           <motion.li
             key={user.id}
             onClick={() => handleOpenViewModal(user)}
-            className="bg-white shadow-md rounded-md p-4 relative flex items-start transition ease-linear hover:cursor-pointer hover:-translate-y-1"
+            className="bg-white shadow-md rounded-md p-4 relative flex items-start gap-4 transition ease-linear hover:cursor-pointer hover:-translate-y-1"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             aria-label={`Ver detalles de ${user.name} ${user.apellido}`}

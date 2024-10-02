@@ -122,7 +122,6 @@ const RespuestaEstudianteProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
       setTareas(response.data.tareas);
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));

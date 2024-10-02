@@ -7,6 +7,7 @@ import Modal from "../../components/Modal";
 import CreateCourse from "./CreateCourse";
 import EditCourse from "./EditCourse";
 import Loader from "../../components/Loader";
+import Rating from "../../components/Rating";
 
 export default function MisCursos() {
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
@@ -24,6 +25,16 @@ export default function MisCursos() {
     misCursos,
     loading,
   } = useCourse();
+
+  // Función para calcular la calificación promedio
+  const calculateAverageRating = (comentarios) => {
+    if (comentarios.length == 0) return 0;
+    const totalRating = comentarios.reduce(
+      (acc, comentario) => acc + comentario.calificacion,
+      0
+    );
+    return totalRating / comentarios.length;
+  };
 
   // Filtra cursos activos
   const cursosActivos = misCursos.filter((curso) => curso.estado == 1);
@@ -69,12 +80,18 @@ export default function MisCursos() {
           </h1>
 
           {user && (isAdmin || isTeacher) && (
-            <button
-              className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
-              onClick={handleOpenCreateModal}
-            >
-              Agregar Curso
-            </button>
+            <div className="flex gap-2">
+              <button
+                className="my-4 py-1 px-2 bg-purple-800 text-white transition-all ease-in-out hover:scale-105"
+                onClick={handleOpenCreateModal}
+              >
+                <i className="fa-solid fa-plus"></i> Agregar Curso
+              </button>
+
+              <button className="my-4 py-1 px-2 bg-red-800 text-white transition-all ease-in-out hover:scale-105">Descargar pdf cursos</button>
+              <button className="my-4 py-1 px-2 bg-red-800 text-white transition-all ease-in-out hover:scale-105">Descargar pdf estudiantes</button>
+              <button className="my-4 py-1 px-2 bg-red-800 text-white transition-all ease-in-out hover:scale-105">Descargar pdf estudiantes notas</button>
+            </div>
           )}
         </div>
 
@@ -104,72 +121,77 @@ export default function MisCursos() {
           ) : (
             <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
               {cursosActivos &&
-                cursosActivos.map((curso) => (
-                  <motion.li
-                    key={curso.id}
-                    className="grid md:grid-cols-2 gap-2 bg-white shadow-md transition-all ease-linear hover:shadow-xl overflow-hidden md:h-[200px]"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="h-52">
-                      <motion.img
-                        src={`${apiUrl}/storage/${curso.imagen}`}
-                        alt={`Imagen ${curso.titulo}`}
-                        className="w-full h-full object-contain mx-auto"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </div>
+                cursosActivos.map((curso) => {
+                  const averageRating = calculateAverageRating(
+                    curso.comentarios
+                  ).toFixed(1);
 
-                    <div>
-                      <strong className="font-bold mb-2 text-indigo-800">
-                        {curso.titulo}
-                      </strong>
-                      <p>
-                        <i className="fa-solid fa-user-tie"></i>
-                        <span> {curso.docente.name}</span>
-                      </p>
-                      <span>
-                        <i className="fa-regular fa-clock"></i> {curso.duracion}{" "}
-                        Horas
-                      </span>
-                      <p className="text-xs">
-                        <i className="fa-solid fa-star text-yellow-400"></i>
-                        <i className="fa-solid fa-star text-yellow-400"></i>
-                        <i className="fa-solid fa-star text-yellow-400"></i>
-                        <i className="fa-solid fa-star text-yellow-400"></i>
-                        <i className="fa-solid fa-star text-yellow-400"></i>
-                        <span> 4.8/5</span>
-                      </p>
-                      <div className="md:py-2">
-                        <Link to={`/dashboard/cursos/show/${curso.id}`}>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <i className="fa-solid fa-eye bg-green-600 text-white p-2"></i>
-                          </motion.button>
-                        </Link>
-
-                        {user &&
-                          Number(user.id) == isTeacher && (
-                            <>
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => handleOpenEditModal(curso)}
-                              >
-                                <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
-                              </motion.button>
-                            </>
-                          )}
+                  return (
+                    <motion.li
+                      key={curso.id}
+                      className="grid md:grid-cols-2 gap-2 bg-white shadow-md transition-all ease-linear hover:shadow-xl overflow-hidden md:h-[200px]"
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="h-52">
+                        <motion.img
+                          src={`${apiUrl}/storage/${curso.imagen}`}
+                          alt={`Imagen ${curso.titulo}`}
+                          className="w-full h-full object-contain mx-auto"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
                       </div>
-                    </div>
-                  </motion.li>
-                ))}
+
+                      <div className="flex flex-col">
+                        <strong className="font-bold mb-2 text-indigo-800">
+                          {curso.titulo}
+                        </strong>
+                        <p>
+                          <i className="fa-solid fa-user-tie"></i>
+                          <span> {curso.docente.name}</span>
+                        </p>
+                        <span>
+                          <i className="fa-regular fa-clock"></i>{" "}
+                          {curso.duracion} Horas
+                        </span>
+                        <span>
+                          <i className="text-indigo-800 fa-solid fa-graduation-cap"></i>{" "}
+                          {curso.estudiantes.length}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <Rating initialRating={averageRating} readOnly />
+                        </div>
+                        <div className="md:py-2">
+                          <Link to={`/dashboard/cursos/show/${curso.id}`}>
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                            >
+                              <i className="fa-solid fa-eye bg-green-600 text-white p-2"></i>
+                            </motion.button>
+                          </Link>
+
+                          {user &&
+                            Number(user.id) == Number(curso.docente.id) && (
+                              <>
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={() => handleOpenEditModal(curso)}
+                                >
+                                  <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
+                                </motion.button>
+                              </>
+                            )}
+                        </div>
+                      </div>
+                    </motion.li>
+                  );
+                })}
             </ul>
           )}
         </>

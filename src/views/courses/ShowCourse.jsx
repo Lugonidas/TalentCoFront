@@ -58,6 +58,34 @@ export default function ShowCourse() {
 
   const { createModalTarea, handleOpenCreateModalTarea } = useTarea();
 
+  const descargarPDF = async () => {
+    const token = localStorage.getItem("AUTH_TOKEN");
+    try {
+      // Realiza la petición a tu backend para generar el PDF
+      const response = await clienteAxios.get(
+        `curso/${courseId}/descargar-pdf`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/pdf", // Cambiado a "Accept" para indicar que esperas un PDF
+          },
+          responseType: "blob", // Asegúrate de que el tipo de respuesta es 'blob'
+        }
+      );
+
+      // Crea un objeto URL para el blob y descarga el archivo
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `curso_${selectedCourse.titulo}.pdf`); // Asegúrate de usar courseId
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link); // Limpia el DOM
+    } catch (errores) {
+      console.error("Error:", Object.values(errores.response.data.errors));
+      /* setErrores(errores.response.data.errors); */
+    }
+  };
   const {
     handleOpenCreateModal,
     editModal,
@@ -255,6 +283,12 @@ export default function ShowCourse() {
                   </Link>
                 ) : null}
 
+                <button
+                  onClick={descargarPDF}
+                  className="my-4 py-1 px-2 bg-red-600 text-white transition-all ease-in-out hover:scale-105"
+                >
+                  <i className="fa-solid fa-file-pdf"></i> Curso
+                </button>
                 {/* Menú de tres puntitos */}
                 {user?.id == selectedCourse.id_docente && (
                   <div className="relative">

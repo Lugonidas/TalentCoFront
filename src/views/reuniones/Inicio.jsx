@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Inicio() {
   const navigate = useNavigate();
+  const { user, isAdmin } = useAuth({ middleware: "auth" });
   const [reunionId, setReunionId] = useState("");
   const [loading, setLoading] = useState(false);
   const [isJoinButtonDisabled, setIsJoinButtonDisabled] = useState(true);
@@ -45,9 +47,9 @@ export default function Inicio() {
 
   const cameraStyle = {
     position: "absolute",
-    width: "8rem",
-    left: "-8rem",
-    top: "-4rem",
+    width: "3rem",
+    left: "0",
+    top: "-6rem",
     animation: "cameraShake 5s infinite",
   };
 
@@ -82,16 +84,19 @@ export default function Inicio() {
         />
       </p>
       <div className="flex flex-col lg:flex-row items-center gap-6">
-        {/* <div>
-          <button
-            onClick={handleCreateMeetingJitsiPro}
-            className="bg-indigo-600 text-white font-semibold py-2 px-8 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
-            disabled={loading}
-          >
-            <i className="fa-solid fa-video me-2"></i>
-            {loading ? "Creando..." : "Crear Nueva Reunión Pro"}
-          </button>
-        </div> */}
+        {isAdmin && (
+          <div>
+            <button
+              onClick={handleCreateMeetingJitsiPro}
+              className="bg-black text-white font-semibold py-2 px-8 rounded-lg shadow-md hover:bg-gray-800 transition duration-300"
+              disabled={loading}
+            >
+              <i className="fa-solid fa-video me-2"></i>
+              {loading ? "Creando..." : "Crear Nueva Reunión Pro"}
+            </button>
+          </div>
+        )}
+
         <div>
           <button
             onClick={handleCreateMeeting}

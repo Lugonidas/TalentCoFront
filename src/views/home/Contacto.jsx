@@ -21,8 +21,7 @@ export default function Contacto() {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes manejar el envío de datos al backend o mostrar un mensaje de éxito
-    console.log("Form data submitted:", formData);
+
     setSubmitted(true);
 
     // Reset the form (optional)

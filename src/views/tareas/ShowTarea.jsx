@@ -11,6 +11,7 @@ import CreateRespuestaEstudiante from "../respuestas/CreateRespuestaEstudiante";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import EditNota from "../notas/EditNota";
+import clienteAxios from "../../config/axios";
 
 export default function ShowTarea() {
   const { user, isStudent } = useAuth({
@@ -70,6 +71,35 @@ export default function ShowTarea() {
       await createNota(formData);
     } catch {
       console.log(errores);
+    }
+  };
+
+  const descargarPDF = async () => {
+    const token = localStorage.getItem("AUTH_TOKEN");
+    try {
+      const response = await clienteAxios.get(
+        `tarea/${selectedTarea.id}/descargar-pdf`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/pdf",
+          },
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `tarea_${selectedTarea.titulo}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error("Error:", error); // Imprimir el error directamente
+      if (error.response && error.response.data && error.response.data.errors) {
+        console.error("Errores:", Object.values(error.response.data.errors));
+      }
     }
   };
 
@@ -149,6 +179,14 @@ export default function ShowTarea() {
             <h3 className="text-xl font-black uppercase mb-4 text-yellow-600">
               Estudiantes
             </h3>
+
+            <button
+              onClick={descargarPDF}
+              className="my-4 py-1 px-2 bg-red-600 text-white transition-all ease-in-out hover:scale-105"
+            >
+              {" "}
+              <i className="fa-solid fa-file-pdf"></i> Tarea
+            </button>
             <div className="grid md:grid-cols-2 gap-4">
               {estudiantes.map((estudiante) => {
                 const respuestaEstudiante = respuestas.find(
@@ -286,7 +324,6 @@ export default function ShowTarea() {
           <div>
             {respuestas.map((respuesta) => {
               if (respuesta.id_estudiante == user.id) {
-                console.log(respuesta);
                 return (
                   <div key={respuesta.id}>
                     <strong className="text-indigo-800 text-2xl">

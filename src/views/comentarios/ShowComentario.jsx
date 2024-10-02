@@ -457,7 +457,6 @@ export default function ShowCourse() {
                                           handleOpenEditModal(comentario)
                                         }
                                       >
-                                        {console.log(haComentado)}
                                         <i className="fa-solid fa-pen bg-blue-600 text-white p-2"></i>
                                       </motion.button>
                                     )}
