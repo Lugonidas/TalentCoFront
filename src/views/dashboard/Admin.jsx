@@ -53,7 +53,7 @@ export default function Admin() {
     .slice(0, itemsToShowEstudiantes); // Limitar a los primeros 8 cursos
 
   // Preparar datos para el gráfico
-  const labels = cursosConEstudiantes.map((curso) => curso.titulo); // Usar los cursos filtrados y ordenados
+  const labels = cursosConEstudiantes.map((curso) => curso.id); // Usar los cursos filtrados y ordenados
   const data = cursosConEstudiantes.map((curso) => curso.estudiantes.length); // Cantidad de estudiantes
 
   useEffect(() => {
@@ -104,8 +104,6 @@ export default function Admin() {
             Hola <strong className="text-indigo-800">{user.usuario}</strong>,
             nos alegra tenerte de vuelta.
           </p>
-
-          
         </div>
         <div className="">
           <div className="grid md:grid-cols-4 gap-8 m-8">
@@ -223,25 +221,28 @@ export default function Admin() {
                 <div className="my-4 text-center">
                   <label
                     htmlFor="itemsToShowEstudiantes"
-                    className="text-center font-bold text-xl text-gray-600 me-2"
+                    className="text-center font-bold text-xl text-gray-600 me-2 flex flex-col"
                   >
                     No. de estudiantes por curso:
                   </label>
-                  <select
+                  <input
+                    type="range"
                     id="itemsToShowEstudiantes"
                     value={itemsToShowEstudiantes}
                     onChange={(e) =>
                       setItemsToShowEstudiantes(Number(e.target.value))
                     }
+                    min={1}
+                    max={12}
+                    step={1}
                     className="border rounded p-1 bg-indigo-800 text-white"
+                  />
+                  <label
+                    htmlFor="itemsToShowEstudiantes"
+                    className="text-white"
                   >
-                    <option value={2}>2</option>
-                    <option value={4}>4</option>
-                    <option value={6}>6</option>
-                    <option value={8}>8</option>
-                    <option value={10}>10</option>
-                    <option value={12}>12</option>
-                  </select>
+                    {itemsToShowEstudiantes}
+                  </label>
                 </div>
                 <DynamicChart
                   labels={labels}
@@ -271,25 +272,26 @@ export default function Admin() {
                 <div className="my-4 text-center">
                   <label
                     htmlFor="itemsToShowMisCursos"
-                    className="text-center font-bold text-xl text-gray-600 me-2"
+                    className="text-center font-bold text-xl text-gray-600 me-2 flex flex-col"
                   >
                     Estudiantes en Mis Cursos:
                   </label>
-                  <select
+
+                  <input
+                    type="range"
                     id="itemsToShowMisCursos"
                     value={itemsToShowMisCursos}
                     onChange={(e) =>
                       setItemsToShowMisCursos(Number(e.target.value))
                     }
                     className="border rounded p-1 bg-indigo-800 text-white"
-                  >
-                    <option value={2}>2</option>
-                    <option value={4}>4</option>
-                    <option value={6}>6</option>
-                    <option value={8}>8</option>
-                    <option value={10}>10</option>
-                    <option value={12}>12</option>
-                  </select>
+                    min={1}
+                    max={12}
+                    step={1}
+                  />
+                  <label htmlFor="itemsToShowMisCursos" className="text-white">
+                    {itemsToShowMisCursos}
+                  </label>
                 </div>
                 <DynamicChart
                   labels={labelsMisCursos}
