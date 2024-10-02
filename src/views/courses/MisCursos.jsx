@@ -87,10 +87,6 @@ export default function MisCursos() {
               >
                 <i className="fa-solid fa-plus"></i> Agregar Curso
               </button>
-
-              <button className="my-4 py-1 px-2 bg-red-800 text-white transition-all ease-in-out hover:scale-105">Descargar pdf cursos</button>
-              <button className="my-4 py-1 px-2 bg-red-800 text-white transition-all ease-in-out hover:scale-105">Descargar pdf estudiantes</button>
-              <button className="my-4 py-1 px-2 bg-red-800 text-white transition-all ease-in-out hover:scale-105">Descargar pdf estudiantes notas</button>
             </div>
           )}
         </div>
