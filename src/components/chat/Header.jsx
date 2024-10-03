@@ -1,21 +1,26 @@
 import { useAuth } from "../../hooks/useAuth";
+import useChat from "../../hooks/useChat";
 
 export default function Header() {
   const { user, error } = useAuth({ middleware: "auth" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
-  const { name } = user;
+  const { selectedUser } = useChat();
+
+  console.log(selectedUser)
+
+/*   const { name } = user; */
 
   return (
     <div className="py-2 px-4 shadow-md flex justify-between items-center h-[10vh] bg-indigo-600">
       <div className="flex items-center gap-2">
         <img
           loading="lazy"
-          src={`${apiUrl}/storage/${user?.imagen}`}
-          alt={`Foto de perfil de ${user?.name} ${user?.apellido}`}
+          src={`${apiUrl}/storage/${selectedUser?.imagen}`}
+          alt={`Foto de perfil de ${selectedUser?.name} ${selectedUser?.apellido}`}
           className="w-12 object-cover"
         />
-        <p className="font-bold text-white">{name}</p>
+        <p className="font-bold text-white">{selectedUser.usuario}</p>
       </div>
 
       {/* Acciones */}

@@ -23,7 +23,7 @@ const ChatProvider = ({ children }) => {
         return;
       }
       try {
-        const response = await clienteAxios.get("/chat/usuarios-cursos", {
+        const response = await clienteAxios.get("/usuarios", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUsers(response.data.usuarios);
@@ -38,15 +38,14 @@ const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     if (selectedUser) {
-      console.log(selectedUser);
-      handleCreateConversation(selectedUser);
+      handleCreateConversation(selectedUser.id);
     }
   }, [selectedUser]);
 
-  const handleUserClick = async (userId) => {
-    setSelectedUser(userId);
+  const handleUserClick = async (user) => {
+    setSelectedUser(user);
     // Llama a fetchChats con el ID de la conversación correcto
-    await handleCreateConversation(userId);
+    await handleCreateConversation(user.id);
   };
 
   const handleCreateConversation = async (userId) => {
@@ -105,12 +104,12 @@ const ChatProvider = ({ children }) => {
   const handleSendMessage = async (message) => {
     if (!selectedUser || !conversacion) return;
 
-    const newMessage = {
+/*     const newMessage = {
       id: Date.now(), // Genera un ID temporal
       usuario: selectedUser?.name, // Nombre del usuario que envía el mensaje
       mensaje: message,
       created_at: new Date().toISOString(),
-    };
+    }; */
 
     // Reproduce el sonido del mensaje
     const audio = new Audio(sonidoMensaje);

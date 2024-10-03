@@ -1,6 +1,9 @@
+import { useAuth } from "../../hooks/useAuth";
 import useChat from "../../hooks/useChat";
 
 export default function Sidebar() {
+  const { user: authUser } = useAuth({ middleware: "auth" });
+
   const { users, selectedUser, handleUserClick } = useChat();
 
   return (
@@ -16,20 +19,22 @@ export default function Sidebar() {
         />
       </div>
       <ul>
-        {users.map((user) => (
-          <li
-            key={user.id}
-            onClick={() => handleUserClick(user.id)}
-            className={`mb-4 p-2 rounded cursor-pointer flex gap-2 transition-all ease-in-out duration-200 ${
-              Number(selectedUser) == Number(user.id)
-                ? "bg-blue-100 font-bold"
-                : ""
-            }`}
-          >
-            <img src="/vite.svg" alt="" loading="lazy" />
-            {user.name}
-          </li>
-        ))}
+        {users
+          .filter((user) => user.id !== authUser.id) // Filtrar usuarios excluyendo al autenticado
+          .map((user) => (
+            <li
+              key={user.id}
+              onClick={() => handleUserClick(user)}
+              className={`mb-4 p-2 rounded cursor-pointer flex gap-2 transition-all ease-in-out duration-200 ${
+                Number(selectedUser) == Number(user.id)
+                  ? "bg-blue-100 font-bold"
+                  : ""
+              }`}
+            >
+              <img src="/vite.svg" alt="" loading="lazy" />
+              {user.name}
+            </li>
+          ))}
       </ul>
     </div>
   );

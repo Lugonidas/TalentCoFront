@@ -13,7 +13,7 @@ export default function Inicio() {
       <Sidebar />
 
       {selectedUser && (
-        <div className="fixed flex items-end h-screen right-0 bottom-0">
+        <div className="fixed flex items-end h-screen right-0 bottom-0 lg:w-[50%]">
           <div className=" relative flex-1">
             <Header />
 
@@ -23,7 +23,7 @@ export default function Inicio() {
               <Input onSendMessage={handleSendMessage} />
             </div>
             <button
-              className="absolute text-white top-0 right-full"
+              className="absolute text-white bottom-full right-0"
               onClick={() => setSelectedUser(false)}
             >
               <i className="fa-solid fa-xmark bg-indigo-600 px-2 text-2xl"></i>
