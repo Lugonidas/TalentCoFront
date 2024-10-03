@@ -6,7 +6,9 @@ export default function CreateUser() {
   const { createUser, handleCloseModals, errores } = useContext(UserContext);
 
   const [showPassword, setShowPassword] = useState(false);
-  
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [step, setStep] = useState(1);
 
   const [user, setUser] = useState({
@@ -48,9 +50,12 @@ export default function CreateUser() {
     });
 
     try {
+      setIsSubmitting(true);
       await createUser(formData);
     } catch (error) {
       console.error("Error creating user", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -370,66 +375,66 @@ export default function CreateUser() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
+              <div className="relative">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Contraseña
+                </label>
                 <div className="relative">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Contraseña
-                  </label>
-                  <div className="relative">
-                    <input
-                      className="mt-1 block w-full px-3 py-2 border text-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      type={showPassword ? "text" : "password"} // Cambiar entre text y password
-                      id="password"
-                      name="password"
-                      value={user.password}
-                      onChange={handleChange}
-                      required
-                      placeholder="Introduce la contraseña del usuario"
-                    />
-                    <button
-                      type="button"
-                      className="absolute right-0 rounded-r-md text-white bottom-0 top-0 bg-indigo-600 p-2"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <i className="fa-solid fa-eye-slash"></i>
-                      ) : (
-                        <i className="fa-solid fa-eye"></i>
-                      )}
-                    </button>
-                  </div>
-                  {errores && errores.password && (
-                    <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
-                      {errores.password}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="password_confirmation"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Confirmar Contraseña
-                  </label>
                   <input
-                    type={showPassword ? "text" : "password"}
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    value={user.password_confirmation}
+                    className="mt-1 block w-full px-3 py-2 border text-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    type={showPassword ? "text" : "password"} // Cambiar entre text y password
+                    id="password"
+                    name="password"
+                    value={user.password}
                     onChange={handleChange}
                     required
-                    className="mt-1 block w-full px-3 py-2 border text-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Confirma la contraseña del usuario"
+                    placeholder="Introduce la contraseña del usuario"
                   />
-                  {errores && errores.password_confirmation && (
-                    <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
-                      {errores.password_confirmation}
-                    </p>
-                  )}
+                  <button
+                    type="button"
+                    className="absolute right-0 rounded-r-md text-white bottom-0 top-0 bg-indigo-600 p-2"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <i className="fa-solid fa-eye-slash"></i>
+                    ) : (
+                      <i className="fa-solid fa-eye"></i>
+                    )}
+                  </button>
                 </div>
+                {errores && errores.password && (
+                  <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+                    {errores.password}
+                  </p>
+                )}
               </div>
+              <div>
+                <label
+                  htmlFor="password_confirmation"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Confirmar Contraseña
+                </label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password_confirmation"
+                  name="password_confirmation"
+                  value={user.password_confirmation}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border text-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  placeholder="Confirma la contraseña del usuario"
+                />
+                {errores && errores.password_confirmation && (
+                  <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+                    {errores.password_confirmation}
+                  </p>
+                )}
+              </div>
+            </div>
 
             <div className="grid md:flex md:justify-between gap-2">
               <motion.button
@@ -451,12 +456,13 @@ export default function CreateUser() {
                   Cancelar
                 </motion.button>
                 <motion.button
+                  disabled={isSubmitting}
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   type="submit"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  Agregar
+                  {isSubmitting ? "Agregando..." : "Agregar"}
                 </motion.button>
               </div>
             </div>

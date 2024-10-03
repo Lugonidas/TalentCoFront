@@ -28,6 +28,8 @@ export default function ShowTarea() {
   const { estudiantes } = selectedCourse;
   const { respuestas } = selectedTarea;
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const cierreFecha = new Date(selectedTarea.fecha_fin);
   const ahora = new Date();
 
@@ -77,6 +79,7 @@ export default function ShowTarea() {
   const descargarPDF = async () => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
+      setIsSubmitting(true);
       const response = await clienteAxios.get(
         `tarea/${selectedTarea.id}/descargar-pdf`,
         {
@@ -100,6 +103,8 @@ export default function ShowTarea() {
       if (error.response && error.response.data && error.response.data.errors) {
         console.error("Errores:", Object.values(error.response.data.errors));
       }
+    } finally {
+      setIsSubmitting(true);
     }
   };
 
@@ -182,10 +187,13 @@ export default function ShowTarea() {
 
             <button
               onClick={descargarPDF}
-              className="my-4 py-1 px-2 bg-red-600 text-white transition-all ease-in-out hover:scale-105"
+              disabled={isSubmitting}
+              className={`${
+                isSubmitting ? "bg-gray-400 cursor-not-allowed" : ""
+              } my-4 py-1 px-2 bg-red-600 text-white transition-all ease-in-out hover:scale-105`}
             >
-              {" "}
-              <i className="fa-solid fa-file-pdf"></i> Tarea
+              <i className="fa-solid fa-file-pdf"></i>{" "}
+              {isSubmitting ? "Descargando..." : "Tarea"}
             </button>
             <div className="grid md:grid-cols-2 gap-4">
               {estudiantes.map((estudiante) => {

@@ -36,6 +36,8 @@ export default function ShowCourse() {
   const [estaInscrito, setEstaInscrito] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     selectedCourse,
     getCourseById,
@@ -61,6 +63,7 @@ export default function ShowCourse() {
   const descargarPDF = async () => {
     const token = localStorage.getItem("AUTH_TOKEN");
     try {
+      setIsSubmitting(true);
       // Realiza la petición a tu backend para generar el PDF
       const response = await clienteAxios.get(
         `curso/${courseId}/descargar-pdf`,
@@ -84,6 +87,8 @@ export default function ShowCourse() {
     } catch (errores) {
       console.error("Error:", Object.values(errores.response.data.errors));
       /* setErrores(errores.response.data.errors); */
+    } finally {
+      setIsSubmitting(false);
     }
   };
   const {
@@ -285,9 +290,13 @@ export default function ShowCourse() {
 
                 <button
                   onClick={descargarPDF}
-                  className="my-4 py-1 px-2 bg-red-600 text-white transition-all ease-in-out hover:scale-105"
+                  disabled={isSubmitting}
+                  className={`${
+                    isSubmitting ? "bg-gray-400 cursor-not-allowed" : ""
+                  } my-4 py-1 px-2 bg-red-600 text-white transition-all ease-in-out hover:scale-105`}
                 >
-                  <i className="fa-solid fa-file-pdf"></i> Curso
+                  <i className="fa-solid fa-file-pdf"></i>{" "}
+                  {isSubmitting ? "Descargando..." : "Curso"}
                 </button>
                 {/* Menú de tres puntitos */}
                 {user?.id == selectedCourse.id_docente && (

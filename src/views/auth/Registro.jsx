@@ -36,7 +36,7 @@ export default function Registro() {
     }));
   };
 
-/*   const handleImageChange = (e) => {
+  /*   const handleImageChange = (e) => {
     setUser((prevUser) => ({
       ...prevUser,
       imagen: e.target.files[0],

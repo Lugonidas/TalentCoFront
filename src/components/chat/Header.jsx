@@ -7,7 +7,7 @@ export default function Header() {
 
 
   return (
-    <div className="py-2 px-4 shadow-md flex justify-between items-center">
+    <div className="py-2 px-4 shadow-md flex justify-between items-center h-[10vh] bg-indigo-600">
       <div className="flex items-center gap-2">
         <img loading="lazy" src="/vite.svg" alt="Imagen Usuario" />
         <p className="font-bold text-gray-600">{name}</p>
@@ -15,9 +15,9 @@ export default function Header() {
 
       {/* Acciones */}
       <div className="flex text-gray-700">
-        <i className="text-indigo-800 border border-dotted p-2 transition-all ease-in-out duration-100 hover:scale-110 hover:cursor-pointer fa-solid fa-phone"></i>
-        <i className="text-indigo-800 border border-dotted p-2 transition-all ease-in-out duration-100 hover:scale-110 hover:cursor-pointer fa-solid fa-video"></i>
-        <i className="text-indigo-800 border border-dotted p-2 transition-all ease-in-out duration-100 hover:scale-110 hover:cursor-pointer fa-solid fa-magnifying-glass"></i>
+        <i className="text-white border border-dotted p-2 transition-all ease-in-out duration-100 hover:scale-110 hover:cursor-pointer fa-solid fa-phone"></i>
+        <i className="text-white border border-dotted p-2 transition-all ease-in-out duration-100 hover:scale-110 hover:cursor-pointer fa-solid fa-video"></i>
+        <i className="text-white border border-dotted p-2 transition-all ease-in-out duration-100 hover:scale-110 hover:cursor-pointer fa-solid fa-magnifying-glass"></i>
       </div>
 
     </div>

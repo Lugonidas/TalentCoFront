@@ -2,6 +2,7 @@ import { useEffect, useState, createContext } from "react";
 import Pusher from "pusher-js";
 import clienteAxios from "../config/axios";
 import Swal from "sweetalert2";
+import sonidoMensaje from "../assets/sounds/soundMessage.mp3";
 
 const ChatContext = createContext();
 
@@ -36,44 +37,8 @@ const ChatProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!conversacion || !selectedUser) return;
-
-    const pusher = new Pusher("a2dd7a88c32a22d60423", {
-      cluster: "us2",
-    });
-
-    const channel = pusher.subscribe(`chat.${conversacion.id}`);
-
-    
-    console.log(channel)
-    channel.bind("MensajeEnviado", (data) => {
-      console.log("Mensaje recibido:", data); // Verifica los datos del mensaje
-      setChats((prevChats) => {
-        const { usuario, mensaje } = data.mensaje;
-        const newMessage = {
-          time: new Date(mensaje.created_at).toLocaleTimeString(),
-          user: usuario.name,
-          message: mensaje.mensaje,
-        };
-
-        return {
-          ...prevChats,
-          [conversacion.id]: [
-            ...(prevChats[conversacion.id] || []),
-            newMessage,
-          ],
-        };
-      });
-    });
-
-    return () => {
-      channel.unbind_all();
-      channel.unsubscribe();
-    };
-  }, [conversacion, selectedUser]);
-
-  useEffect(() => {
     if (selectedUser) {
+      console.log(selectedUser);
       handleCreateConversation(selectedUser);
     }
   }, [selectedUser]);
@@ -91,10 +56,17 @@ const ChatProvider = ({ children }) => {
       const response = await clienteAxios.post(
         `chat/conversaciones/crear/${userId}`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       // Asegúrate de usar el ID de la conversación creado
       const idConversacion = response.data.conversacion.id;
+
+      console.log(response.data.conversacion);
+
       setConversacion(response.data.conversacion);
       fetchChats(idConversacion);
     } catch (error) {
@@ -134,31 +106,78 @@ const ChatProvider = ({ children }) => {
     if (!selectedUser || !conversacion) return;
 
     const newMessage = {
-      time: new Date().toLocaleTimeString(),
-      user: "You", // Ajusta según sea necesario
-      message: message,
+      id: Date.now(), // Genera un ID temporal
+      usuario: selectedUser?.name, // Nombre del usuario que envía el mensaje
+      mensaje: message,
+      created_at: new Date().toISOString(),
     };
 
-    setChats((prevChats) => {
-      const updatedChats = {
-        ...prevChats,
-        [conversacion.id]: [...(prevChats[conversacion.id] || []), newMessage],
-      };
-      return updatedChats;
-    });
+    // Reproduce el sonido del mensaje
+    const audio = new Audio(sonidoMensaje);
+    audio.play();
+
+    // Actualiza 'conversacion' para añadir el nuevo mensaje
+/*     setConversacion((prevConversacion) => ({
+      ...prevConversacion,
+      mensajes: [...prevConversacion.mensajes, newMessage], // Añade el nuevo mensaje
+    })); */
 
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
       await clienteAxios.post(
         `/chat/${conversacion.id}/enviar-mensaje`,
-        { mensaje: message }, // Enviar el mensaje en el formato correcto
+        { mensaje: message },
         { headers: { Authorization: `Bearer ${token}` } }
       );
     } catch (error) {
       console.error("Error enviando el mensaje:", error);
     }
   };
+
+  useEffect(() => {
+    if (!conversacion || !selectedUser) return;
+
+    const pusher = new Pusher("a2dd7a88c32a22d60423", {
+      cluster: "us2",
+      encrypted: true,
+    });
+
+    const channel = pusher.subscribe(`chat.${conversacion.id}`);
+    console.log("Subscribed to channel:", channel);
+
+    channel.bind("MensajeEnviado", (data) => {
+      console.log("Mensaje recibido:", data);
+
+      if (data.mensaje && data.usuario) {
+        const newMessage = {
+          id: data.mensaje.id, // Usa el ID del mensaje recibido
+          usuario: data.usuario,
+          mensaje: data.mensaje.mensaje, // Asegúrate de que el mensaje venga de la propiedad correcta
+          created_at: data.mensaje.created_at, // Usa la fecha que venga desde el servidor
+        };
+
+        // Reproduce el sonido del mensaje
+        const audio = new Audio(sonidoMensaje);
+        audio.play();
+
+        // Solo actualiza 'conversacion' si el mensaje no es del usuario que envía
+        if (newMessage.usuario !== selectedUser.name) {
+          setConversacion((prevConversacion) => ({
+            ...prevConversacion,
+            mensajes: [...prevConversacion.mensajes, newMessage],
+          }));
+        }
+      } else {
+        console.error("Formato de datos incorrecto:", data);
+      }
+    });
+
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
+  }, [conversacion, selectedUser]);
 
   return (
     <ChatContext.Provider
@@ -171,6 +190,8 @@ const ChatProvider = ({ children }) => {
         handleUserClick,
         handleSendMessage,
         conversacion,
+        setConversacion,
+        setSelectedUser
       }}
     >
       {children}

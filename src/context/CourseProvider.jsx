@@ -140,7 +140,7 @@ const CourseProvider = ({ children }) => {
         },
       });
       handleUpdateSuccess();
-      /* obtenerMisCursos(response.data.curso.id_docente, "docente"); */
+      /* obtenerMisCursos(response.data.curso.id_docente, "docente");   */
       mutateCursos();
       setErrores({});
       /*       obtenerMisCursos(user.id, user.id_rol === 1 || user.id_rol === 3 ? "docente" : "estudiante"); */

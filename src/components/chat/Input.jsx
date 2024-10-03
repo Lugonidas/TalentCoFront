@@ -31,7 +31,7 @@ export default function Input({ onSendMessage }) {
           className="w-full bg-gray-200 border-b border-dotted border-indigo-800 outline-none"
           onKeyDown={handleKeyPress}
         />
-      <button onClick={handleSend} className="bg-indigo-800 text-white transition-all ease-in-out hover:cursor-pointer hover:bg-indigo-700"><i className="fa-regular fa-paper-plane inline-block h-full p-2 transition-all ease-in-out hover:scale-110"></i></button>
+      <button onClick={() => handleSend} className="bg-indigo-800 text-white transition-all ease-in-out hover:cursor-pointer hover:bg-indigo-700"><i className="fa-regular fa-paper-plane inline-block h-full p-2 transition-all ease-in-out hover:scale-110"></i></button>
     </div>
   );
 }
