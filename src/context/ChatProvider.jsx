@@ -52,6 +52,7 @@ const ChatProvider = ({ children }) => {
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
+      setLoading(true);
       const response = await clienteAxios.post(
         `chat/conversaciones/crear/${userId}`,
         {},
@@ -76,6 +77,8 @@ const ChatProvider = ({ children }) => {
         icon: "error",
         confirmButtonText: "OK",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,7 +107,7 @@ const ChatProvider = ({ children }) => {
   const handleSendMessage = async (message) => {
     if (!selectedUser || !conversacion) return;
 
-/*     const newMessage = {
+    /*     const newMessage = {
       id: Date.now(), // Genera un ID temporal
       usuario: selectedUser?.name, // Nombre del usuario que envía el mensaje
       mensaje: message,
@@ -112,11 +115,11 @@ const ChatProvider = ({ children }) => {
     }; */
 
     // Reproduce el sonido del mensaje
-    const audio = new Audio(sonidoMensaje);
-    audio.play();
+    /*     const audio = new Audio(sonidoMensaje);
+    audio.play(); */
 
     // Actualiza 'conversacion' para añadir el nuevo mensaje
-/*     setConversacion((prevConversacion) => ({
+    /*     setConversacion((prevConversacion) => ({
       ...prevConversacion,
       mensajes: [...prevConversacion.mensajes, newMessage], // Añade el nuevo mensaje
     })); */
@@ -190,7 +193,7 @@ const ChatProvider = ({ children }) => {
         handleSendMessage,
         conversacion,
         setConversacion,
-        setSelectedUser
+        setSelectedUser,
       }}
     >
       {children}
