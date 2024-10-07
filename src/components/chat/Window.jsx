@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import useChat from "../../hooks/useChat";
 
 export default function Window() {
-  const { conversacion, selectedUser, loading } = useChat();
+  const { conversacion, selectedUser, loadingConversacion } = useChat();
   const endOfMessagesRef = useRef(null);
 
   // Función para desplazar hacia abajo al nuevo mensaje
@@ -29,7 +29,7 @@ export default function Window() {
     <>
       {selectedUser && (
         <div className="flex-1 p-4 flex flex-col h-[60vh] overflow-y-scroll bg-white">
-          {loading ? (
+          {loadingConversacion ? (
             <div className="flex items-center justify-center h-full">
               <div className="loader"></div>
             </div>

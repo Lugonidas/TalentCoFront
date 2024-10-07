@@ -10,10 +10,12 @@ const ChatProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [chats, setChats] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [loadingConversacion, setLoadingConversacion] = useState(false);
   const [errores, setErrores] = useState(null);
   const [conversacion, setConversacion] = useState(null);
   const [mensaje, setMensaje] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -23,6 +25,7 @@ const ChatProvider = ({ children }) => {
         return;
       }
       try {
+        setLoading(true);
         const response = await clienteAxios.get("/usuarios", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -52,7 +55,7 @@ const ChatProvider = ({ children }) => {
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
-      setLoading(true);
+      setLoadingConversacion(true);
       const response = await clienteAxios.post(
         `chat/conversaciones/crear/${userId}`,
         {},
@@ -65,8 +68,6 @@ const ChatProvider = ({ children }) => {
       // Asegúrate de usar el ID de la conversación creado
       const idConversacion = response.data.conversacion.id;
 
-      console.log(response.data.conversacion);
-
       setConversacion(response.data.conversacion);
       fetchChats(idConversacion);
     } catch (error) {
@@ -78,7 +79,7 @@ const ChatProvider = ({ children }) => {
         confirmButtonText: "OK",
       });
     } finally {
-      setLoading(false);
+      setLoadingConversacion(false);
     }
   };
 
@@ -149,7 +150,7 @@ const ChatProvider = ({ children }) => {
     console.log("Subscribed to channel:", channel);
 
     channel.bind("MensajeEnviado", (data) => {
-      console.log("Mensaje recibido:", data);
+      console.log("Mensaje recibido:", data); // Este log debería aparecer en cualquier vista
 
       if (data.mensaje && data.usuario) {
         const newMessage = {
@@ -188,12 +189,15 @@ const ChatProvider = ({ children }) => {
         chats,
         selectedUser,
         loading,
+        loadingConversacion,
         errores,
         handleUserClick,
         handleSendMessage,
         conversacion,
         setConversacion,
         setSelectedUser,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       {children}
