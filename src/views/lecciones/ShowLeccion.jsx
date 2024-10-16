@@ -70,7 +70,7 @@ export default function ShowLeccion() {
               />
             </div>
             <div>
-              <h4 className="text-xl md:text-2xl font-black uppercase mb-4 text-indigo-800">
+              <h4 className="text-lg md:text-2xl font-black uppercase mb-4 text-indigo-800">
                 {selectedLeccion.titulo}
               </h4>
               <p>{selectedLeccion.descripcion}</p>
@@ -117,12 +117,12 @@ export default function ShowLeccion() {
             </span>
 
             <motion.button
-              className="absolute -top-5 -right-5 bottom-full text-4xl transition-all duration-100 ease hover:cursor-pointer"
+              className="absolute top-0 right-0 text-sm transition-all duration-100 ease hover:cursor-pointer hover:scale-110 p-1 bg-red-500 text-white font-bold"
               onClick={handleCloseModals}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <i className="fa-solid fa-rectangle-xmark text-indigo-800"></i>
+              X Cerrar
             </motion.button>
           </div>
 

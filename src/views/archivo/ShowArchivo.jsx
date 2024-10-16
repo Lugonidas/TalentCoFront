@@ -8,10 +8,15 @@ export default function ShowArchivo() {
   const { user } = useAuth({ middleware: "auth" });
   const apiUrl = import.meta.env.VITE_ARCHIVOS_URL;
 
-  const { selectedArchivo, handleCloseModals, archivoVisto, verificarArchivoVisto } = useArchivo();
+  const {
+    selectedArchivo,
+    handleCloseModals,
+    archivoVisto,
+    verificarArchivoVisto,
+    visto,
+  } = useArchivo();
 
   const [startTime, setStartTime] = useState(null);
-  const [hasViewed, setHasViewed] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -28,19 +33,19 @@ export default function ShowArchivo() {
     if (selectedArchivo) {
       // Guardar el tiempo de inicio de visualización
       setStartTime(new Date());
-      setHasViewed(false);
 
       // Si es un video, añadir un evento para cuando se termine de reproducir
       if (selectedArchivo.tipo == "VIDEO" && videoRef.current) {
         videoRef.current.addEventListener("ended", () => {
-          if (user) {
+          if (user && !visto) {
             archivoVisto(selectedArchivo.id);
-            setHasViewed(true);
           }
         });
       }
     }
   }, [selectedArchivo]); // Dependencias: el efecto se ejecuta cuando selectedArchivo cambia
+
+  console.log(visto);
 
   useEffect(() => {
     // Función para verificar si el tiempo de visualización ha pasado el umbral
@@ -53,10 +58,9 @@ export default function ShowArchivo() {
         const currentTime = new Date();
         const elapsedMinutes = (currentTime - startTime) / 1000 / 60;
 
-        if (elapsedMinutes >= 1 && !hasViewed) {
-          if (user) {
+        if (elapsedMinutes >= 1) {
+          if (user && !visto) {
             archivoVisto(selectedArchivo.id);
-            setHasViewed(true);
           }
         }
       }
@@ -65,12 +69,10 @@ export default function ShowArchivo() {
     const interval = setInterval(checkViewingTime, 300);
 
     return () => clearInterval(interval); // Limpiar intervalo al desmontar
-  }, [selectedArchivo, startTime, hasViewed, archivoVisto]);
+  }, [selectedArchivo, startTime, visto, archivoVisto]);
 
   if (!selectedArchivo) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   // Construir la URL del archivo
@@ -81,15 +83,20 @@ export default function ShowArchivo() {
       {selectedArchivo && (
         <section className="modal-content bg-red-100">
           <div className="relative p-6 bg-white shadow-md">
-            <h4 className="text-xl md:text-2xl font-black uppercase mb-4 text-indigo-800 text-center">
+            <h4 className="text-lg md:text-2xl font-black uppercase mb-4 text-indigo-800 text-center">
               {selectedArchivo.nombre}
+              {visto && (
+                <i className="fa-regular fa-eye text-yellow-500 mx-2"></i>
+              )}
             </h4>
-            <span className="block mb-4 bg-yellow-600 text-white w-min px-2">{selectedArchivo.tipo}</span>
+            <span className="block mb-4 bg-yellow-600 text-white w-min px-2">
+              {selectedArchivo.tipo}
+            </span>
 
             {/* Mostrar contenido basado en el tipo de archivo */}
             {selectedArchivo.tipo === "VIDEO" && (
               <div className="video-container">
-                <video ref={videoRef} controls className="w-full">
+                <video ref={videoRef} controls className="lg:w-1/2">
                   <source src={archivoUrl} type="video/mp4" />
                   Tu navegador no soporta el elemento de video.
                 </video>
@@ -98,7 +105,8 @@ export default function ShowArchivo() {
 
             {selectedArchivo.tipo === "IMG" && (
               <div className="image-container">
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={archivoUrl}
                   alt={selectedArchivo.nombre}
                   className="w-full"
@@ -118,10 +126,10 @@ export default function ShowArchivo() {
             )}
 
             <button
-              className="absolute top-2 right-2 text-2xl transition-all duration-100 ease hover:cursor-pointer hover:scale-110"
+              className="absolute top-0 right-0 text-sm transition-all duration-100 ease hover:cursor-pointer hover:scale-110 p-1 bg-red-500 text-white font-bold"
               onClick={handleCloseModals}
             >
-              <i className="fa-solid fa-rectangle-xmark text-indigo-800"></i>
+              X Cerrar
             </button>
           </div>
         </section>

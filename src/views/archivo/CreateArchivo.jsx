@@ -138,10 +138,10 @@ export default function CreateArchivo() {
       </form>
 
       <button
-        className="absolute -top-5 -right-5 bottom-full text-4xl transition-all duration-100 ease hover:cursor-pointer hover:scale-110"
+        className="absolute top-0 right-0 text-sm transition-all duration-100 ease hover:cursor-pointer hover:scale-110 p-1 bg-red-500 text-white font-bold"
         onClick={handleCloseModals}
       >
-        <i className="fa-solid fa-rectangle-xmark text-indigo-800"></i>
+        X Cerrar
       </button>
     </>
   );
