@@ -35,6 +35,7 @@ export default function ShowCourse() {
   const [viewStudents, setViewStudents] = useState(false);
   const [estaInscrito, setEstaInscrito] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openEncuesta, setOpenEncuesta] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -258,6 +259,28 @@ export default function ShowCourse() {
           </div>
         </Modal>
       )}
+      {openEncuesta && (
+        <Modal>
+          <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLScBNllAQSN3_iks36i7XqU7OVYV717aKwudyqV7TCM6qWmbRQ/viewform?embedded=true"
+              width="1024"
+              height="3072"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+            >
+              Cargando…
+            </iframe>
+            <button
+              className="absolute top-0 right-0 text-sm transition-all duration-100 ease hover:cursor-pointer hover:scale-110 p-1 bg-red-500 text-white font-bold"
+              onClick={() => setOpenEncuesta(!openEncuesta)}
+            >
+              X Cerrar
+            </button>
+          </div>
+        </Modal>
+      )}
       {selectedCourse && (
         <>
           <div className="mx-auto px-2">
@@ -279,13 +302,24 @@ export default function ShowCourse() {
 
                 {/* Enlace para ver tareas si está inscrito o es docente/admin */}
                 {estaInscrito || isTeacher || isAdmin ? (
-                  <Link
-                    to={`/dashboard/tareas/curso/${selectedCourse.id}`}
-                    className="my-4 py-1 px-2 bg-yellow-600 text-white transition-all ease-in-out hover:scale-105"
-                    aria-label="Ver tareas"
-                  >
-                    Ver Tareas
-                  </Link>
+                  <>
+                    <button
+                      onClick={() => setOpenEncuesta(!openEncuesta)}
+                      className={`${
+                        isSubmitting ? "bg-gray-400 cursor-not-allowed" : ""
+                      } my-4 py-1 px-2 bg-green-600 text-white transition-all ease-in-out hover:scale-105`}
+                    >
+                      Realizar Encuesta
+                    </button>
+
+                    <Link
+                      to={`/dashboard/tareas/curso/${selectedCourse.id}`}
+                      className="my-4 py-1 px-2 bg-yellow-600 text-white transition-all ease-in-out hover:scale-105"
+                      aria-label="Ver tareas"
+                    >
+                      Ver Tareas
+                    </Link>
+                  </>
                 ) : null}
 
                 <button
