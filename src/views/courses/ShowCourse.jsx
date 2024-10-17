@@ -264,11 +264,8 @@ export default function ShowCourse() {
           <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
             <iframe
               src="https://docs.google.com/forms/d/e/1FAIpQLScBNllAQSN3_iks36i7XqU7OVYV717aKwudyqV7TCM6qWmbRQ/viewform?embedded=true"
-              width="1024"
-              height="3072"
-              frameborder="0"
-              marginheight="0"
-              marginwidth="0"
+              className="w-full min-h-screen" 
+
             >
               Cargando…
             </iframe>
