@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function Registro() {
   const { registro, errores } = useAuth({
@@ -468,6 +469,16 @@ export default function Registro() {
             </>
           )}
         </form>
+
+        <div className="my-4 flex gap-2">
+          <p className="text-gray-500">¿Ya tienes cuenta?</p>
+          <Link
+            to="/login"
+            className="nav-link flex items-center gap-1 text-indigo-800 font-bold hover:text-indigo-800 transition-all ease-in-out duration-300"
+          >
+            Inicia sesión
+          </Link>
+        </div>
       </div>
     </>
   );

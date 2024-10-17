@@ -1,6 +1,7 @@
 import { createRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const usuarioRef = createRef();
@@ -51,11 +52,14 @@ export default function Login() {
             Inicia sesión diligenciando el formulario
           </p>
 
-          {errores && errores.length > 0 && !errores.usuario && !errores.password && (
-            <p className=" text-center p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
-              {errores}
-            </p>
-          )}
+          {errores &&
+            errores.length > 0 &&
+            !errores.usuario &&
+            !errores.password && (
+              <p className=" text-center p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+                {errores}
+              </p>
+            )}
 
           <div className="bg-white shadow-md rounded-md mt-5 p-5">
             <form onSubmit={handleSubmit}>
@@ -140,6 +144,15 @@ export default function Login() {
                 />
               )}
             </form>
+            <div className="my-4 flex gap-2">
+              <p className="text-gray-500">¿Aún no tienes cuenta?</p>
+              <Link
+                to="/registro"
+                className="nav-link flex items-center gap-1 text-indigo-800 font-bold hover:text-indigo-800 transition-all ease-in-out duration-300"
+              >
+                Regístrate
+              </Link>
+            </div>
           </div>
         </div>
       </div>
