@@ -92,6 +92,7 @@ export default function ShowCourse() {
       setIsSubmitting(false);
     }
   };
+
   const {
     handleOpenCreateModal,
     editModal,
@@ -214,7 +215,10 @@ export default function ShowCourse() {
       {viewStudents && (
         <Modal>
           <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-indigo-600 shadow-md opacity-100">
-            <StudentList students={estudiantes}></StudentList>
+            <StudentList
+              cursoId={selectedCourse.id}
+              students={estudiantes}
+            ></StudentList>
             <button
               className="py-2 px-4 my-2 text-white border "
               onClick={handleCloseViewStudents}
@@ -264,8 +268,7 @@ export default function ShowCourse() {
           <div className="relative md:w-3/4 mx-auto my-4 p-6 bg-white shadow-md opacity-100">
             <iframe
               src="https://docs.google.com/forms/d/e/1FAIpQLScBNllAQSN3_iks36i7XqU7OVYV717aKwudyqV7TCM6qWmbRQ/viewform?embedded=true"
-              className="w-full min-h-screen" 
-
+              className="w-full min-h-screen"
             >
               Cargando…
             </iframe>
@@ -300,14 +303,14 @@ export default function ShowCourse() {
                 {/* Enlace para ver tareas si está inscrito o es docente/admin */}
                 {estaInscrito || isTeacher || isAdmin ? (
                   <>
-                    <button
+                    {/* <button
                       onClick={() => setOpenEncuesta(!openEncuesta)}
                       className={`${
                         isSubmitting ? "bg-gray-400 cursor-not-allowed" : ""
                       } my-4 py-1 px-2 bg-green-600 text-white transition-all ease-in-out hover:scale-105`}
                     >
                       Realizar Encuesta
-                    </button>
+                    </button> */}
 
                     <Link
                       to={`/dashboard/tareas/curso/${selectedCourse.id}`}
@@ -379,7 +382,7 @@ export default function ShowCourse() {
                     <img
                       loading="lazy"
                       className="max-h-[300px] block mx-auto"
-                      src={`${apiUrl}/storage/${selectedCourse.imagen}`}
+                      src={`${selectedCourse.imagen}`}
                       alt={`Imagen ${selectedCourse.titulo}`}
                     />
                   </div>
@@ -528,7 +531,7 @@ export default function ShowCourse() {
                                   <img
                                     loading="lazy"
                                     className="w-16"
-                                    src={`${apiUrl}/storage/${comentario.user.imagen}`}
+                                    src={`${comentario.user.imagen}`}
                                     alt={`Imagen ${comentario.user.name}`}
                                   />
                                   <div>

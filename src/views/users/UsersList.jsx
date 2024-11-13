@@ -100,7 +100,7 @@ export default function UsersList() {
           >
             <img
               loading="lazy"
-              src={`${apiUrl}/storage/${user?.imagen}`}
+              src={`${user?.imagen}`}
               alt={`Foto de perfil de ${user?.name} ${user?.apellido}`}
               className="w-24 h-24 object-cover"
             />

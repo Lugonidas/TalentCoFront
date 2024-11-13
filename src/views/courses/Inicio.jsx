@@ -21,6 +21,8 @@ export default function Inicio() {
     return <Loader />;
   }
 
+  
+
   return (
     <>
       {createModal && (

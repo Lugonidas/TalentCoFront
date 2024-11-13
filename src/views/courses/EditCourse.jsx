@@ -16,7 +16,7 @@ export default function EditCourse() {
   const [curso, setCurso] = useState({
     id: null,
     titulo: "",
-    imagen: null,
+    imagen: "",
     descripcion: "",
     duracion: 0,
     id_categoria: "",
@@ -29,7 +29,7 @@ export default function EditCourse() {
     if (selectedCourse) {
       setCurso({
         titulo: selectedCourse.titulo || "",
-        imagen: selectedCourse.imagen || null,
+        imagen: selectedCourse.imagen || "",
         descripcion: selectedCourse.descripcion || "",
         duracion: selectedCourse.duracion || 0,
         id_categoria: selectedCourse.id_categoria || "",
@@ -104,20 +104,37 @@ export default function EditCourse() {
               htmlFor="imagen"
               className="block text-sm font-medium text-gray-700"
             >
-              Imagen
+              URL de la Imagen
             </label>
             <input
-              type="file"
+              type="url"
+              id="imagen"
               name="imagen"
-              onChange={handleImageChange}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Introduce la URL de la imagen"
+              value={curso.imagen} // Asegúrate de tener un estado para la URL
+              onChange={handleChange}
+              required
             />
+
+            {/* Mostrar vista previa de la imagen */}
+            {curso.imagen && (
+              <div className="mt-4">
+                <img
+                  src={curso.imagen}
+                  alt="Vista previa de la imagen"
+                  className="max-w-xs max-h-xs"
+                />
+              </div>
+            )}
+
             {errores && errores.imagen && (
               <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
                 {errores.imagen}
               </p>
             )}
           </div>
+
           <div>
             <label
               htmlFor="titulo"

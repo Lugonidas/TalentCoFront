@@ -147,11 +147,8 @@ const ChatProvider = ({ children }) => {
     });
 
     const channel = pusher.subscribe(`chat.${conversacion.id}`);
-    console.log("Subscribed to channel:", channel);
 
     channel.bind("MensajeEnviado", (data) => {
-      console.log("Mensaje recibido:", data); // Este log debería aparecer en cualquier vista
-
       if (data.mensaje && data.usuario) {
         const newMessage = {
           id: data.mensaje.id, // Usa el ID del mensaje recibido

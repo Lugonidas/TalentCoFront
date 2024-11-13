@@ -331,7 +331,7 @@ export default function Sidebar() {
               <img
                 loading="lazy"
                 className="w-16 h-16"
-                src={`${apiUrl}/storage/${user?.imagen}`}
+                src={`${user?.imagen}`}
                 alt={`Imagen ${user?.name}`}
               />
               {isSidebarExpanded && (

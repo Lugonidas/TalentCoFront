@@ -162,7 +162,7 @@ const TareaProvider = ({ children }) => {
         icon: "success",
         confirmButtonText: "OK",
       }).then(() => {
-        getTareasByCurso(cursoId)
+        getTareasByCurso(cursoId);
         handleCloseModals();
         /*         updateLecciones(selectedTarea.id_curso); */
       });

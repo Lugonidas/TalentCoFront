@@ -33,7 +33,7 @@ export default function ShowUser() {
         <div className="flex justify-center mb-4">
           <motion.img
             className="w-32 h-32 rounded-full object-cover"
-            src={`${apiUrl}/storage/${selectedUser.imagen}`}
+            src={`${selectedUser.imagen}`}
             alt={`Imagen de ${selectedUser.name} ${selectedUser.apellido}`}
             loading="lazy"
             initial={{ opacity: 0, scale: 0.9 }}

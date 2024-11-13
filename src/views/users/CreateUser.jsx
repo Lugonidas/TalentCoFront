@@ -20,7 +20,7 @@ export default function CreateUser() {
     direccion: "",
     id_tipo_documento: "",
     id_rol: 0,
-    imagen: null,
+    imagen: "",
     email: "",
     password: "",
     password_confirmation: "",

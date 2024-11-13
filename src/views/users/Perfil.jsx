@@ -205,6 +205,42 @@ export default function Perfil() {
                 />
               </div>
             </div>
+
+            <div className="grid md:grid-cols-2 items-center gap-4 my-4">
+              <label
+                htmlFor="imagen"
+                className="block text-sm font-medium text-gray-700"
+              >
+                URL de la Imagen
+              </label>
+              <input
+                type="url"
+                id="imagen"
+                name="imagen"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Introduce la URL de la imagen"
+                value={formData.imagen} // Asegúrate de tener un estado para la URL
+                onChange={handleInputChange}
+                required
+              />
+
+              {/* Mostrar vista previa de la imagen */}
+              {user.imagen && (
+                <div className="mt-4">
+                  <img
+                    src={user.imagen}
+                    alt="Vista previa de la imagen"
+                    className="max-w-xs max-h-xs"
+                  />
+                </div>
+              )}
+
+              {errores && errores.imagen && (
+                <p className="p-2 bg-red-100 text-red-800 font-bold border-l-2 border-red-800 mt-2 rounded-md">
+                  {errores.imagen}
+                </p>
+              )}
+            </div>
             <div className="mt-6">
               <div className="flex justify-end">
                 <motion.button
@@ -228,7 +264,7 @@ export default function Perfil() {
             <div className="flex items-center">
               <motion.img
                 className="w-24 h-24 rounded-full object-cover border-4 border-blue-500"
-                src={`${apiUrl}/storage/${user?.imagen}`}
+                src={`${user?.imagen}`}
                 alt="user"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -316,7 +352,7 @@ export default function Perfil() {
                 className={`${
                   isButtonEnabled
                     ? "bg-indigo-800 text-white"
-                    : "disabled cursor-not-allowed bg-gray-300 text-gray-700"
+                    : "disabled userr-not-allowed bg-gray-300 text-gray-700"
                 }  py-2 px-4 font-bold `}
                 type="submit"
                 disabled={!isButtonEnabled}

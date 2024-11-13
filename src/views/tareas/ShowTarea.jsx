@@ -90,7 +90,7 @@ export default function ShowTarea() {
           responseType: "blob",
         }
       );
-
+      
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -104,7 +104,7 @@ export default function ShowTarea() {
         console.error("Errores:", Object.values(error.response.data.errors));
       }
     } finally {
-      setIsSubmitting(true);
+      setIsSubmitting(false);
     }
   };
 

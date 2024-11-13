@@ -240,7 +240,7 @@ export default function ShowCourse() {
                     <img
                       loading="lazy"
                       className="max-h-[300px] block mx-auto"
-                      src={`${apiUrl}/storage/${selectedCourse.imagen}`}
+                      src={`${selectedCourse.imagen}`}
                       alt={`Imagen ${selectedCourse.titulo}`}
                     />
                   </div>

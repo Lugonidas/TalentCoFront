@@ -45,8 +45,6 @@ export default function ShowArchivo() {
     }
   }, [selectedArchivo]); // Dependencias: el efecto se ejecuta cuando selectedArchivo cambia
 
-  console.log(visto);
-
   useEffect(() => {
     // Función para verificar si el tiempo de visualización ha pasado el umbral
     const checkViewingTime = () => {
