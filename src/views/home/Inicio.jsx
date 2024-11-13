@@ -108,7 +108,7 @@ export default function Inicio() {
                   <div className="px-4 py-2 h-60">
                     <img
                       loading="lazy"
-                      src={`${apiUrl}/storage/${course?.imagen}`}
+                      src={`${course?.imagen}`}
                       alt={"Imagen del curso: " + course.titulo}
                       className="course-image w-full h-auto"
                     />
